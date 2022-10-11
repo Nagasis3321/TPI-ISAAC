@@ -17,45 +17,7 @@ public class Obra {
     private Empresa empresa;
     private Integer id;
     private String denominacion;
-    private String plazo;
-    private String inicio;
-    private String finanza;
-    
-    public String getPlazo() {
-        return plazo;
-    }
 
-    public void setPlazo(String plazo) {
-        this.plazo = plazo;
-    }
-
-    public String getInicio() {
-        return inicio;
-    }
-
-    public void setInicio(String inicio) {
-        this.inicio = inicio;
-    }
-
-    public String getFinanza() {
-        return finanza;
-    }
-
-    public void setFinanza(String finanza) {
-        this.finanza = finanza;
-    }
-
-    public Obra(String denominacion, String plazo, String inicio, String finanza) {
-        this.denominacion = denominacion;
-        this.plazo = plazo;
-        this.inicio = inicio;
-        this.finanza = finanza;
-    }
-    
-    
-    
-    
-    
     public Obra(ArrayList<Foja> fojas, ArrayList<Item> items, Empresa empresa, Integer id, String denominacion) {
         this.fojas = fojas;
         this.items = items;
