@@ -26,6 +26,9 @@ public class Obra {
         this.denominacion = denominacion;
     }
 
+    public Obra() {
+    }
+    
     public String getDenominacion() {
         return denominacion;
     }

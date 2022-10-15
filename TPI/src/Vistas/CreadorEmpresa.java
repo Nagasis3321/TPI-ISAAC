@@ -32,20 +32,20 @@ public class CreadorEmpresa extends javax.swing.JFrame {
         Panelinferior = new javax.swing.JPanel();
         panelIzquierdo = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        labelDenominacion = new java.awt.Label();
-        textFieldDenominacion = new java.awt.TextField();
+        labelRazonSocial = new java.awt.Label();
+        textFieldRazonSocial = new java.awt.TextField();
         jPanel3 = new javax.swing.JPanel();
-        labelFinanciacion = new java.awt.Label();
-        textFieldDenominacion4 = new java.awt.TextField();
+        labelCuit = new java.awt.Label();
+        textFieldCuit = new java.awt.TextField();
         jPanel2 = new javax.swing.JPanel();
-        labelFechadeInicio = new java.awt.Label();
-        textFieldDenominacion3 = new java.awt.TextField();
+        labelDireccion = new java.awt.Label();
+        textFieldDireccion = new java.awt.TextField();
         jPanel1 = new javax.swing.JPanel();
-        labelPlazo = new java.awt.Label();
-        textFieldDenominacion2 = new java.awt.TextField();
+        labelRepresentanteLegal = new java.awt.Label();
+        textFieldRepresentanteLegal = new java.awt.TextField();
         jPanel5 = new javax.swing.JPanel();
-        labelDenominacion1 = new java.awt.Label();
-        textFieldDenominacion1 = new java.awt.TextField();
+        labelRepresentanteTecnico = new java.awt.Label();
+        textFieldRepresentanteTecnico = new java.awt.TextField();
         buttonVolver = new java.awt.Button();
         buttonCrear = new java.awt.Button();
         panelSuperior = new javax.swing.JPanel();
@@ -69,14 +69,14 @@ public class CreadorEmpresa extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
 
-        labelDenominacion.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        labelDenominacion.setText("Razon Social:");
+        labelRazonSocial.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        labelRazonSocial.setText("Razon Social:");
 
-        textFieldDenominacion.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        textFieldDenominacion.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        textFieldDenominacion.addActionListener(new java.awt.event.ActionListener() {
+        textFieldRazonSocial.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        textFieldRazonSocial.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        textFieldRazonSocial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldDenominacionActionPerformed(evt);
+                textFieldRazonSocialActionPerformed(evt);
             }
         });
 
@@ -86,32 +86,32 @@ public class CreadorEmpresa extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelDenominacion, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldDenominacion, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
+                .addComponent(textFieldRazonSocial, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
                 .addContainerGap(253, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(textFieldDenominacion, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                .addComponent(textFieldRazonSocial, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
                 .addContainerGap(14, Short.MAX_VALUE))
-            .addComponent(labelDenominacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(labelRazonSocial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         panelIzquierdo.add(jPanel4);
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
 
-        labelFinanciacion.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        labelFinanciacion.setText("Cuit:");
+        labelCuit.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        labelCuit.setText("Cuit:");
 
-        textFieldDenominacion4.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        textFieldDenominacion4.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        textFieldDenominacion4.addActionListener(new java.awt.event.ActionListener() {
+        textFieldCuit.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        textFieldCuit.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        textFieldCuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldDenominacion4ActionPerformed(evt);
+                textFieldCuitActionPerformed(evt);
             }
         });
 
@@ -121,17 +121,17 @@ public class CreadorEmpresa extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelFinanciacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelCuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(textFieldDenominacion4, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textFieldCuit, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(319, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelFinanciacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(labelCuit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(textFieldDenominacion4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addComponent(textFieldCuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
 
@@ -140,14 +140,14 @@ public class CreadorEmpresa extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setPreferredSize(new java.awt.Dimension(872, 90));
 
-        labelFechadeInicio.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        labelFechadeInicio.setText("Direccion:");
+        labelDireccion.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        labelDireccion.setText("Direccion:");
 
-        textFieldDenominacion3.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        textFieldDenominacion3.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        textFieldDenominacion3.addActionListener(new java.awt.event.ActionListener() {
+        textFieldDireccion.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        textFieldDireccion.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        textFieldDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldDenominacion3ActionPerformed(evt);
+                textFieldDireccionActionPerformed(evt);
             }
         });
 
@@ -157,17 +157,17 @@ public class CreadorEmpresa extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelFechadeInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldDenominacion3, javax.swing.GroupLayout.PREFERRED_SIZE, 717, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 717, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(251, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelFechadeInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+            .addComponent(labelDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(textFieldDenominacion3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
 
@@ -176,14 +176,14 @@ public class CreadorEmpresa extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setPreferredSize(new java.awt.Dimension(872, 90));
 
-        labelPlazo.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        labelPlazo.setText("Representante Legal:");
+        labelRepresentanteLegal.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        labelRepresentanteLegal.setText("Representante Legal:");
 
-        textFieldDenominacion2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        textFieldDenominacion2.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        textFieldDenominacion2.addActionListener(new java.awt.event.ActionListener() {
+        textFieldRepresentanteLegal.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        textFieldRepresentanteLegal.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        textFieldRepresentanteLegal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldDenominacion2ActionPerformed(evt);
+                textFieldRepresentanteLegalActionPerformed(evt);
             }
         });
 
@@ -193,20 +193,20 @@ public class CreadorEmpresa extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelPlazo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelRepresentanteLegal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldDenominacion2, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
+                .addComponent(textFieldRepresentanteLegal, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
                 .addGap(197, 197, 197))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(textFieldDenominacion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textFieldRepresentanteLegal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelPlazo, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addComponent(labelRepresentanteLegal, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -215,14 +215,14 @@ public class CreadorEmpresa extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 204));
 
-        labelDenominacion1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        labelDenominacion1.setText("Representante Tecnico:");
+        labelRepresentanteTecnico.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        labelRepresentanteTecnico.setText("Representante Tecnico:");
 
-        textFieldDenominacion1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        textFieldDenominacion1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        textFieldDenominacion1.addActionListener(new java.awt.event.ActionListener() {
+        textFieldRepresentanteTecnico.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        textFieldRepresentanteTecnico.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        textFieldRepresentanteTecnico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldDenominacion1ActionPerformed(evt);
+                textFieldRepresentanteTecnicoActionPerformed(evt);
             }
         });
 
@@ -232,17 +232,17 @@ public class CreadorEmpresa extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelDenominacion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelRepresentanteTecnico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldDenominacion1, javax.swing.GroupLayout.PREFERRED_SIZE, 629, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textFieldRepresentanteTecnico, javax.swing.GroupLayout.PREFERRED_SIZE, 629, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(194, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelDenominacion1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(labelRepresentanteTecnico, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(textFieldDenominacion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textFieldRepresentanteTecnico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
 
@@ -392,9 +392,9 @@ public class CreadorEmpresa extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textFieldDenominacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldDenominacionActionPerformed
+    private void textFieldRazonSocialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldRazonSocialActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldDenominacionActionPerformed
+    }//GEN-LAST:event_textFieldRazonSocialActionPerformed
 
     private void buttonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVolverActionPerformed
         // TODO add your handling code here:
@@ -428,21 +428,21 @@ public class CreadorEmpresa extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonVolverMouseClicked
 
-    private void textFieldDenominacion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldDenominacion1ActionPerformed
+    private void textFieldRepresentanteTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldRepresentanteTecnicoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldDenominacion1ActionPerformed
+    }//GEN-LAST:event_textFieldRepresentanteTecnicoActionPerformed
 
-    private void textFieldDenominacion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldDenominacion2ActionPerformed
+    private void textFieldRepresentanteLegalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldRepresentanteLegalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldDenominacion2ActionPerformed
+    }//GEN-LAST:event_textFieldRepresentanteLegalActionPerformed
 
-    private void textFieldDenominacion3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldDenominacion3ActionPerformed
+    private void textFieldDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldDireccionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldDenominacion3ActionPerformed
+    }//GEN-LAST:event_textFieldDireccionActionPerformed
 
-    private void textFieldDenominacion4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldDenominacion4ActionPerformed
+    private void textFieldCuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCuitActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldDenominacion4ActionPerformed
+    }//GEN-LAST:event_textFieldCuitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -497,19 +497,19 @@ public class CreadorEmpresa extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private java.awt.Label labelDenominacion;
-    private java.awt.Label labelDenominacion1;
-    private java.awt.Label labelFechadeInicio;
-    private java.awt.Label labelFinanciacion;
-    private java.awt.Label labelPlazo;
+    private java.awt.Label labelCuit;
+    private java.awt.Label labelDireccion;
+    private java.awt.Label labelRazonSocial;
+    private java.awt.Label labelRepresentanteLegal;
+    private java.awt.Label labelRepresentanteTecnico;
     private javax.swing.JPanel panelIzquierdo;
     private javax.swing.JPanel panelLogo;
     private javax.swing.JPanel panelSuperior;
-    private java.awt.TextField textFieldDenominacion;
-    private java.awt.TextField textFieldDenominacion1;
-    private java.awt.TextField textFieldDenominacion2;
-    private java.awt.TextField textFieldDenominacion3;
-    private java.awt.TextField textFieldDenominacion4;
+    private java.awt.TextField textFieldCuit;
+    private java.awt.TextField textFieldDireccion;
+    private java.awt.TextField textFieldRazonSocial;
+    private java.awt.TextField textFieldRepresentanteLegal;
+    private java.awt.TextField textFieldRepresentanteTecnico;
     private java.awt.Label tigüi;
     private java.awt.Label titVista;
     // End of variables declaration//GEN-END:variables

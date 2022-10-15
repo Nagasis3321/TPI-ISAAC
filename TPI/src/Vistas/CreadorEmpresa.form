@@ -120,9 +120,9 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="labelDenominacion" min="-2" pref="162" max="-2" attributes="0"/>
+                              <Component id="labelRazonSocial" min="-2" pref="162" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="textFieldDenominacion" pref="665" max="32767" attributes="0"/>
+                              <Component id="textFieldRazonSocial" pref="665" max="32767" attributes="0"/>
                               <EmptySpace pref="253" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -131,15 +131,15 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                              <Component id="textFieldDenominacion" pref="36" max="32767" attributes="0"/>
+                              <Component id="textFieldRazonSocial" pref="36" max="32767" attributes="0"/>
                               <EmptySpace pref="14" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="labelDenominacion" alignment="1" max="32767" attributes="0"/>
+                          <Component id="labelRazonSocial" alignment="1" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="java.awt.Label" name="labelDenominacion">
+                    <Component class="java.awt.Label" name="labelRazonSocial">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Roboto" size="24" style="0"/>
@@ -147,7 +147,7 @@
                         <Property name="text" type="java.lang.String" value="Razon Social:"/>
                       </Properties>
                     </Component>
-                    <Component class="java.awt.TextField" name="textFieldDenominacion">
+                    <Component class="java.awt.TextField" name="textFieldRazonSocial">
                       <Properties>
                         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                           <Color id="Text Cursor"/>
@@ -157,7 +157,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFieldDenominacionActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFieldRazonSocialActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -174,26 +174,26 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="labelFinanciacion" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelCuit" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                              <Component id="textFieldDenominacion4" min="-2" pref="700" max="-2" attributes="0"/>
+                              <Component id="textFieldCuit" min="-2" pref="700" max="-2" attributes="0"/>
                               <EmptySpace pref="319" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelFinanciacion" alignment="1" max="32767" attributes="0"/>
+                          <Component id="labelCuit" alignment="1" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace pref="20" max="32767" attributes="0"/>
-                              <Component id="textFieldDenominacion4" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="23" max="32767" attributes="0"/>
+                              <Component id="textFieldCuit" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="java.awt.Label" name="labelFinanciacion">
+                    <Component class="java.awt.Label" name="labelCuit">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Roboto" size="24" style="0"/>
@@ -201,7 +201,7 @@
                         <Property name="text" type="java.lang.String" value="Cuit:"/>
                       </Properties>
                     </Component>
-                    <Component class="java.awt.TextField" name="textFieldDenominacion4">
+                    <Component class="java.awt.TextField" name="textFieldCuit">
                       <Properties>
                         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                           <Color id="Text Cursor"/>
@@ -211,7 +211,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFieldDenominacion4ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFieldCuitActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -231,26 +231,26 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="labelFechadeInicio" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelDireccion" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="textFieldDenominacion3" min="-2" pref="717" max="-2" attributes="0"/>
+                              <Component id="textFieldDireccion" min="-2" pref="717" max="-2" attributes="0"/>
                               <EmptySpace pref="251" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelFechadeInicio" alignment="0" pref="68" max="32767" attributes="0"/>
+                          <Component id="labelDireccion" alignment="0" pref="68" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="textFieldDenominacion3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textFieldDireccion" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="java.awt.Label" name="labelFechadeInicio">
+                    <Component class="java.awt.Label" name="labelDireccion">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Roboto" size="24" style="0"/>
@@ -258,7 +258,7 @@
                         <Property name="text" type="java.lang.String" value="Direccion:"/>
                       </Properties>
                     </Component>
-                    <Component class="java.awt.TextField" name="textFieldDenominacion3">
+                    <Component class="java.awt.TextField" name="textFieldDireccion">
                       <Properties>
                         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                           <Color id="Text Cursor"/>
@@ -268,7 +268,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFieldDenominacion3ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFieldDireccionActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -291,9 +291,9 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="labelPlazo" max="32767" attributes="0"/>
+                              <Component id="labelRepresentanteLegal" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="textFieldDenominacion2" pref="653" max="32767" attributes="0"/>
+                              <Component id="textFieldRepresentanteLegal" pref="653" max="32767" attributes="0"/>
                               <EmptySpace min="-2" pref="197" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -302,19 +302,19 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="textFieldDenominacion2" min="-2" max="-2" attributes="0"/>
+                              <Component id="textFieldRepresentanteLegal" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="labelPlazo" pref="48" max="32767" attributes="0"/>
+                              <Component id="labelRepresentanteLegal" pref="48" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="java.awt.Label" name="labelPlazo">
+                    <Component class="java.awt.Label" name="labelRepresentanteLegal">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Roboto" size="24" style="0"/>
@@ -322,7 +322,7 @@
                         <Property name="text" type="java.lang.String" value="Representante Legal:"/>
                       </Properties>
                     </Component>
-                    <Component class="java.awt.TextField" name="textFieldDenominacion2">
+                    <Component class="java.awt.TextField" name="textFieldRepresentanteLegal">
                       <Properties>
                         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                           <Color id="Text Cursor"/>
@@ -332,7 +332,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFieldDenominacion2ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFieldRepresentanteLegalActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -349,26 +349,26 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="labelDenominacion1" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelRepresentanteTecnico" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="textFieldDenominacion1" min="-2" pref="629" max="-2" attributes="0"/>
+                              <Component id="textFieldRepresentanteTecnico" min="-2" pref="629" max="-2" attributes="0"/>
                               <EmptySpace pref="194" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelDenominacion1" alignment="1" max="32767" attributes="0"/>
+                          <Component id="labelRepresentanteTecnico" alignment="1" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace pref="20" max="32767" attributes="0"/>
-                              <Component id="textFieldDenominacion1" min="-2" max="-2" attributes="0"/>
+                              <Component id="textFieldRepresentanteTecnico" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="java.awt.Label" name="labelDenominacion1">
+                    <Component class="java.awt.Label" name="labelRepresentanteTecnico">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Roboto" size="24" style="0"/>
@@ -376,7 +376,7 @@
                         <Property name="text" type="java.lang.String" value="Representante Tecnico:"/>
                       </Properties>
                     </Component>
-                    <Component class="java.awt.TextField" name="textFieldDenominacion1">
+                    <Component class="java.awt.TextField" name="textFieldRepresentanteTecnico">
                       <Properties>
                         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                           <Color id="Text Cursor"/>
@@ -386,7 +386,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFieldDenominacion1ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFieldRepresentanteTecnicoActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>
