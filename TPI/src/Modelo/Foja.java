@@ -12,6 +12,7 @@ import java.util.*;
  */
 public class Foja {
     private Integer id;
+    private String fecha;
     private Obra obra;
     private String fechaRealizacion;
     private ArrayList<DetalleFoja> detallesFoja = new ArrayList();
@@ -23,6 +24,7 @@ public class Foja {
         this.fechaRealizacion = fechaRealizacion;
         this.detallesFoja = detallesFoja;
         this.certificadoPago = certificadoPago;
+        this.fecha = "XX/XX/XXXX";  //PONER ACÁ EL GETFECHAACTUAL() DE LA LIBRERÍA DE TERLESKI
     }
     
 
@@ -90,6 +92,23 @@ public class Foja {
     public void setDetallesFoja(ArrayList<DetalleFoja> detallesFoja) {
         this.detallesFoja = detallesFoja;
     }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public CertificadoPago getCertificadoPago() {
+        return certificadoPago;
+    }
+
+    public void setCertificadoPago(CertificadoPago certificadoPago) {
+        this.certificadoPago = certificadoPago;
+    }
+    
     
     
 }

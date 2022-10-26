@@ -146,4 +146,14 @@ public class Item {
         final Item other = (Item) obj;
         return Objects.equals(this.id, other.id);
     } 
+
+    public ArrayList<Costo> getCostos() {
+        return costos;
+    }
+
+    public void setCostos(ArrayList<Costo> costos) {
+        this.costos = costos;
+    }
+    
+    
 }

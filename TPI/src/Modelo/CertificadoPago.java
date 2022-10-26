@@ -11,10 +11,12 @@ package Modelo;
 public class CertificadoPago {
     private Integer id;
     private Foja foja;
+    private String fecha;
 
     public CertificadoPago(Integer id, Foja foja) {
         this.id = id;
         this.foja = foja;
+        this.fecha = "XX/XX/XXXX";   //PONER ACÁ EL GETFECHAACTUAL() DE LA LIBRERÍA DE TERLESKI
     }
 
     public Integer getId() {
@@ -36,4 +38,14 @@ public class CertificadoPago {
     public CertificadoPago(Integer id) {
         this.id = id;
     }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+    
+    
 }

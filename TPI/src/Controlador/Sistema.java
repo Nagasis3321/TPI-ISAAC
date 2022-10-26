@@ -3,10 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package Controlador;
-import Modelo.Item;
-import Modelo.Foja;
-import Modelo.DetalleFoja;
-import Modelo.Obra;
+import Modelo.*;
 import java.util.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -19,6 +16,7 @@ public class Sistema {
     private ArrayList<Obra> obras = new ArrayList();
     private ArrayList<Foja> fojas = new ArrayList();
     private ArrayList<DetalleFoja> detallesFojas = new ArrayList();
+    private ArrayList<Costo> costos = new ArrayList();
     
 
     /**
@@ -120,6 +118,81 @@ public class Sistema {
             }
             
             obra.getFojas().add(nuevaFoja);
+        }
+    }
+    
+    void generarCertificadoPago(int idFoja, int idObra){
+        Foja fojaEncontrada = null;
+        for(Obra o : obras){
+            if(idObra == o.getId()){
+                for(Foja f : o.getFojas()){
+                    if(idFoja == f.getId()){
+                        fojaEncontrada = f;
+                    }
+                }
+            }
+        }
+        
+        
+        CertificadoPago nuevoCertificado = new CertificadoPago(fojaEncontrada.getId());
+        nuevoCertificado.setFoja(fojaEncontrada);
+        
+    }
+    
+    void imprimirCertificadoPago(int idFoja, int idObra){
+        Foja fojaEncontrada = null;
+        int valorCostoActual;
+        
+        for(Obra o : obras){
+            if(idObra == o.getId()){
+                for(Foja f : o.getFojas()){
+                    if(idFoja == f.getId()){
+                        //Imprimir número de certificado.
+                        System.out.println(f.getId());
+                        //Imprimir número de obra.
+                        System.out.println(f.getObra().getId());
+                        //Imprimir denominación obra.
+                        System.out.println(f.getObra().getDenominacion());
+                        for(DetalleFoja d : f.getDetallesFoja()){
+                            
+                            //Imprimir orden de item.
+                            System.out.println(d.getItem().getOrden());
+                            //Imprimir denominación de item.
+                            System.out.println(d.getItem().getDenominacion());
+                            //Imprimir costo actual.
+                            valorCostoActual = d.getItem().getCostos().get((d.getItem().getCostos().size()) - 1).getValor();
+                            System.out.println(valorCostoActual);
+                            //Imprimir total anterior.
+                            System.out.println((d.getTotalAnterior() / 100) * valorCostoActual);
+                            //Imprimir total mes.
+                            System.out.println((d.getTotalMes() / 100) * valorCostoActual);
+                            //Imprimir total mes.
+                            System.out.println((d.getTotalAcumulado() / 100) * valorCostoActual);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    void calcularProgresoObra(int idObra){
+        int porcentajeCompleto = 0;
+        int dineroFaltante = 0;
+        for(Obra o : obras){
+            if(o.getId() == idObra){
+                for(DetalleFoja d : o.getFojas().get((o.getFojas().size()) - 1).getDetallesFoja()){
+                    
+                    porcentajeCompleto += d.getItem().getIncidencia() * (d.getTotalAcumulado() / 100);
+                    
+                    dineroFaltante += (100 - d.getTotalAcumulado()) * d.getItem().getCostos().get((d.getItem().getCostos().size()) - 1).getValor();
+                }
+                //Imprimir progreso de obra.
+                System.out.println("Progreso de obra: " + porcentajeCompleto + "/100%");
+                
+                //Imprimir dinero faltante de obra.
+                System.out.println("Dinero faltante para completar: " + dineroFaltante);
+            }
         }
     }
 }
