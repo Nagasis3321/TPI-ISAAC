@@ -12,7 +12,7 @@ import java.util.Objects;
  */
 public class Costo {
     private Integer id;
-    private Integer valor;
+    private Integer costo;
     private Integer certificadoFinVigencia;
     private Item item;
 
@@ -32,12 +32,12 @@ public class Costo {
         this.id = id;
     }
 
-    public Integer getValor() {
-        return valor;
+    public Integer getCosto() {
+        return costo;
     }
 
-    public void setValor(Integer valor) {
-        this.valor = valor;
+    public void setCosto(Integer costo) {
+        this.costo = costo;
     }
 
     public Integer getCertificadoFinVigencia() {
@@ -50,7 +50,7 @@ public class Costo {
 
     public Costo(Integer id, Integer costo, Item item) {
         this.id = id;
-        this.valor = valor;
+        this.costo = costo;
         this.item = item;
     }
 
