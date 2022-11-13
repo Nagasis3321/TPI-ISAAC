@@ -3,15 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Isaac/Documents/NetBeansProjects/TPI/src/Vistas/CreadorEmpresa.java</file>
-            <file>file:/C:/Users/Isaac/Documents/NetBeansProjects/TPI/src/Vistas/Inicio.java</file>
-            <file>file:/C:/Users/Isaac/Documents/NetBeansProjects/TPI/src/Persistencia/CostoJpaController.java</file>
-            <file>file:/C:/Users/Isaac/Documents/NetBeansProjects/TPI/src/Persistencia/exceptions/NonexistentEntityException.java</file>
-            <file>file:/C:/Users/Isaac/Documents/NetBeansProjects/TPI/src/Persistencia/exceptions/PreexistingEntityException.java</file>
-            <file>file:/C:/Users/Isaac/Documents/NetBeansProjects/TPI/src/Vistas/CreadorItem.java</file>
-            <file>file:/C:/Users/Isaac/Documents/NetBeansProjects/TPI/src/Persistencia/exceptions/IllegalOrphanException.java</file>
-            <file>file:/C:/Users/Isaac/Documents/NetBeansProjects/TPI/src/Vistas/CreadorObras.java</file>
-            <file>file:/C:/Users/Isaac/Documents/NetBeansProjects/TPI/src/Vistas/VistasConsultas.java</file>
+            <file>file:/C:/Users/matia/Documents/NetBeansProjects/ProyectosGit/TPI-ISAAC/TPI/src/Controlador/Sistema.java</file>
+            <file>file:/C:/Users/matia/Documents/NetBeansProjects/ProyectosGit/TPI-ISAAC/TPI/src/ModeloDB/Costo.java</file>
         </group>
     </open-files>
 </project-private>

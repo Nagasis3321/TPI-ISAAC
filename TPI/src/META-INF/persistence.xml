@@ -2,19 +2,19 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="TPIPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>Modelo1.Obra</class>
-    <class>Modelo1.Costo</class>
-    <class>Modelo1.CertificadoPago</class>
-    <class>Modelo1.Item</class>
-    <class>Modelo1.Empresa</class>
-    <class>Modelo1.TipoItem</class>
-    <class>Modelo1.Foja</class>
-    <class>Modelo1.DetallesFoja</class>
+    <class>ModeloDB.Obra</class>
+    <class>ModeloDB.CertificadoPago</class>
+    <class>ModeloDB.Costo</class>
+    <class>ModeloDB.DetalleFoja</class>
+    <class>ModeloDB.Empresa</class>
+    <class>ModeloDB.Foja</class>
+    <class>ModeloDB.TipoItem</class>
+    <class>ModeloDB.Item</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mydb?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/db_tpi_pa_ii?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="65uhm0px"/>
+      <property name="javax.persistence.jdbc.password" value="tutesqlMy2022!"/>
     </properties>
   </persistence-unit>
 </persistence>

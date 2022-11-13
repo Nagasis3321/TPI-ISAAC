@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import Controlador.Controlador;
+//import Controlador.Controlador;
 import static java.awt.FlowLayout.CENTER;
 import static java.awt.PageAttributes.MediaType.C;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class CreadorObra extends JFrame{
     JButton crear,volver;
     
     JFrame  formulario;*/
-    Controlador controlador;
+    //Controlador controlador;
     private javax.swing.JPanel General;
     private javax.swing.JPanel Panelinferior;
     private java.awt.Button buttonCrear;
@@ -52,7 +52,7 @@ public class CreadorObra extends JFrame{
     private java.awt.Label tigüi;
     private java.awt.Label titVista;
     private javax.swing.JButton buttonNewFinanza;
-    public CreadorObra(Controlador control){
+    //public CreadorObra(Controlador control){
     /* 
      this.setLayout(new FlowLayout());
      
@@ -126,7 +126,7 @@ public class CreadorObra extends JFrame{
       formulario.add(panelSuperior);
      formulario.setBounds(0, 0, 1280,720);*/
      
-     
+     /*
      
         this.controlador=control;
 
@@ -538,7 +538,7 @@ public class CreadorObra extends JFrame{
             }  
         }
         
-      }    
+      }    */
     }
 
   
