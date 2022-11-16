@@ -16,6 +16,7 @@ import ModeloDB.Foja;
 import java.util.ArrayList;
 import java.util.Collection;
 import ModeloDB.Costo;
+import ModeloDB.DetalleCertificadoPago;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -36,17 +37,39 @@ public class CertificadoPagoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(CertificadoPago certificadoPago) {
+    public void create(CertificadoPago certificadoPago) throws IllegalOrphanException {
         if (certificadoPago.getFojaCollection() == null) {
             certificadoPago.setFojaCollection(new ArrayList<Foja>());
         }
         if (certificadoPago.getCostoCollection() == null) {
             certificadoPago.setCostoCollection(new ArrayList<Costo>());
         }
+        if (certificadoPago.getDetalleCertificadoPagoCollection() == null) {
+            certificadoPago.setDetalleCertificadoPagoCollection(new ArrayList<DetalleCertificadoPago>());
+        }
+        List<String> illegalOrphanMessages = null;
+        Foja fojaOrphanCheck = certificadoPago.getFoja();
+        if (fojaOrphanCheck != null) {
+            CertificadoPago oldCertificadoPagoOfFoja = fojaOrphanCheck.getCertificadoPago();
+            if (oldCertificadoPagoOfFoja != null) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("The Foja " + fojaOrphanCheck + " already has an item of type CertificadoPago whose foja column cannot be null. Please make another selection for the foja field.");
+            }
+        }
+        if (illegalOrphanMessages != null) {
+            throw new IllegalOrphanException(illegalOrphanMessages);
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Foja foja = certificadoPago.getFoja();
+            if (foja != null) {
+                foja = em.getReference(foja.getClass(), foja.getIdFoja());
+                certificadoPago.setFoja(foja);
+            }
             Collection<Foja> attachedFojaCollection = new ArrayList<Foja>();
             for (Foja fojaCollectionFojaToAttach : certificadoPago.getFojaCollection()) {
                 fojaCollectionFojaToAttach = em.getReference(fojaCollectionFojaToAttach.getClass(), fojaCollectionFojaToAttach.getIdFoja());
@@ -59,7 +82,17 @@ public class CertificadoPagoJpaController implements Serializable {
                 attachedCostoCollection.add(costoCollectionCostoToAttach);
             }
             certificadoPago.setCostoCollection(attachedCostoCollection);
+            Collection<DetalleCertificadoPago> attachedDetalleCertificadoPagoCollection = new ArrayList<DetalleCertificadoPago>();
+            for (DetalleCertificadoPago detalleCertificadoPagoCollectionDetalleCertificadoPagoToAttach : certificadoPago.getDetalleCertificadoPagoCollection()) {
+                detalleCertificadoPagoCollectionDetalleCertificadoPagoToAttach = em.getReference(detalleCertificadoPagoCollectionDetalleCertificadoPagoToAttach.getClass(), detalleCertificadoPagoCollectionDetalleCertificadoPagoToAttach.getIdDetalleCertificadoPago());
+                attachedDetalleCertificadoPagoCollection.add(detalleCertificadoPagoCollectionDetalleCertificadoPagoToAttach);
+            }
+            certificadoPago.setDetalleCertificadoPagoCollection(attachedDetalleCertificadoPagoCollection);
             em.persist(certificadoPago);
+            if (foja != null) {
+                foja.setCertificadoPago(certificadoPago);
+                foja = em.merge(foja);
+            }
             for (Foja fojaCollectionFoja : certificadoPago.getFojaCollection()) {
                 CertificadoPago oldCertificadoPagoOfFojaCollectionFoja = fojaCollectionFoja.getCertificadoPago();
                 fojaCollectionFoja.setCertificadoPago(certificadoPago);
@@ -78,6 +111,15 @@ public class CertificadoPagoJpaController implements Serializable {
                     oldCertificadoFinVigenciaOfCostoCollectionCosto = em.merge(oldCertificadoFinVigenciaOfCostoCollectionCosto);
                 }
             }
+            for (DetalleCertificadoPago detalleCertificadoPagoCollectionDetalleCertificadoPago : certificadoPago.getDetalleCertificadoPagoCollection()) {
+                CertificadoPago oldCertificadoPagoOfDetalleCertificadoPagoCollectionDetalleCertificadoPago = detalleCertificadoPagoCollectionDetalleCertificadoPago.getCertificadoPago();
+                detalleCertificadoPagoCollectionDetalleCertificadoPago.setCertificadoPago(certificadoPago);
+                detalleCertificadoPagoCollectionDetalleCertificadoPago = em.merge(detalleCertificadoPagoCollectionDetalleCertificadoPago);
+                if (oldCertificadoPagoOfDetalleCertificadoPagoCollectionDetalleCertificadoPago != null) {
+                    oldCertificadoPagoOfDetalleCertificadoPagoCollectionDetalleCertificadoPago.getDetalleCertificadoPagoCollection().remove(detalleCertificadoPagoCollectionDetalleCertificadoPago);
+                    oldCertificadoPagoOfDetalleCertificadoPagoCollectionDetalleCertificadoPago = em.merge(oldCertificadoPagoOfDetalleCertificadoPagoCollectionDetalleCertificadoPago);
+                }
+            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -92,11 +134,30 @@ public class CertificadoPagoJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             CertificadoPago persistentCertificadoPago = em.find(CertificadoPago.class, certificadoPago.getIdCertificadoPago());
+            Foja fojaOld = persistentCertificadoPago.getFoja();
+            Foja fojaNew = certificadoPago.getFoja();
             Collection<Foja> fojaCollectionOld = persistentCertificadoPago.getFojaCollection();
             Collection<Foja> fojaCollectionNew = certificadoPago.getFojaCollection();
             Collection<Costo> costoCollectionOld = persistentCertificadoPago.getCostoCollection();
             Collection<Costo> costoCollectionNew = certificadoPago.getCostoCollection();
+            Collection<DetalleCertificadoPago> detalleCertificadoPagoCollectionOld = persistentCertificadoPago.getDetalleCertificadoPagoCollection();
+            Collection<DetalleCertificadoPago> detalleCertificadoPagoCollectionNew = certificadoPago.getDetalleCertificadoPagoCollection();
             List<String> illegalOrphanMessages = null;
+            if (fojaOld != null && !fojaOld.equals(fojaNew)) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("You must retain Foja " + fojaOld + " since its certificadoPago field is not nullable.");
+            }
+            if (fojaNew != null && !fojaNew.equals(fojaOld)) {
+                CertificadoPago oldCertificadoPagoOfFoja = fojaNew.getCertificadoPago();
+                if (oldCertificadoPagoOfFoja != null) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("The Foja " + fojaNew + " already has an item of type CertificadoPago whose foja column cannot be null. Please make another selection for the foja field.");
+                }
+            }
             for (Foja fojaCollectionOldFoja : fojaCollectionOld) {
                 if (!fojaCollectionNew.contains(fojaCollectionOldFoja)) {
                     if (illegalOrphanMessages == null) {
@@ -105,8 +166,20 @@ public class CertificadoPagoJpaController implements Serializable {
                     illegalOrphanMessages.add("You must retain Foja " + fojaCollectionOldFoja + " since its certificadoPago field is not nullable.");
                 }
             }
+            for (DetalleCertificadoPago detalleCertificadoPagoCollectionOldDetalleCertificadoPago : detalleCertificadoPagoCollectionOld) {
+                if (!detalleCertificadoPagoCollectionNew.contains(detalleCertificadoPagoCollectionOldDetalleCertificadoPago)) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("You must retain DetalleCertificadoPago " + detalleCertificadoPagoCollectionOldDetalleCertificadoPago + " since its certificadoPago field is not nullable.");
+                }
+            }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
+            }
+            if (fojaNew != null) {
+                fojaNew = em.getReference(fojaNew.getClass(), fojaNew.getIdFoja());
+                certificadoPago.setFoja(fojaNew);
             }
             Collection<Foja> attachedFojaCollectionNew = new ArrayList<Foja>();
             for (Foja fojaCollectionNewFojaToAttach : fojaCollectionNew) {
@@ -122,7 +195,18 @@ public class CertificadoPagoJpaController implements Serializable {
             }
             costoCollectionNew = attachedCostoCollectionNew;
             certificadoPago.setCostoCollection(costoCollectionNew);
+            Collection<DetalleCertificadoPago> attachedDetalleCertificadoPagoCollectionNew = new ArrayList<DetalleCertificadoPago>();
+            for (DetalleCertificadoPago detalleCertificadoPagoCollectionNewDetalleCertificadoPagoToAttach : detalleCertificadoPagoCollectionNew) {
+                detalleCertificadoPagoCollectionNewDetalleCertificadoPagoToAttach = em.getReference(detalleCertificadoPagoCollectionNewDetalleCertificadoPagoToAttach.getClass(), detalleCertificadoPagoCollectionNewDetalleCertificadoPagoToAttach.getIdDetalleCertificadoPago());
+                attachedDetalleCertificadoPagoCollectionNew.add(detalleCertificadoPagoCollectionNewDetalleCertificadoPagoToAttach);
+            }
+            detalleCertificadoPagoCollectionNew = attachedDetalleCertificadoPagoCollectionNew;
+            certificadoPago.setDetalleCertificadoPagoCollection(detalleCertificadoPagoCollectionNew);
             certificadoPago = em.merge(certificadoPago);
+            if (fojaNew != null && !fojaNew.equals(fojaOld)) {
+                fojaNew.setCertificadoPago(certificadoPago);
+                fojaNew = em.merge(fojaNew);
+            }
             for (Foja fojaCollectionNewFoja : fojaCollectionNew) {
                 if (!fojaCollectionOld.contains(fojaCollectionNewFoja)) {
                     CertificadoPago oldCertificadoPagoOfFojaCollectionNewFoja = fojaCollectionNewFoja.getCertificadoPago();
@@ -148,6 +232,17 @@ public class CertificadoPagoJpaController implements Serializable {
                     if (oldCertificadoFinVigenciaOfCostoCollectionNewCosto != null && !oldCertificadoFinVigenciaOfCostoCollectionNewCosto.equals(certificadoPago)) {
                         oldCertificadoFinVigenciaOfCostoCollectionNewCosto.getCostoCollection().remove(costoCollectionNewCosto);
                         oldCertificadoFinVigenciaOfCostoCollectionNewCosto = em.merge(oldCertificadoFinVigenciaOfCostoCollectionNewCosto);
+                    }
+                }
+            }
+            for (DetalleCertificadoPago detalleCertificadoPagoCollectionNewDetalleCertificadoPago : detalleCertificadoPagoCollectionNew) {
+                if (!detalleCertificadoPagoCollectionOld.contains(detalleCertificadoPagoCollectionNewDetalleCertificadoPago)) {
+                    CertificadoPago oldCertificadoPagoOfDetalleCertificadoPagoCollectionNewDetalleCertificadoPago = detalleCertificadoPagoCollectionNewDetalleCertificadoPago.getCertificadoPago();
+                    detalleCertificadoPagoCollectionNewDetalleCertificadoPago.setCertificadoPago(certificadoPago);
+                    detalleCertificadoPagoCollectionNewDetalleCertificadoPago = em.merge(detalleCertificadoPagoCollectionNewDetalleCertificadoPago);
+                    if (oldCertificadoPagoOfDetalleCertificadoPagoCollectionNewDetalleCertificadoPago != null && !oldCertificadoPagoOfDetalleCertificadoPagoCollectionNewDetalleCertificadoPago.equals(certificadoPago)) {
+                        oldCertificadoPagoOfDetalleCertificadoPagoCollectionNewDetalleCertificadoPago.getDetalleCertificadoPagoCollection().remove(detalleCertificadoPagoCollectionNewDetalleCertificadoPago);
+                        oldCertificadoPagoOfDetalleCertificadoPagoCollectionNewDetalleCertificadoPago = em.merge(oldCertificadoPagoOfDetalleCertificadoPagoCollectionNewDetalleCertificadoPago);
                     }
                 }
             }
@@ -181,12 +276,26 @@ public class CertificadoPagoJpaController implements Serializable {
                 throw new NonexistentEntityException("The certificadoPago with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
+            Foja fojaOrphanCheck = certificadoPago.getFoja();
+            if (fojaOrphanCheck != null) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("This CertificadoPago (" + certificadoPago + ") cannot be destroyed since the Foja " + fojaOrphanCheck + " in its foja field has a non-nullable certificadoPago field.");
+            }
             Collection<Foja> fojaCollectionOrphanCheck = certificadoPago.getFojaCollection();
             for (Foja fojaCollectionOrphanCheckFoja : fojaCollectionOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
                 illegalOrphanMessages.add("This CertificadoPago (" + certificadoPago + ") cannot be destroyed since the Foja " + fojaCollectionOrphanCheckFoja + " in its fojaCollection field has a non-nullable certificadoPago field.");
+            }
+            Collection<DetalleCertificadoPago> detalleCertificadoPagoCollectionOrphanCheck = certificadoPago.getDetalleCertificadoPagoCollection();
+            for (DetalleCertificadoPago detalleCertificadoPagoCollectionOrphanCheckDetalleCertificadoPago : detalleCertificadoPagoCollectionOrphanCheck) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("This CertificadoPago (" + certificadoPago + ") cannot be destroyed since the DetalleCertificadoPago " + detalleCertificadoPagoCollectionOrphanCheckDetalleCertificadoPago + " in its detalleCertificadoPagoCollection field has a non-nullable certificadoPago field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);

@@ -10,6 +10,7 @@
     <class>ModeloDB.Foja</class>
     <class>ModeloDB.TipoItem</class>
     <class>ModeloDB.Item</class>
+    <class>ModeloDB.DetalleCertificadoPago</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/db_tpi_pa_ii?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

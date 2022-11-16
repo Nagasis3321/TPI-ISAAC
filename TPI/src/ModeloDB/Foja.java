@@ -32,6 +32,9 @@ import javax.persistence.Table;
     @NamedQuery(name = "Foja.findByFechaRealizacion", query = "SELECT f FROM Foja f WHERE f.fechaRealizacion = :fechaRealizacion")})
 public class Foja implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "foja")
+    private Collection<CertificadoPago> certificadoPagoCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -129,6 +132,14 @@ public class Foja implements Serializable {
     @Override
     public String toString() {
         return "ModeloDB.Foja[ idFoja=" + idFoja + " ]";
+    }
+
+    public Collection<CertificadoPago> getCertificadoPagoCollection() {
+        return certificadoPagoCollection;
+    }
+
+    public void setCertificadoPagoCollection(Collection<CertificadoPago> certificadoPagoCollection) {
+        this.certificadoPagoCollection = certificadoPagoCollection;
     }
     
 }

@@ -40,6 +40,35 @@ public class Sistema {
         
     }
     
+    public Object[][] crearCertificadoPago(int nroObra, int nroFoja){
+        ObraJpaController obraCtrl = new ObraJpaController();
+        Obra obra = obraCtrl.findObra(nroObra);
+        ArrayList<Foja> fojasObra = new ArrayList(obra.getFojaCollection());
+        Foja fojaParaCertificado = fojasObra.get(nroFoja);
+        ArrayList<DetalleFoja> detalles = new ArrayList(fojaParaCertificado.getDetalleFojaCollection());
+        
+        Object[][] tuplas = new Object[detalles.size()][8];
+        
+        int i = 0;      
+        for(DetalleFoja d : detalles){
+            tuplas[i][0] = d.getItem().getOrden();
+            tuplas[i][1] = d.getItem().getDenominacion();
+            tuplas[i][2] = d.getItem().getIncidencia();
+            tuplas[i][3] = d.getItem().getTipoItem();
+            
+            ArrayList<Costo> costosItem = new ArrayList(d.getItem().getCostoCollection());
+            tuplas[i][4] = costosItem.get(costosItem.size()-1).getValor();
+            
+            tuplas[i][5] = (d.getTotalAnterior() / 100) * (int) tuplas[i][4];
+            tuplas[i][6] = (d.getTotalMes() / 100) * (int) tuplas[i][4];
+            tuplas[i][7] = (d.getTotalAcumulado() / 100) * (int) tuplas[i][4];
+                    
+            i++;
+        }
+        
+        return tuplas;
+    }
+    
     public Foja crearFoja(int numeroObra, Object[][] tuplas, int[] totalesAcumulados){
         ObraJpaController obraCtrl = new ObraJpaController();
         Obra obra = obraCtrl.findObra(numeroObra);
@@ -60,9 +89,6 @@ public class Sistema {
         
         for(int i = 0; i < tuplas.length; i++){
             int j = 0;
-            
-            System.out.println("j = " + j + "; i = " + i);
-            System.out.println("valor en tuplas 0 = " + (int) tuplas[i][0]);
             
             while(itemsObra.get(j).getOrden() != (int) tuplas[i][0]){
                 j++;
@@ -205,77 +231,9 @@ public class Sistema {
         }
         System.out.println("Total a pagar en contrato: " + importeTotal);
     }
-    /*
-    void generarFoja(Obra obra){
-        Scanner escaner = new Scanner(System.in);
-        ArrayList<Foja> fojasDeObra = new ArrayList(obra.getFojaCollection());
-        ArrayList<DetalleFoja> detallesNuevaFoja = new ArrayList();
-        int totalAnterior;
-        int totalMes;
-        int totalAcumulado;
-        
-        Foja nuevaFoja = new Foja(String.valueOf(java.time.LocalDate.now()));
-        
-        if(!fojasDeObra.isEmpty()){
-            Foja ultimaFoja = fojasDeObra.get(fojasDeObra.size()-1);
-            int iteracion = 0;
-            ArrayList<Item> itemsObra = new ArrayList(obra.getItemCollection());
-            for(Item item : itemsObra){
-                ArrayList<DetalleFoja> detallesUltimaFoja = new ArrayList(ultimaFoja.getDetalleFojaCollection());
-                totalAnterior = detallesUltimaFoja.get(iteracion).getTotalMes(); //Se obtiene el totalMes del item en el mismo orden, de la foja anterior. 
-                
-                //----Acá hay que hacer una vista para ingresar el avance de cada item--------
-                System.out.println("Ingrese avance para el item: " + itemsObra.get(iteracion).getDenominacion());
-                totalMes = escaner.nextInt();
-                escaner.nextLine();
-                
-                totalAcumulado = totalAnterior + totalMes;
-
-                DetalleFoja nuevoDetalle = new DetalleFoja(totalAnterior, totalMes, totalAcumulado);
-                nuevoDetalle.setItem(item);
-                nuevoDetalle.setFoja(nuevaFoja);
-                detallesNuevaFoja.add(nuevoDetalle);
-                iteracion++;
-            }
-
-            
-            nuevaFoja.setObra(obra);
-            nuevaFoja.setDetalleFojaCollection(detallesNuevaFoja);
-            for(DetalleFoja detalle : detallesNuevaFoja){
-                detalle.setFoja(nuevaFoja);
-            }
-            
-            obra.getFojaCollection().add(nuevaFoja);
-            
-        } else {
-            
-            int iteracion = 0;
-            ArrayList<Item> itemsObra = new ArrayList(obra.getItemCollection());
-            for(Item item : itemsObra){
-                totalAnterior = 0; //Se obtiene el totalMes del item en el mismo orden, de la foja anterior.                               
-                System.out.println("Ingrese avance para el item: " + itemsObra.get(iteracion).getDenominacion());
-                totalMes = escaner.nextInt();
-                escaner.nextLine();
-                totalAcumulado = totalAnterior + totalMes;
-
-                DetalleFoja nuevoDetalle = new DetalleFoja(iteracion+1, totalAnterior, totalMes, totalAcumulado);
-                nuevoDetalle.setItem(item);
-                detallesNuevaFoja.add(nuevoDetalle);
-                iteracion++;
-            }
-
-            Foja nuevaFoja = new Foja(1, String.valueOf(java.time.LocalDate.now()));
-            nuevaFoja.setObra(obra);
-            nuevaFoja.setDetalleFojaCollection(detallesNuevaFoja);
-            for(DetalleFoja detalle : detallesNuevaFoja){
-                detalle.setFoja(nuevaFoja);
-            }
-            
-            obra.getFojaCollection().add(nuevaFoja);
-        }
-    }
-    */
-    public Object[][] obtenerItemsObra(int idObra){
+    
+    
+    public Object[][] obtenerItemsObraConAvances(int idObra){
         ObraJpaController obraCtrl = new ObraJpaController();
         Obra obra = obraCtrl.findObra(idObra);
         ArrayList<Foja> fojasObra = new ArrayList(obra.getFojaCollection());
@@ -288,6 +246,7 @@ public class Sistema {
         
         if(!fojasObra.isEmpty()){
             ultimaFoja = fojasObra.get(fojasObra.size() - 1);
+            
             for(DetalleFoja d : ultimaFoja.getDetalleFojaCollection()){
                 itemDetalle = d.getItem();
                 ord = itemDetalle.getOrden();
@@ -295,7 +254,7 @@ public class Sistema {
                 inc = itemDetalle.getIncidencia();
                 tipo = itemDetalle.getTipoItem().getIdTipoItem();
                 cos = itemDetalle.getUltimoCosto().getValor();
-                ta = d.getTotalAnterior();
+                ta = d.getTotalAcumulado();
 
                 tuplas[fila][0] = ord;
                 tuplas[fila][1] = den;

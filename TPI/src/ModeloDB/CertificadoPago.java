@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -29,6 +31,12 @@ import javax.persistence.Table;
     @NamedQuery(name = "CertificadoPago.findByIdCertificadoPago", query = "SELECT c FROM CertificadoPago c WHERE c.idCertificadoPago = :idCertificadoPago"),
     @NamedQuery(name = "CertificadoPago.findByFechaRealizacion", query = "SELECT c FROM CertificadoPago c WHERE c.fechaRealizacion = :fechaRealizacion")})
 public class CertificadoPago implements Serializable {
+
+    @JoinColumn(name = "foja", referencedColumnName = "idFoja")
+    @ManyToOne(optional = false)
+    private Foja foja;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "certificadoPago")
+    private Collection<DetalleCertificadoPago> detalleCertificadoPagoCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -111,6 +119,22 @@ public class CertificadoPago implements Serializable {
     @Override
     public String toString() {
         return "ModeloDB.CertificadoPago[ idCertificadoPago=" + idCertificadoPago + " ]";
+    }
+
+    public Foja getFoja() {
+        return foja;
+    }
+
+    public void setFoja(Foja foja) {
+        this.foja = foja;
+    }
+
+    public Collection<DetalleCertificadoPago> getDetalleCertificadoPagoCollection() {
+        return detalleCertificadoPagoCollection;
+    }
+
+    public void setDetalleCertificadoPagoCollection(Collection<DetalleCertificadoPago> detalleCertificadoPagoCollection) {
+        this.detalleCertificadoPagoCollection = detalleCertificadoPagoCollection;
     }
     
 }

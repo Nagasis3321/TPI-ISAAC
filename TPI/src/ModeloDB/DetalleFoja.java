@@ -5,7 +5,9 @@
 package ModeloDB;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -30,6 +33,9 @@ import javax.persistence.Table;
     @NamedQuery(name = "DetalleFoja.findByTotalMes", query = "SELECT d FROM DetalleFoja d WHERE d.totalMes = :totalMes"),
     @NamedQuery(name = "DetalleFoja.findByTotalAcumulado", query = "SELECT d FROM DetalleFoja d WHERE d.totalAcumulado = :totalAcumulado")})
 public class DetalleFoja implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "detalleFoja")
+    private Collection<DetalleCertificadoPago> detalleCertificadoPagoCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -144,6 +150,14 @@ public class DetalleFoja implements Serializable {
     @Override
     public String toString() {
         return "ModeloDB.DetalleFoja[ idDetalleFoja=" + idDetalleFoja + " ]";
+    }
+
+    public Collection<DetalleCertificadoPago> getDetalleCertificadoPagoCollection() {
+        return detalleCertificadoPagoCollection;
+    }
+
+    public void setDetalleCertificadoPagoCollection(Collection<DetalleCertificadoPago> detalleCertificadoPagoCollection) {
+        this.detalleCertificadoPagoCollection = detalleCertificadoPagoCollection;
     }
     
 }
