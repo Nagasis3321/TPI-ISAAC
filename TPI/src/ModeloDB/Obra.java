@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 /**
@@ -59,6 +60,7 @@ public class Obra implements Serializable {
     @ManyToOne(optional = false)
     private Empresa cuitEmpresa;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "obra")
+    @OrderBy("orden ASC")
     private Collection<Item> itemCollection;
 
     public Obra() {
@@ -68,6 +70,13 @@ public class Obra implements Serializable {
         this.idObra = idObra;
     }
 
+    public Obra(String plazo, String fechaInicio, String financiacion, String denominacion) {
+        this.plazo = plazo;
+        this.fechaInicio = fechaInicio;
+        this.financiacion = financiacion;
+        this.denominacion = denominacion;
+    }
+    
     public Obra(Integer idObra, String plazo, String fechaInicio, String financiacion, String denominacion) {
         this.idObra = idObra;
         this.plazo = plazo;

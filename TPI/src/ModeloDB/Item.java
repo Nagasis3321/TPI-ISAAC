@@ -5,6 +5,7 @@
 package ModeloDB;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -66,6 +67,12 @@ public class Item implements Serializable {
     public Item(Integer idItem) {
         this.idItem = idItem;
     }
+    
+    public Item(int orden, String denominacion, int incidencia) {
+        this.incidencia = incidencia;
+        this.orden = orden;
+        this.denominacion = denominacion;
+    }
 
     public Item(Integer idItem, int incidencia, int orden, String denominacion) {
         this.idItem = idItem;
@@ -120,6 +127,11 @@ public class Item implements Serializable {
 
     public void setTipoItem(TipoItem tipoItem) {
         this.tipoItem = tipoItem;
+    }
+    
+    public Costo getUltimoCosto() {
+        ArrayList<Costo> costos = new ArrayList(costoCollection);
+        return (costos.get(costos.size()-1));
     }
 
     public Collection<Costo> getCostoCollection() {

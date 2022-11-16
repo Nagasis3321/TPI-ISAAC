@@ -59,6 +59,12 @@ public class DetalleFoja implements Serializable {
     public DetalleFoja(Integer idDetalleFoja) {
         this.idDetalleFoja = idDetalleFoja;
     }
+    
+    public DetalleFoja(int totalAnterior, int totalMes, int totalAcumulado) {
+        this.totalAnterior = totalAnterior;
+        this.totalMes = totalMes;
+        this.totalAcumulado = totalAcumulado;
+    }
 
     public DetalleFoja(Integer idDetalleFoja, int totalAnterior, int totalMes, int totalAcumulado) {
         this.idDetalleFoja = idDetalleFoja;

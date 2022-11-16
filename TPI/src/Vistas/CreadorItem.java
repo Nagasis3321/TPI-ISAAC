@@ -36,7 +36,7 @@ public class CreadorItem extends javax.swing.JFrame {
         textFieldDenominacion = new java.awt.TextField();
         jPanel3 = new javax.swing.JPanel();
         labelIncidencia = new java.awt.Label();
-        choiceIncidencia = new java.awt.Choice();
+        textFieldIncidencia = new java.awt.TextField();
         jPanel2 = new javax.swing.JPanel();
         labelOrden = new java.awt.Label();
         textFieldOrden = new java.awt.TextField();
@@ -46,15 +46,6 @@ public class CreadorItem extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         labelTipo = new java.awt.Label();
         choiceTipoItem = new java.awt.Choice();
-        jPanel6 = new javax.swing.JPanel();
-        labelPorcentajeFlete = new java.awt.Label();
-        textFieldPorcentajeFlete = new java.awt.TextField();
-        jPanel7 = new javax.swing.JPanel();
-        labelPorcentajeGastos = new java.awt.Label();
-        textFieldPorcentajeGastos = new java.awt.TextField();
-        jPanel8 = new javax.swing.JPanel();
-        labelPorcentajeUtilidad = new java.awt.Label();
-        textFieldPorcentajeUtilidad = new java.awt.TextField();
         buttonVolver = new java.awt.Button();
         buttoTerminar = new java.awt.Button();
         buttonCrear = new java.awt.Button();
@@ -103,11 +94,13 @@ public class CreadorItem extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelDenominacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(labelDenominacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(textFieldDenominacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(textFieldDenominacion, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelIzquierdo.add(jPanel4);
@@ -122,18 +115,18 @@ public class CreadorItem extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(38, 38, 38)
                 .addComponent(labelIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(choiceIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(658, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(textFieldIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 646, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(269, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelIncidencia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(labelIncidencia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(choiceIncidencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(textFieldIncidencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -158,18 +151,20 @@ public class CreadorItem extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(54, 54, 54)
                 .addComponent(labelOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(52, 52, 52)
                 .addComponent(textFieldOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 717, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(198, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelOrden, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(textFieldOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(textFieldOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelOrden, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(15, 15, 15))
         );
 
@@ -194,22 +189,21 @@ public class CreadorItem extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelCostoBase, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(26, 26, 26)
+                .addComponent(labelCostoBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(23, 23, 23)
                 .addComponent(textFieldCosteBase, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE)
-                .addGap(197, 197, 197))
+                .addGap(168, 168, 168))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(textFieldCosteBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelCostoBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(textFieldCosteBase, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addGap(15, 15, 15))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelCostoBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
         );
 
         panelIzquierdo.add(jPanel1);
@@ -225,11 +219,11 @@ public class CreadorItem extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(62, 62, 62)
                 .addComponent(labelTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(choiceTipoItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(723, 723, 723))
+                .addGap(64, 64, 64)
+                .addComponent(choiceTipoItem, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                .addGap(617, 617, 617))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,111 +235,6 @@ public class CreadorItem extends javax.swing.JFrame {
         );
 
         panelIzquierdo.add(jPanel5);
-
-        jPanel6.setBackground(new java.awt.Color(204, 204, 204));
-
-        labelPorcentajeFlete.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        labelPorcentajeFlete.setText("Porcentaje Flete:");
-
-        textFieldPorcentajeFlete.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        textFieldPorcentajeFlete.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        textFieldPorcentajeFlete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldPorcentajeFleteActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelPorcentajeFlete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldPorcentajeFlete, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE)
-                .addGap(146, 146, 146))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelPorcentajeFlete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(textFieldPorcentajeFlete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        panelIzquierdo.add(jPanel6);
-
-        jPanel7.setBackground(new java.awt.Color(204, 204, 204));
-
-        labelPorcentajeGastos.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        labelPorcentajeGastos.setText("Porcentaje Gastos:");
-
-        textFieldPorcentajeGastos.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        textFieldPorcentajeGastos.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        textFieldPorcentajeGastos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldPorcentajeGastosActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelPorcentajeGastos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldPorcentajeGastos, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE)
-                .addGap(124, 124, 124))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelPorcentajeGastos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(textFieldPorcentajeGastos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        panelIzquierdo.add(jPanel7);
-
-        jPanel8.setBackground(new java.awt.Color(204, 204, 204));
-
-        labelPorcentajeUtilidad.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        labelPorcentajeUtilidad.setText("Porcentaje Utilidad:");
-
-        textFieldPorcentajeUtilidad.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        textFieldPorcentajeUtilidad.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        textFieldPorcentajeUtilidad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldPorcentajeUtilidadActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelPorcentajeUtilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addComponent(textFieldPorcentajeUtilidad, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE)
-                .addGap(125, 125, 125))
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelPorcentajeUtilidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(textFieldPorcentajeUtilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        panelIzquierdo.add(jPanel8);
 
         buttonVolver.setLabel("Volver");
         buttonVolver.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -478,7 +367,7 @@ public class CreadorItem extends javax.swing.JFrame {
 
         titVista.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         titVista.setFont(new java.awt.Font("Roboto Black", 2, 75)); // NOI18N
-        titVista.setText("Creador de Empresas");
+        titVista.setText("Creador de Items");
 
         javax.swing.GroupLayout panelSuperiorLayout = new javax.swing.GroupLayout(panelSuperior);
         panelSuperior.setLayout(panelSuperiorLayout);
@@ -561,18 +450,6 @@ public class CreadorItem extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_textFieldOrdenActionPerformed
 
-    private void textFieldPorcentajeFleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldPorcentajeFleteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldPorcentajeFleteActionPerformed
-
-    private void textFieldPorcentajeGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldPorcentajeGastosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldPorcentajeGastosActionPerformed
-
-    private void textFieldPorcentajeUtilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldPorcentajeUtilidadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldPorcentajeUtilidadActionPerformed
-
     private void buttonCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCrearMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonCrearMouseClicked
@@ -645,7 +522,6 @@ public class CreadorItem extends javax.swing.JFrame {
     private java.awt.Button buttoTerminar;
     private java.awt.Button buttonCrear;
     private java.awt.Button buttonVolver;
-    private java.awt.Choice choiceIncidencia;
     private java.awt.Choice choiceTipoItem;
     private javax.swing.JLabel imagen;
     private javax.swing.JPanel jPanel1;
@@ -653,26 +529,18 @@ public class CreadorItem extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private java.awt.Label labelCostoBase;
     private java.awt.Label labelDenominacion;
     private java.awt.Label labelIncidencia;
     private java.awt.Label labelOrden;
-    private java.awt.Label labelPorcentajeFlete;
-    private java.awt.Label labelPorcentajeGastos;
-    private java.awt.Label labelPorcentajeUtilidad;
     private java.awt.Label labelTipo;
     private javax.swing.JPanel panelIzquierdo;
     private javax.swing.JPanel panelLogo;
     private javax.swing.JPanel panelSuperior;
     private java.awt.TextField textFieldCosteBase;
     private java.awt.TextField textFieldDenominacion;
+    private java.awt.TextField textFieldIncidencia;
     private java.awt.TextField textFieldOrden;
-    private java.awt.TextField textFieldPorcentajeFlete;
-    private java.awt.TextField textFieldPorcentajeGastos;
-    private java.awt.TextField textFieldPorcentajeUtilidad;
     private java.awt.Label tigüi;
     private java.awt.Label titVista;
     // End of variables declaration//GEN-END:variables

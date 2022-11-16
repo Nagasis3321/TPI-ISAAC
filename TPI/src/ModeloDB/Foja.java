@@ -56,6 +56,10 @@ public class Foja implements Serializable {
     public Foja(Integer idFoja) {
         this.idFoja = idFoja;
     }
+    
+    public Foja(String f) {
+        this.fechaRealizacion = f;
+    }
 
     public Foja(Integer idFoja, String fechaRealizacion) {
         this.idFoja = idFoja;

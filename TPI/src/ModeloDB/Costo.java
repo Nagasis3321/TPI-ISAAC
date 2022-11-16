@@ -48,8 +48,8 @@ public class Costo implements Serializable {
     public Costo() {
     }
 
-    public Costo(Integer idCosto) {
-        this.idCosto = idCosto;
+    public Costo(Integer valor) {
+        this.valor = valor;
     }
 
     public Costo(Integer idCosto, int valor) {

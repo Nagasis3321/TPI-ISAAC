@@ -8,22 +8,43 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import Vistas.VistasConsultas;
 import javax.swing.SwingUtilities;
+import javax.swing.*;
+import Controlador.*;
+import javax.swing.table.TableModel;
+import ModeloDB.*;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.*;
 /**
  *
  * @author Isaac
  */
 
 public class Inicio extends javax.swing.JFrame {
-
+    private Sistema sys = null;
     /**
      * Creates new form Jframe
      */
      CardLayout vista;
-VistasConsultas vistasConsultas = new VistasConsultas();
-    public Inicio() {
+
+
+    //Constructor para que conozca al controlador
+    public Inicio(Sistema controlador) {
+        sys = controlador;
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
-       vista = (CardLayout) PanelInferiorIzquierdo.getLayout();
+        vista = (CardLayout) display.getLayout();
+        }
+    
+    //Constructor para pruebas (método run())
+    public Inicio() {
+        initComponents();
+        
+        setExtendedState(MAXIMIZED_BOTH);
+        vista = (CardLayout) display.getLayout();
+
     }
     
    
@@ -36,36 +57,103 @@ VistasConsultas vistasConsultas = new VistasConsultas();
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        General = new javax.swing.JPanel();
+        panelGeneral = new javax.swing.JPanel();
         panelSuperior = new javax.swing.JPanel();
         panelLogo = new javax.swing.JPanel();
         imagen = new javax.swing.JLabel();
         tigüi = new java.awt.Label();
-        titVista = new java.awt.Label();
-        Panelinferior = new javax.swing.JPanel();
-        jPanelInferior = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabelImagenConsulta = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
+        display = new javax.swing.JPanel();
+        mensajePrincipal = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        formCrearEmpresa = new javax.swing.JPanel();
+        cuitEmpresa = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        PanelInferiorIzquierdo = new javax.swing.JPanel();
+        razonSocialEmpresa = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        direccionEmpresa = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        rlEmpresa = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        rtEmpresa = new javax.swing.JTextField();
+        botonCancelarCreacionEmpresa = new javax.swing.JButton();
+        botonCargarEmpresa = new javax.swing.JButton();
+        formCrearObra = new javax.swing.JPanel();
+        denominacionObra = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        financiacionObra = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        fechaInicioObra = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        plazoObra = new javax.swing.JTextField();
+        botonCancelarCreacionObra = new javax.swing.JButton();
+        botonCargarItems = new javax.swing.JButton();
+        cuitEmpresaDeObra = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        formCargarItems = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        denominacionItem = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaCargarItemsObra = new javax.swing.JTable();
+        jLabel13 = new javax.swing.JLabel();
+        ordenItem = new javax.swing.JTextField();
+        incidenciaItem = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        tipoItem = new javax.swing.JComboBox<>();
+        jLabel16 = new javax.swing.JLabel();
+        costoBaseItem = new javax.swing.JTextField();
+        botonCancelarItems = new javax.swing.JButton();
+        botonCrearObra = new javax.swing.JButton();
+        botonEliminarItem = new javax.swing.JButton();
+        botonAniadirItem = new javax.swing.JButton();
+        formGenerarFoja = new javax.swing.JPanel();
+        numeroObraFoja = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        botonCancelarFoja = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaItemsFoja = new javax.swing.JTable();
+        botonGrabarAvances = new javax.swing.JButton();
+        botonCargarItemsFoja = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tablaTotalAcumulado = new javax.swing.JTable();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        menuItemGenerarFoja = new javax.swing.JMenuItem();
+        menuItemGenerarCertificadoPago = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        menuItemCrearObra = new javax.swing.JMenuItem();
+        menuItemEliminarObra = new javax.swing.JMenuItem();
+        menuEmpresas = new javax.swing.JMenu();
+        menuItemCrearEmpresa = new javax.swing.JMenuItem();
+        menuItemEliminarEmpresa = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem11 = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        jMenuItem12 = new javax.swing.JMenuItem();
+        jMenu8 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Tigüi");
+        setBounds(new java.awt.Rectangle(0, 0, 1366, 720));
         setExtendedState(1);
 
-        General.setMinimumSize(new java.awt.Dimension(1280, 720));
-        General.setName(""); // NOI18N
-        General.setRequestFocusEnabled(false);
-        General.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panelGeneral.setMinimumSize(new java.awt.Dimension(1280, 720));
+        panelGeneral.setName(""); // NOI18N
+        panelGeneral.setRequestFocusEnabled(false);
+        panelGeneral.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelSuperior.setBackground(new java.awt.Color(69, 44, 44));
         panelSuperior.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         panelLogo.setBackground(new java.awt.Color(69, 44, 44));
-        panelLogo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         panelLogo.setPreferredSize(new java.awt.Dimension(345, 156));
 
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Logo.png"))); // NOI18N
@@ -82,7 +170,7 @@ VistasConsultas vistasConsultas = new VistasConsultas();
                 .addGap(45, 45, 45)
                 .addComponent(imagen)
                 .addGap(39, 39, 39)
-                .addComponent(tigüi, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                .addComponent(tigüi, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
                 .addGap(36, 36, 36))
         );
         panelLogoLayout.setVerticalGroup(
@@ -101,163 +189,771 @@ VistasConsultas vistasConsultas = new VistasConsultas();
 
         imagen.getAccessibleContext().setAccessibleName("");
 
-        titVista.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        titVista.setFont(new java.awt.Font("Roboto Black", 2, 75)); // NOI18N
-        titVista.setText("Menu");
-
         javax.swing.GroupLayout panelSuperiorLayout = new javax.swing.GroupLayout(panelSuperior);
         panelSuperior.setLayout(panelSuperiorLayout);
         panelSuperiorLayout.setHorizontalGroup(
             panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSuperiorLayout.createSequentialGroup()
-                .addComponent(panelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
-                .addGap(347, 347, 347)
-                .addComponent(titVista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(398, 398, 398))
+                .addGap(497, 497, 497)
+                .addComponent(panelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+                .addGap(440, 440, 440))
         );
         panelSuperiorLayout.setVerticalGroup(
             panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-            .addGroup(panelSuperiorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(titVista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
         );
 
-        General.add(panelSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1290, 150));
+        panelGeneral.add(panelSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 150));
 
-        Panelinferior.setBackground(new java.awt.Color(255, 255, 255));
-        Panelinferior.setLayout(new java.awt.GridLayout(1, 2, 5, 0));
+        display.setLayout(new java.awt.CardLayout());
 
-        jPanelInferior.setLayout(new java.awt.GridLayout(1, 2));
+        jLabel6.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
+        jLabel6.setText("Seleccione una opción del menú para comenzar");
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(650, 570));
+        javax.swing.GroupLayout mensajePrincipalLayout = new javax.swing.GroupLayout(mensajePrincipal);
+        mensajePrincipal.setLayout(mensajePrincipalLayout);
+        mensajePrincipalLayout.setHorizontalGroup(
+            mensajePrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mensajePrincipalLayout.createSequentialGroup()
+                .addGap(304, 304, 304)
+                .addComponent(jLabel6)
+                .addContainerGap(306, Short.MAX_VALUE))
+        );
+        mensajePrincipalLayout.setVerticalGroup(
+            mensajePrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mensajePrincipalLayout.createSequentialGroup()
+                .addGap(153, 153, 153)
+                .addComponent(jLabel6)
+                .addContainerGap(370, Short.MAX_VALUE))
+        );
 
-        jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        display.add(mensajePrincipal, "card5");
 
-        jLabelImagenConsulta.setFont(new java.awt.Font("Roboto Black", 0, 56)); // NOI18N
-        jLabelImagenConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/pencil_23 (1).png"))); // NOI18N
-        jLabelImagenConsulta.setText("    Consultas");
-        jLabelImagenConsulta.setToolTipText("");
-        jLabelImagenConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelImagenConsultaMouseClicked(evt);
+        formCrearEmpresa.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        cuitEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cuitEmpresaActionPerformed(evt);
             }
         });
+        formCrearEmpresa.add(cuitEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 219, -1));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelImagenConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelImagenConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
-        );
+        jLabel1.setText("C.U.I.T.:");
+        formCrearEmpresa.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, -1, 24));
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jLabel2.setText("Razón Social:");
+        formCrearEmpresa.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, -1, 24));
 
-        jLabel1.setFont(new java.awt.Font("Roboto Black", 0, 56)); // NOI18N
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crane_36 (1).png"))); // NOI18N
-        jLabel1.setText("     Crear");
+        razonSocialEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                razonSocialEmpresaActionPerformed(evt);
+            }
+        });
+        formCrearEmpresa.add(razonSocialEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 219, -1));
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(142, 142, 142))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
-        );
+        jLabel3.setText("Dirección:");
+        formCrearEmpresa.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, 24));
 
-        jPanel5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        direccionEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                direccionEmpresaActionPerformed(evt);
+            }
+        });
+        formCrearEmpresa.add(direccionEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 219, -1));
 
-        jLabel2.setFont(new java.awt.Font("Roboto Black", 0, 56)); // NOI18N
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/settings (1).png"))); // NOI18N
-        jLabel2.setText("     Modificar");
-        jLabel2.setToolTipText("");
+        jLabel4.setText("Representante Legal:");
+        formCrearEmpresa.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 154, -1, 24));
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
-        );
+        rlEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rlEmpresaActionPerformed(evt);
+            }
+        });
+        formCrearEmpresa.add(rlEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 219, -1));
 
-        PanelInferiorIzquierdo.setLayout(new java.awt.CardLayout());
+        jLabel5.setText("Representante Técnico:");
+        formCrearEmpresa.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, 24));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(PanelInferiorIzquierdo, javax.swing.GroupLayout.PREFERRED_SIZE, 938, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PanelInferiorIzquierdo, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
+        rtEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rtEmpresaActionPerformed(evt);
+            }
+        });
+        formCrearEmpresa.add(rtEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 219, -1));
 
-        jPanelInferior.add(jPanel1);
+        botonCancelarCreacionEmpresa.setText("Cancelar");
+        botonCancelarCreacionEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarCreacionEmpresaActionPerformed(evt);
+            }
+        });
+        formCrearEmpresa.add(botonCancelarCreacionEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, -1, -1));
 
-        Panelinferior.add(jPanelInferior);
+        botonCargarEmpresa.setText("Cargar empresa");
+        botonCargarEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCargarEmpresaActionPerformed(evt);
+            }
+        });
+        formCrearEmpresa.add(botonCargarEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 250, -1, -1));
 
-        General.add(Panelinferior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 1290, 570));
+        display.add(formCrearEmpresa, "card2");
+
+        formCrearObra.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        denominacionObra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                denominacionObraActionPerformed(evt);
+            }
+        });
+        formCrearObra.add(denominacionObra, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 219, -1));
+
+        jLabel7.setText("Denominación:");
+        formCrearObra.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, -1, 24));
+
+        jLabel8.setText("Financiación:");
+        formCrearObra.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, 24));
+
+        financiacionObra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                financiacionObraActionPerformed(evt);
+            }
+        });
+        formCrearObra.add(financiacionObra, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 219, -1));
+
+        jLabel9.setText("Fecha de inicio:");
+        formCrearObra.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, 24));
+
+        fechaInicioObra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fechaInicioObraActionPerformed(evt);
+            }
+        });
+        formCrearObra.add(fechaInicioObra, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 219, -1));
+
+        jLabel10.setText("Plazo:");
+        formCrearObra.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, -1, 24));
+
+        plazoObra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                plazoObraActionPerformed(evt);
+            }
+        });
+        formCrearObra.add(plazoObra, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 219, -1));
+
+        botonCancelarCreacionObra.setText("Cancelar");
+        botonCancelarCreacionObra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarCreacionObraActionPerformed(evt);
+            }
+        });
+        formCrearObra.add(botonCancelarCreacionObra, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 250, -1, -1));
+
+        botonCargarItems.setText("Cargar items");
+        botonCargarItems.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCargarItemsActionPerformed(evt);
+            }
+        });
+        formCrearObra.add(botonCargarItems, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 250, -1, -1));
+
+        cuitEmpresaDeObra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cuitEmpresaDeObraActionPerformed(evt);
+            }
+        });
+        formCrearObra.add(cuitEmpresaDeObra, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 219, -1));
+
+        jLabel11.setText("C.U.I.T. de empresa");
+        formCrearObra.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, 24));
+
+        display.add(formCrearObra, "card3");
+
+        formCargarItems.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel12.setText("Denominación:");
+        formCargarItems.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, -1, 24));
+
+        denominacionItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                denominacionItemActionPerformed(evt);
+            }
+        });
+        formCargarItems.add(denominacionItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 219, -1));
+
+        tablaCargarItemsObra.setAutoCreateRowSorter(true);
+        tablaCargarItemsObra.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Orden", "Denominación", "Incidencia", "Tipo", "Costo"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaCargarItemsObra.getTableHeader().setResizingAllowed(false);
+        tablaCargarItemsObra.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tablaCargarItemsObra);
+        if (tablaCargarItemsObra.getColumnModel().getColumnCount() > 0) {
+            tablaCargarItemsObra.getColumnModel().getColumn(0).setPreferredWidth(30);
+            tablaCargarItemsObra.getColumnModel().getColumn(2).setPreferredWidth(50);
+        }
+
+        formCargarItems.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, -1, -1));
+
+        jLabel13.setText("Orden:");
+        formCargarItems.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, -1, 24));
+
+        ordenItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ordenItemActionPerformed(evt);
+            }
+        });
+        formCargarItems.add(ordenItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 219, -1));
+
+        incidenciaItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                incidenciaItemActionPerformed(evt);
+            }
+        });
+        formCargarItems.add(incidenciaItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 219, -1));
+
+        jLabel14.setText("Tipo de item:");
+        formCargarItems.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, 24));
+
+        jLabel15.setText("Incidencia:");
+        formCargarItems.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, 24));
+
+        tipoItem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vivienda - 5% de impuesto", "Infraestructura - 10% de impuesto" }));
+        formCargarItems.add(tipoItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 220, -1));
+
+        jLabel16.setText("Costo base:");
+        formCargarItems.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, 24));
+
+        costoBaseItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                costoBaseItemActionPerformed(evt);
+            }
+        });
+        formCargarItems.add(costoBaseItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 219, -1));
+
+        botonCancelarItems.setText("Cancelar");
+        botonCancelarItems.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarItemsActionPerformed(evt);
+            }
+        });
+        formCargarItems.add(botonCancelarItems, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, -1));
+
+        botonCrearObra.setText("Crear obra");
+        botonCrearObra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCrearObraActionPerformed(evt);
+            }
+        });
+        formCargarItems.add(botonCrearObra, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, 290, -1));
+
+        botonEliminarItem.setText("Eliminar item");
+        botonEliminarItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEliminarItemActionPerformed(evt);
+            }
+        });
+        formCargarItems.add(botonEliminarItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, -1, -1));
+
+        botonAniadirItem.setText("Añadir item");
+        botonAniadirItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAniadirItemActionPerformed(evt);
+            }
+        });
+        formCargarItems.add(botonAniadirItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 260, -1, -1));
+
+        display.add(formCargarItems, "card4");
+
+        formGenerarFoja.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        numeroObraFoja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numeroObraFojaActionPerformed(evt);
+            }
+        });
+        formGenerarFoja.add(numeroObraFoja, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 219, -1));
+
+        jLabel17.setText("Número de obra:");
+        formGenerarFoja.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, 24));
+
+        botonCancelarFoja.setText("Cancelar");
+        botonCancelarFoja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarFojaActionPerformed(evt);
+            }
+        });
+        formGenerarFoja.add(botonCancelarFoja, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, -1, -1));
+
+        tablaItemsFoja.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Orden", "Denominación", "Incidencia", "Tipo", "Costo", "Total anterior", "Total mes"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaItemsFoja.getTableHeader().setResizingAllowed(false);
+        tablaItemsFoja.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tablaItemsFoja);
+        if (tablaItemsFoja.getColumnModel().getColumnCount() > 0) {
+            tablaItemsFoja.getColumnModel().getColumn(0).setPreferredWidth(30);
+            tablaItemsFoja.getColumnModel().getColumn(2).setPreferredWidth(50);
+            tablaItemsFoja.getColumnModel().getColumn(6).setPreferredWidth(60);
+        }
+
+        formGenerarFoja.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 40, 700, -1));
+
+        botonGrabarAvances.setText("Grabar avances");
+        botonGrabarAvances.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGrabarAvancesActionPerformed(evt);
+            }
+        });
+        formGenerarFoja.add(botonGrabarAvances, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 480, -1, -1));
+
+        botonCargarItemsFoja.setText("Cargar items");
+        botonCargarItemsFoja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCargarItemsFojaActionPerformed(evt);
+            }
+        });
+        formGenerarFoja.add(botonCargarItemsFoja, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, -1, -1));
+
+        tablaTotalAcumulado.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Total acumulado"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaTotalAcumulado.getTableHeader().setResizingAllowed(false);
+        tablaTotalAcumulado.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(tablaTotalAcumulado);
+
+        formGenerarFoja.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 40, 110, -1));
+
+        display.add(formGenerarFoja, "card6");
+
+        panelGeneral.add(display, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 1370, 570));
+
+        jMenu1.setText("Consultar");
+
+        jMenuItem1.setText("Obras terminadas");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem4.setText("Importes de contrato");
+        jMenu1.add(jMenuItem4);
+
+        jMenuItem5.setText("Saldos restantes de obra");
+        jMenu1.add(jMenuItem5);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Generar");
+
+        menuItemGenerarFoja.setText("Foja");
+        menuItemGenerarFoja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemGenerarFojaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuItemGenerarFoja);
+
+        menuItemGenerarCertificadoPago.setText("Certificado de pago");
+        jMenu2.add(menuItemGenerarCertificadoPago);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Modificar BD");
+
+        jMenu4.setText("Obras");
+
+        menuItemCrearObra.setText("Crear");
+        menuItemCrearObra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemCrearObraActionPerformed(evt);
+            }
+        });
+        jMenu4.add(menuItemCrearObra);
+
+        menuItemEliminarObra.setText("Eliminar");
+        jMenu4.add(menuItemEliminarObra);
+
+        jMenu3.add(jMenu4);
+
+        menuEmpresas.setText("Empresas");
+
+        menuItemCrearEmpresa.setText("Crear");
+        menuItemCrearEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemCrearEmpresaActionPerformed(evt);
+            }
+        });
+        menuEmpresas.add(menuItemCrearEmpresa);
+
+        menuItemEliminarEmpresa.setText("Eliminar");
+        menuEmpresas.add(menuItemEliminarEmpresa);
+
+        jMenu3.add(menuEmpresas);
+
+        jMenu6.setText("Fojas");
+
+        jMenuItem11.setText("Eliminar");
+        jMenu6.add(jMenuItem11);
+
+        jMenu3.add(jMenu6);
+
+        jMenu7.setText("Certificados de pago");
+
+        jMenuItem12.setText("Eliminar");
+        jMenu7.add(jMenuItem12);
+
+        jMenu3.add(jMenu7);
+
+        jMenu8.setText("Items");
+
+        jMenuItem6.setText("Añadir costo");
+        jMenu8.add(jMenuItem6);
+
+        jMenu3.add(jMenu8);
+
+        jMenuBar1.add(jMenu3);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(General, javax.swing.GroupLayout.DEFAULT_SIZE, 1422, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(panelGeneral, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1366, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(General, javax.swing.GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(panelGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabelImagenConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelImagenConsultaMouseClicked
-        PanelInferiorIzquierdo.add(vistasConsultas, "alta");
-        vista.show(PanelInferiorIzquierdo, "alta");
-        SwingUtilities.updateComponentTreeUI(this);
-        this.repaint();
-    }//GEN-LAST:event_jLabelImagenConsultaMouseClicked
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void cuitEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuitEmpresaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cuitEmpresaActionPerformed
+
+    private void razonSocialEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_razonSocialEmpresaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_razonSocialEmpresaActionPerformed
+
+    private void direccionEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_direccionEmpresaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_direccionEmpresaActionPerformed
+
+    private void rlEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rlEmpresaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rlEmpresaActionPerformed
+
+    private void rtEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rtEmpresaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rtEmpresaActionPerformed
+
+    private void botonCargarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarEmpresaActionPerformed
+        int c = Integer.parseInt(cuitEmpresa.getText());
+        String rs = razonSocialEmpresa.getText();
+        String d = direccionEmpresa.getText();
+        String rl = rlEmpresa.getText();
+        String rt = rtEmpresa.getText();
+        
+        if(sys.crearEmpresa(c, rs, d, rl, rt)){
+            JOptionPane.showMessageDialog(null, "Empresa creada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Error al crear empresa, intente nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_botonCargarEmpresaActionPerformed
+
+    private void menuItemCrearEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCrearEmpresaActionPerformed
+        display.removeAll();
+        display.add(formCrearEmpresa);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_menuItemCrearEmpresaActionPerformed
+
+    private void menuItemCrearObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCrearObraActionPerformed
+        display.removeAll();
+        display.add(formCrearObra);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_menuItemCrearObraActionPerformed
+
+    private void botonCancelarCreacionEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarCreacionEmpresaActionPerformed
+        display.removeAll();
+        display.add(mensajePrincipal);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_botonCancelarCreacionEmpresaActionPerformed
+
+    private void denominacionObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_denominacionObraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_denominacionObraActionPerformed
+
+    private void financiacionObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_financiacionObraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_financiacionObraActionPerformed
+
+    private void fechaInicioObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaInicioObraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fechaInicioObraActionPerformed
+
+    private void plazoObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plazoObraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_plazoObraActionPerformed
+
+    private void botonCancelarCreacionObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarCreacionObraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonCancelarCreacionObraActionPerformed
+
+    private void botonCargarItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarItemsActionPerformed
+        display.removeAll();
+        display.add(formCargarItems);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_botonCargarItemsActionPerformed
+
+    private void cuitEmpresaDeObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuitEmpresaDeObraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cuitEmpresaDeObraActionPerformed
+
+    private void denominacionItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_denominacionItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_denominacionItemActionPerformed
+
+    private void ordenItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordenItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ordenItemActionPerformed
+
+    private void incidenciaItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incidenciaItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_incidenciaItemActionPerformed
+
+    private void costoBaseItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_costoBaseItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_costoBaseItemActionPerformed
+
+    private void botonCancelarItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarItemsActionPerformed
+        ArrayList<JTextField> campos = new ArrayList();
+        for(Object c : formCargarItems.getComponents()){
+            if(c.getClass().getSimpleName().toString().equals("JTextField")){
+                campos.add((JTextField) c);
+            }
+            
+            for(JTextField i : campos){
+                i.setText("");
+            }
+        }
+        tipoItem.setSelectedIndex(0);
+        display.removeAll();
+        display.add(formCrearObra);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_botonCancelarItemsActionPerformed
+
+    private void botonCrearObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCrearObraActionPerformed
+        boolean resultadoCreacion = true;
+        
+        int c = Integer.parseInt(cuitEmpresaDeObra.getText());
+        String d = denominacionObra.getText();
+        String f = financiacionObra.getText();
+        String fi = fechaInicioObra.getText();
+        String p = plazoObra.getText();
+        
+        Obra obra = sys.crearObra(c, d, f, fi, p);
+        
+        if(obra == null){
+            resultadoCreacion = false;
+        }
+        
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tablaCargarItemsObra.getModel();
+        int orden = 0;
+        int incidencia = 0;
+        int tipo = 0;
+        int costoBase = 0;
+        String denominacion = null;
+        for(int i = 0; i < model.getRowCount(); i++){
+            orden = Integer.parseInt(model.getValueAt(i, 0).toString());
+            denominacion = (String) model.getValueAt(i, 1); 
+            incidencia = Integer.parseInt(model.getValueAt(i, 2).toString());
+            if(("Vivienda").equals(model.getValueAt(i, 3).toString())){
+                tipo = 1;
+            }
+            else if (("Infraestructura").equals(model.getValueAt(i, 3).toString())){
+                tipo = 2;
+            }
+
+            costoBase = Integer.parseInt(model.getValueAt(i, 4).toString());  
+            
+            if(sys.crearItem(obra, orden, denominacion, incidencia, tipo, costoBase) == null){
+                resultadoCreacion = false;
+                break;
+            }
+        }
+        
+        if(resultadoCreacion){
+            JOptionPane.showMessageDialog(null, "Obra creada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Error al crear obra, intente nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_botonCrearObraActionPerformed
+
+    private void botonAniadirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAniadirItemActionPerformed
+        int o = Integer.parseInt(ordenItem.getText());
+        String d = denominacionItem.getText();
+        int i = Integer.parseInt(incidenciaItem.getText());
+        String t;
+        if(tipoItem.getSelectedIndex() == 0){
+            t = "Vivienda";
+        }
+        else {
+            t = "Infraestructura";
+        }
+        
+        int c = Integer.parseInt(costoBaseItem.getText());
+        
+        Object[] row = { o, d, i, t, c };
+        
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tablaCargarItemsObra.getModel();
+
+        model.addRow(row);
+    }//GEN-LAST:event_botonAniadirItemActionPerformed
+
+    private void botonEliminarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarItemActionPerformed
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tablaCargarItemsObra.getModel();
+        int row = tablaCargarItemsObra.getSelectedRow();
+        model.removeRow(row);
+    }//GEN-LAST:event_botonEliminarItemActionPerformed
+
+    private void numeroObraFojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroObraFojaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numeroObraFojaActionPerformed
+
+    private void botonGrabarAvancesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGrabarAvancesActionPerformed
+        Object[][] tuplas = new Object[tablaItemsFoja.getModel().getRowCount()][tablaItemsFoja.getModel().getColumnCount()];
+        System.out.println("Alto tuplas: " + tablaItemsFoja.getModel().getRowCount());
+        System.out.println("Ancho tuplas: " + tablaItemsFoja.getModel().getColumnCount());
+        
+        for(int i = 0; i < tablaItemsFoja.getModel().getRowCount(); i++){
+            for(int j = 0; j < tablaItemsFoja.getModel().getColumnCount(); j++){
+                tuplas[i][j] = tablaItemsFoja.getValueAt(i, j);
+            }
+        }
+        
+        int nroObra = Integer.parseInt(numeroObraFoja.getText());
+        
+        int[] totalesAcumulados = new int[tablaTotalAcumulado.getModel().getRowCount()];
+        for(int k = 0; k < tablaTotalAcumulado.getModel().getRowCount(); k++){
+            totalesAcumulados[k] = (int) tablaTotalAcumulado.getValueAt(k, 0);
+        }
+        
+        Foja resultado = sys.crearFoja(nroObra, tuplas, totalesAcumulados);
+        
+        if(resultado != null){
+            JOptionPane.showMessageDialog(null, "Foja creada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Error al crear foja, intente nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_botonGrabarAvancesActionPerformed
+
+    private void botonCancelarFojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarFojaActionPerformed
+        display.removeAll();
+        display.add(formCrearObra);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_botonCancelarFojaActionPerformed
+
+    private void botonCargarItemsFojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarItemsFojaActionPerformed
+        int numObra = Integer.parseInt(numeroObraFoja.getText());
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tablaItemsFoja.getModel();
+        javax.swing.table.DefaultTableModel modelTotalAcumulado = (javax.swing.table.DefaultTableModel) tablaTotalAcumulado.getModel();
+        
+        Object[][] tuplas = sys.obtenerItemsObra(numObra);
+        
+        Object[] columnas = {"Orden", "Denominación", "Incidencia", "Tipo", "Costo", "Total anterior", "Total mes"};
+        TableModel modeloConItems = new DefaultTableModel(tuplas, columnas);
+        tablaItemsFoja.setModel(modeloConItems);
+        
+        Object[] colTotAc = {"Total acumulado"};
+        
+        TableModel modeloTotalAcumulado = new DefaultTableModel(colTotAc, tuplas.length);
+        tablaTotalAcumulado.setModel(modeloTotalAcumulado);
+          
+        //Detector de cambio en tabla de foja:
+        tablaItemsFoja.getModel().addTableModelListener(
+            new TableModelListener() {
+                @Override
+                public void tableChanged(TableModelEvent e) {
+                    int fila = e.getFirstRow();
+                    int col = e.getColumn();
+                    
+                    sumarTotalMes(fila, col);
+                }
+            }
+        );
+    }//GEN-LAST:event_botonCargarItemsFojaActionPerformed
+    
+    private void sumarTotalMes(int fila, int col){
+        int totalMes = Integer.parseInt(tablaItemsFoja.getValueAt(fila, col).toString());
+        int totalAnterior = Integer.parseInt(tablaItemsFoja.getValueAt(fila, 5).toString());
+        int totalAcumulado = totalAnterior + totalMes;
+
+        tablaTotalAcumulado.setValueAt(totalAcumulado, fila, 0);
+    }
+    
+    private void menuItemGenerarFojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGenerarFojaActionPerformed
+        display.removeAll();
+        display.add(formGenerarFoja);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_menuItemGenerarFojaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -310,21 +1006,87 @@ VistasConsultas vistasConsultas = new VistasConsultas();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel General;
-    private javax.swing.JPanel PanelInferiorIzquierdo;
-    private javax.swing.JPanel Panelinferior;
+    private javax.swing.JButton botonAniadirItem;
+    private javax.swing.JButton botonCancelarCreacionEmpresa;
+    private javax.swing.JButton botonCancelarCreacionObra;
+    private javax.swing.JButton botonCancelarFoja;
+    private javax.swing.JButton botonCancelarItems;
+    private javax.swing.JButton botonCargarEmpresa;
+    private javax.swing.JButton botonCargarItems;
+    private javax.swing.JButton botonCargarItemsFoja;
+    private javax.swing.JButton botonCrearObra;
+    private javax.swing.JButton botonEliminarItem;
+    private javax.swing.JButton botonGrabarAvances;
+    private javax.swing.JTextField costoBaseItem;
+    private javax.swing.JTextField cuitEmpresa;
+    private javax.swing.JTextField cuitEmpresaDeObra;
+    private javax.swing.JTextField denominacionItem;
+    private javax.swing.JTextField denominacionObra;
+    private javax.swing.JTextField direccionEmpresa;
+    private javax.swing.JPanel display;
+    private javax.swing.JTextField fechaInicioObra;
+    private javax.swing.JTextField financiacionObra;
+    private javax.swing.JPanel formCargarItems;
+    private javax.swing.JPanel formCrearEmpresa;
+    private javax.swing.JPanel formCrearObra;
+    private javax.swing.JPanel formGenerarFoja;
     private javax.swing.JLabel imagen;
+    private javax.swing.JTextField incidenciaItem;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabelImagenConsulta;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanelInferior;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JPanel mensajePrincipal;
+    private javax.swing.JMenu menuEmpresas;
+    private javax.swing.JMenuItem menuItemCrearEmpresa;
+    private javax.swing.JMenuItem menuItemCrearObra;
+    private javax.swing.JMenuItem menuItemEliminarEmpresa;
+    private javax.swing.JMenuItem menuItemEliminarObra;
+    private javax.swing.JMenuItem menuItemGenerarCertificadoPago;
+    private javax.swing.JMenuItem menuItemGenerarFoja;
+    private javax.swing.JTextField numeroObraFoja;
+    private javax.swing.JTextField ordenItem;
+    private javax.swing.JPanel panelGeneral;
     private javax.swing.JPanel panelLogo;
     private javax.swing.JPanel panelSuperior;
+    private javax.swing.JTextField plazoObra;
+    private javax.swing.JTextField razonSocialEmpresa;
+    private javax.swing.JTextField rlEmpresa;
+    private javax.swing.JTextField rtEmpresa;
+    private javax.swing.JTable tablaCargarItemsObra;
+    private javax.swing.JTable tablaItemsFoja;
+    private javax.swing.JTable tablaTotalAcumulado;
     private java.awt.Label tigüi;
-    private java.awt.Label titVista;
+    private javax.swing.JComboBox<String> tipoItem;
     // End of variables declaration//GEN-END:variables
 }

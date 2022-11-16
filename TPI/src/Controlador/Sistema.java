@@ -6,34 +6,163 @@ package Controlador;
 import ModeloDB.*;
 import ControladorClasesJPA.*;
 import ControladorClasesJPA.exceptions.*;
+import Vistas.*;
 import java.util.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import javax.persistence.*;
 /**
  *
  * @author matia
  */
 public class Sistema {
     
-    /*private ArrayList<Obra> obras = new ArrayList();
-    private ArrayList<Foja> fojas = new ArrayList();
-    private ArrayList<DetalleFoja> detallesFojas = new ArrayList();
-    private ArrayList<Costo> costos = new ArrayList();*/
-    
+    private Inicio vista = null;
 
     /**
      * @param args the command line arguments
      */
     public Sistema(){           //Constructor
+        
+        
+        Inicio vista = new Inicio(this);
+        vista.setVisible(true);
+        
+        /*Creación de tipos de item en BD (Descomentar para crearlos denuevo):
+        -------------------------------------------------------------------
+        TipoItem vivienda = new TipoItem("Vivienda", 5);
+        TipoItem infraestructura = new TipoItem("Infraestructura", 10);
+        TipoItemJpaController tipoCtrl = new TipoItemJpaController();
+        tipoCtrl.create(vivienda);
+        tipoCtrl.create(infraestructura);
+        -------------------------------------------------------------------
+        */
+        
+    }
+    
+    public Foja crearFoja(int numeroObra, Object[][] tuplas, int[] totalesAcumulados){
+        ObraJpaController obraCtrl = new ObraJpaController();
+        Obra obra = obraCtrl.findObra(numeroObra);
+        ArrayList<Item> itemsObra = new ArrayList(obra.getItemCollection());
+        ArrayList<Foja> fojasObra = new ArrayList(obra.getFojaCollection());
+        
+        Foja nuevaFoja = new Foja();
+        nuevaFoja.setFechaRealizacion(String.valueOf(java.time.LocalDate.now()));
+        nuevaFoja.setObra(obra);
+        FojaJpaController fojaCtrl = new FojaJpaController();
+        try{
+            fojaCtrl.create(nuevaFoja);
+        }
+        catch(Exception e){
+            System.err.println("Excepción: " + e.getMessage());
+            return null;
+        }
+        
+        for(int i = 0; i < tuplas.length; i++){
+            int j = 0;
+            
+            System.out.println("j = " + j + "; i = " + i);
+            System.out.println("valor en tuplas 0 = " + (int) tuplas[i][0]);
+            
+            while(itemsObra.get(j).getOrden() != (int) tuplas[i][0]){
+                j++;
+            }
+
+            DetalleFoja nuevoDetalle = crearDetalle(Integer.parseInt(tuplas[i][5].toString()), Integer.parseInt(tuplas[i][6].toString()), totalesAcumulados[i], itemsObra.get(j), nuevaFoja);
+            if(nuevoDetalle == null){
+                return null;
+            }
+        }        
+        
+        return nuevaFoja;
+    }
+    
+    public DetalleFoja crearDetalle(int totalAnterior, int totalMes, int totalAcumulado, Item item, Foja foja){
+        DetalleFojaJpaController detCtrl = new DetalleFojaJpaController();
+        DetalleFoja detalleFoja = new DetalleFoja(totalAnterior, totalMes, totalAcumulado);
+        detalleFoja.setItem(item);
+        detalleFoja.setFoja(foja);
+        
+        try{
+            detCtrl.create(detalleFoja);
+        }
+        catch(Exception e){
+            System.err.println("Excepción: " + e.getMessage());
+            return null;
+        }
+        
+        return detalleFoja;
+    }
+    
+    public Item crearItem(Obra obra, int orden, String denominacion, int incidencia, int tipo, int costo){
+        ItemJpaController itemCtrl = new ItemJpaController();
+        Item item = new Item(orden, denominacion, incidencia);
+        
+        TipoItemJpaController tipoCtrl = new TipoItemJpaController();
+        TipoItem tipoItem = tipoCtrl.findTipoItem(tipo);
+        
+        item.setTipoItem(tipoItem);
+        item.setObra(obra);
+
+        try{
+            itemCtrl.create(item);
+        }
+        catch(Exception e){
+            System.err.println("Excepción: " + e.getMessage());
+            return null;
+        }
+        
+        crearCosto(item, costo);
+ 
+        return item;
+    }
+    
+    public Costo crearCosto(Item item, int valor){
+        CostoJpaController costoCtrl = new CostoJpaController();
+        Costo costo = new Costo(valor);
+        costo.setItem(item);
+        
+        try{
+            costoCtrl.create(costo);
+        }
+        catch(Exception e){
+            System.err.println("Excepción: " + e.getMessage());
+            return null;
+        }
+        
+        return costo;
+        
+        
+        //Falta añadir la parte de asignar el finVigencia del costo anterior.
+    }
+    
+    public Obra crearObra(int c, String d, String f, String fi, String p){
+        ObraJpaController obraCtrl = new ObraJpaController();
+        Obra obra = new Obra(p, fi, f, d);
+        EmpresaJpaController empCtrl = new EmpresaJpaController();
+        Empresa empresa = empCtrl.findEmpresa(c);
+        obra.setCuitEmpresa(empresa);
+        try{
+            obraCtrl.create(obra);
+        }
+        catch(Exception e){
+            System.err.println("Excepción: " + e.getMessage());
+            return null;
+        }
+        return obra;
+    }
+    
+    public boolean crearEmpresa(int cuit, String razonSocial, String direccion, String rl, String rt){
         EmpresaJpaController empresaCtrl = new EmpresaJpaController();
-        Empresa empresa = new Empresa(43214342, "Californa", "Santa Catalina", "Anibal", "Edgardo");
+        Empresa empresa = new Empresa(cuit, razonSocial, direccion, rl, rt);
         try{
             empresaCtrl.create(empresa);
         }
         catch(Exception e){
             System.err.println("Excepción: " + e.getMessage());
+            return false;
         }
-        
+        return true;
     }
     
     public void informarObrasCompletas(){
@@ -76,7 +205,7 @@ public class Sistema {
         }
         System.out.println("Total a pagar en contrato: " + importeTotal);
     }
-    
+    /*
     void generarFoja(Obra obra){
         Scanner escaner = new Scanner(System.in);
         ArrayList<Foja> fojasDeObra = new ArrayList(obra.getFojaCollection());
@@ -84,25 +213,32 @@ public class Sistema {
         int totalAnterior;
         int totalMes;
         int totalAcumulado;
-        if(fojasDeObra.size() != 0){
+        
+        Foja nuevaFoja = new Foja(String.valueOf(java.time.LocalDate.now()));
+        
+        if(!fojasDeObra.isEmpty()){
             Foja ultimaFoja = fojasDeObra.get(fojasDeObra.size()-1);
             int iteracion = 0;
             ArrayList<Item> itemsObra = new ArrayList(obra.getItemCollection());
             for(Item item : itemsObra){
                 ArrayList<DetalleFoja> detallesUltimaFoja = new ArrayList(ultimaFoja.getDetalleFojaCollection());
-                totalAnterior = detallesUltimaFoja.get(iteracion).getTotalMes(); //Se obtiene el totalMes del item en el mismo orden, de la foja anterior.                               
+                totalAnterior = detallesUltimaFoja.get(iteracion).getTotalMes(); //Se obtiene el totalMes del item en el mismo orden, de la foja anterior. 
+                
+                //----Acá hay que hacer una vista para ingresar el avance de cada item--------
                 System.out.println("Ingrese avance para el item: " + itemsObra.get(iteracion).getDenominacion());
                 totalMes = escaner.nextInt();
                 escaner.nextLine();
+                
                 totalAcumulado = totalAnterior + totalMes;
 
-                DetalleFoja nuevoDetalle = new DetalleFoja(iteracion+1, totalAnterior, totalMes, totalAcumulado);
+                DetalleFoja nuevoDetalle = new DetalleFoja(totalAnterior, totalMes, totalAcumulado);
                 nuevoDetalle.setItem(item);
+                nuevoDetalle.setFoja(nuevaFoja);
                 detallesNuevaFoja.add(nuevoDetalle);
                 iteracion++;
             }
 
-            Foja nuevaFoja = new Foja(ultimaFoja.getIdFoja()+1, String.valueOf(java.time.LocalDate.now()));
+            
             nuevaFoja.setObra(obra);
             nuevaFoja.setDetalleFojaCollection(detallesNuevaFoja);
             for(DetalleFoja detalle : detallesNuevaFoja){
@@ -137,6 +273,60 @@ public class Sistema {
             
             obra.getFojaCollection().add(nuevaFoja);
         }
+    }
+    */
+    public Object[][] obtenerItemsObra(int idObra){
+        ObraJpaController obraCtrl = new ObraJpaController();
+        Obra obra = obraCtrl.findObra(idObra);
+        ArrayList<Foja> fojasObra = new ArrayList(obra.getFojaCollection());
+        Foja ultimaFoja;
+        Item itemDetalle;
+        int ord, inc, tipo, cos, ta;
+        int fila = 0;
+        String den;
+        Object[][] tuplas = new Object[obra.getItemCollection().size()][7];        
+        
+        if(!fojasObra.isEmpty()){
+            ultimaFoja = fojasObra.get(fojasObra.size() - 1);
+            for(DetalleFoja d : ultimaFoja.getDetalleFojaCollection()){
+                itemDetalle = d.getItem();
+                ord = itemDetalle.getOrden();
+                den = itemDetalle.getDenominacion();
+                inc = itemDetalle.getIncidencia();
+                tipo = itemDetalle.getTipoItem().getIdTipoItem();
+                cos = itemDetalle.getUltimoCosto().getValor();
+                ta = d.getTotalAnterior();
+
+                tuplas[fila][0] = ord;
+                tuplas[fila][1] = den;
+                tuplas[fila][2] = inc;
+                tuplas[fila][3] = tipo;
+                tuplas[fila][4] = cos;
+                tuplas[fila][5] = ta;
+                
+                fila++;
+            }
+        }
+        else{
+            for(Item i : obra.getItemCollection()){
+                ord = i.getOrden();
+                den = i.getDenominacion();
+                inc = i.getIncidencia();
+                tipo = i.getTipoItem().getIdTipoItem();
+                cos = i.getUltimoCosto().getValor();
+                                
+                tuplas[fila][0] = ord;
+                tuplas[fila][1] = den;
+                tuplas[fila][2] = inc;
+                tuplas[fila][3] = tipo;
+                tuplas[fila][4] = cos;
+                tuplas[fila][5] = 0;
+                
+                fila++;
+            }
+        }
+        
+        return tuplas;
     }
     
     void generarCertificadoPago(int idFoja, int idObra){
