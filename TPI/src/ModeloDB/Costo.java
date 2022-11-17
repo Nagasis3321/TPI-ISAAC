@@ -32,9 +32,6 @@ import javax.persistence.Table;
     @NamedQuery(name = "Costo.findByValor", query = "SELECT c FROM Costo c WHERE c.valor = :valor")})
 public class Costo implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "costo")
-    private Collection<DetalleCertificadoPago> detalleCertificadoPagoCollection;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,18 +41,17 @@ public class Costo implements Serializable {
     @Basic(optional = false)
     @Column(name = "valor")
     private int valor;
-    @JoinColumn(name = "certificadoFinVigencia", referencedColumnName = "idCertificadoPago")
-    @ManyToOne
-    private CertificadoPago certificadoFinVigencia;
     @JoinColumn(name = "item", referencedColumnName = "idItem")
     @ManyToOne(optional = false)
     private Item item;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "costo")
+    private Collection<DetalleCertificadoPago> detalleCertificadoPagoCollection;
 
     public Costo() {
     }
 
-    public Costo(Integer valor) {
-        this.valor = valor;
+    public Costo(Integer idCosto) {
+        this.idCosto = idCosto;
     }
 
     public Costo(Integer idCosto, int valor) {
@@ -79,14 +75,6 @@ public class Costo implements Serializable {
         this.valor = valor;
     }
 
-    public CertificadoPago getCertificadoFinVigencia() {
-        return certificadoFinVigencia;
-    }
-
-    public void setCertificadoFinVigencia(CertificadoPago certificadoFinVigencia) {
-        this.certificadoFinVigencia = certificadoFinVigencia;
-    }
-
     public Item getItem() {
         return item;
     }
@@ -95,6 +83,14 @@ public class Costo implements Serializable {
         this.item = item;
     }
 
+    public Collection<DetalleCertificadoPago> getDetalleCertificadoPagoCollection() {
+        return detalleCertificadoPagoCollection;
+    }
+
+    public void setDetalleCertificadoPagoCollection(Collection<DetalleCertificadoPago> detalleCertificadoPagoCollection) {
+        this.detalleCertificadoPagoCollection = detalleCertificadoPagoCollection;
+    }
+ 
     @Override
     public int hashCode() {
         int hash = 0;
@@ -118,14 +114,6 @@ public class Costo implements Serializable {
     @Override
     public String toString() {
         return "ModeloDB.Costo[ idCosto=" + idCosto + " ]";
-    }
-
-    public Collection<DetalleCertificadoPago> getDetalleCertificadoPagoCollection() {
-        return detalleCertificadoPagoCollection;
-    }
-
-    public void setDetalleCertificadoPagoCollection(Collection<DetalleCertificadoPago> detalleCertificadoPagoCollection) {
-        this.detalleCertificadoPagoCollection = detalleCertificadoPagoCollection;
     }
     
 }

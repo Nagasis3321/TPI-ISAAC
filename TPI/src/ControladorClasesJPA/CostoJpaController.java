@@ -4,15 +4,18 @@
  */
 package ControladorClasesJPA;
 
+import ControladorClasesJPA.exceptions.IllegalOrphanException;
 import ControladorClasesJPA.exceptions.NonexistentEntityException;
+import ModeloDB.Costo;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import ModeloDB.CertificadoPago;
-import ModeloDB.Costo;
 import ModeloDB.Item;
+import ModeloDB.DetalleCertificadoPago;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -34,28 +37,37 @@ public class CostoJpaController implements Serializable {
     }
 
     public void create(Costo costo) {
+        if (costo.getDetalleCertificadoPagoCollection() == null) {
+            costo.setDetalleCertificadoPagoCollection(new ArrayList<DetalleCertificadoPago>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            CertificadoPago certificadoFinVigencia = costo.getCertificadoFinVigencia();
-            if (certificadoFinVigencia != null) {
-                certificadoFinVigencia = em.getReference(certificadoFinVigencia.getClass(), certificadoFinVigencia.getIdCertificadoPago());
-                costo.setCertificadoFinVigencia(certificadoFinVigencia);
-            }
             Item item = costo.getItem();
             if (item != null) {
                 item = em.getReference(item.getClass(), item.getIdItem());
                 costo.setItem(item);
             }
-            em.persist(costo);
-            if (certificadoFinVigencia != null) {
-                certificadoFinVigencia.getCostoCollection().add(costo);
-                certificadoFinVigencia = em.merge(certificadoFinVigencia);
+            Collection<DetalleCertificadoPago> attachedDetalleCertificadoPagoCollection = new ArrayList<DetalleCertificadoPago>();
+            for (DetalleCertificadoPago detalleCertificadoPagoCollectionDetalleCertificadoPagoToAttach : costo.getDetalleCertificadoPagoCollection()) {
+                detalleCertificadoPagoCollectionDetalleCertificadoPagoToAttach = em.getReference(detalleCertificadoPagoCollectionDetalleCertificadoPagoToAttach.getClass(), detalleCertificadoPagoCollectionDetalleCertificadoPagoToAttach.getIdDetalleCertificadoPago());
+                attachedDetalleCertificadoPagoCollection.add(detalleCertificadoPagoCollectionDetalleCertificadoPagoToAttach);
             }
+            costo.setDetalleCertificadoPagoCollection(attachedDetalleCertificadoPagoCollection);
+            em.persist(costo);
             if (item != null) {
                 item.getCostoCollection().add(costo);
                 item = em.merge(item);
+            }
+            for (DetalleCertificadoPago detalleCertificadoPagoCollectionDetalleCertificadoPago : costo.getDetalleCertificadoPagoCollection()) {
+                Costo oldCostoOfDetalleCertificadoPagoCollectionDetalleCertificadoPago = detalleCertificadoPagoCollectionDetalleCertificadoPago.getCosto();
+                detalleCertificadoPagoCollectionDetalleCertificadoPago.setCosto(costo);
+                detalleCertificadoPagoCollectionDetalleCertificadoPago = em.merge(detalleCertificadoPagoCollectionDetalleCertificadoPago);
+                if (oldCostoOfDetalleCertificadoPagoCollectionDetalleCertificadoPago != null) {
+                    oldCostoOfDetalleCertificadoPagoCollectionDetalleCertificadoPago.getDetalleCertificadoPagoCollection().remove(detalleCertificadoPagoCollectionDetalleCertificadoPago);
+                    oldCostoOfDetalleCertificadoPagoCollectionDetalleCertificadoPago = em.merge(oldCostoOfDetalleCertificadoPagoCollectionDetalleCertificadoPago);
+                }
             }
             em.getTransaction().commit();
         } finally {
@@ -65,33 +77,40 @@ public class CostoJpaController implements Serializable {
         }
     }
 
-    public void edit(Costo costo) throws NonexistentEntityException, Exception {
+    public void edit(Costo costo) throws IllegalOrphanException, NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             Costo persistentCosto = em.find(Costo.class, costo.getIdCosto());
-            CertificadoPago certificadoFinVigenciaOld = persistentCosto.getCertificadoFinVigencia();
-            CertificadoPago certificadoFinVigenciaNew = costo.getCertificadoFinVigencia();
             Item itemOld = persistentCosto.getItem();
             Item itemNew = costo.getItem();
-            if (certificadoFinVigenciaNew != null) {
-                certificadoFinVigenciaNew = em.getReference(certificadoFinVigenciaNew.getClass(), certificadoFinVigenciaNew.getIdCertificadoPago());
-                costo.setCertificadoFinVigencia(certificadoFinVigenciaNew);
+            Collection<DetalleCertificadoPago> detalleCertificadoPagoCollectionOld = persistentCosto.getDetalleCertificadoPagoCollection();
+            Collection<DetalleCertificadoPago> detalleCertificadoPagoCollectionNew = costo.getDetalleCertificadoPagoCollection();
+            List<String> illegalOrphanMessages = null;
+            for (DetalleCertificadoPago detalleCertificadoPagoCollectionOldDetalleCertificadoPago : detalleCertificadoPagoCollectionOld) {
+                if (!detalleCertificadoPagoCollectionNew.contains(detalleCertificadoPagoCollectionOldDetalleCertificadoPago)) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("You must retain DetalleCertificadoPago " + detalleCertificadoPagoCollectionOldDetalleCertificadoPago + " since its costo field is not nullable.");
+                }
+            }
+            if (illegalOrphanMessages != null) {
+                throw new IllegalOrphanException(illegalOrphanMessages);
             }
             if (itemNew != null) {
                 itemNew = em.getReference(itemNew.getClass(), itemNew.getIdItem());
                 costo.setItem(itemNew);
             }
+            Collection<DetalleCertificadoPago> attachedDetalleCertificadoPagoCollectionNew = new ArrayList<DetalleCertificadoPago>();
+            for (DetalleCertificadoPago detalleCertificadoPagoCollectionNewDetalleCertificadoPagoToAttach : detalleCertificadoPagoCollectionNew) {
+                detalleCertificadoPagoCollectionNewDetalleCertificadoPagoToAttach = em.getReference(detalleCertificadoPagoCollectionNewDetalleCertificadoPagoToAttach.getClass(), detalleCertificadoPagoCollectionNewDetalleCertificadoPagoToAttach.getIdDetalleCertificadoPago());
+                attachedDetalleCertificadoPagoCollectionNew.add(detalleCertificadoPagoCollectionNewDetalleCertificadoPagoToAttach);
+            }
+            detalleCertificadoPagoCollectionNew = attachedDetalleCertificadoPagoCollectionNew;
+            costo.setDetalleCertificadoPagoCollection(detalleCertificadoPagoCollectionNew);
             costo = em.merge(costo);
-            if (certificadoFinVigenciaOld != null && !certificadoFinVigenciaOld.equals(certificadoFinVigenciaNew)) {
-                certificadoFinVigenciaOld.getCostoCollection().remove(costo);
-                certificadoFinVigenciaOld = em.merge(certificadoFinVigenciaOld);
-            }
-            if (certificadoFinVigenciaNew != null && !certificadoFinVigenciaNew.equals(certificadoFinVigenciaOld)) {
-                certificadoFinVigenciaNew.getCostoCollection().add(costo);
-                certificadoFinVigenciaNew = em.merge(certificadoFinVigenciaNew);
-            }
             if (itemOld != null && !itemOld.equals(itemNew)) {
                 itemOld.getCostoCollection().remove(costo);
                 itemOld = em.merge(itemOld);
@@ -99,6 +118,17 @@ public class CostoJpaController implements Serializable {
             if (itemNew != null && !itemNew.equals(itemOld)) {
                 itemNew.getCostoCollection().add(costo);
                 itemNew = em.merge(itemNew);
+            }
+            for (DetalleCertificadoPago detalleCertificadoPagoCollectionNewDetalleCertificadoPago : detalleCertificadoPagoCollectionNew) {
+                if (!detalleCertificadoPagoCollectionOld.contains(detalleCertificadoPagoCollectionNewDetalleCertificadoPago)) {
+                    Costo oldCostoOfDetalleCertificadoPagoCollectionNewDetalleCertificadoPago = detalleCertificadoPagoCollectionNewDetalleCertificadoPago.getCosto();
+                    detalleCertificadoPagoCollectionNewDetalleCertificadoPago.setCosto(costo);
+                    detalleCertificadoPagoCollectionNewDetalleCertificadoPago = em.merge(detalleCertificadoPagoCollectionNewDetalleCertificadoPago);
+                    if (oldCostoOfDetalleCertificadoPagoCollectionNewDetalleCertificadoPago != null && !oldCostoOfDetalleCertificadoPagoCollectionNewDetalleCertificadoPago.equals(costo)) {
+                        oldCostoOfDetalleCertificadoPagoCollectionNewDetalleCertificadoPago.getDetalleCertificadoPagoCollection().remove(detalleCertificadoPagoCollectionNewDetalleCertificadoPago);
+                        oldCostoOfDetalleCertificadoPagoCollectionNewDetalleCertificadoPago = em.merge(oldCostoOfDetalleCertificadoPagoCollectionNewDetalleCertificadoPago);
+                    }
+                }
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -117,7 +147,7 @@ public class CostoJpaController implements Serializable {
         }
     }
 
-    public void destroy(Integer id) throws NonexistentEntityException {
+    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -129,10 +159,16 @@ public class CostoJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The costo with id " + id + " no longer exists.", enfe);
             }
-            CertificadoPago certificadoFinVigencia = costo.getCertificadoFinVigencia();
-            if (certificadoFinVigencia != null) {
-                certificadoFinVigencia.getCostoCollection().remove(costo);
-                certificadoFinVigencia = em.merge(certificadoFinVigencia);
+            List<String> illegalOrphanMessages = null;
+            Collection<DetalleCertificadoPago> detalleCertificadoPagoCollectionOrphanCheck = costo.getDetalleCertificadoPagoCollection();
+            for (DetalleCertificadoPago detalleCertificadoPagoCollectionOrphanCheckDetalleCertificadoPago : detalleCertificadoPagoCollectionOrphanCheck) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("This Costo (" + costo + ") cannot be destroyed since the DetalleCertificadoPago " + detalleCertificadoPagoCollectionOrphanCheckDetalleCertificadoPago + " in its detalleCertificadoPagoCollection field has a non-nullable costo field.");
+            }
+            if (illegalOrphanMessages != null) {
+                throw new IllegalOrphanException(illegalOrphanMessages);
             }
             Item item = costo.getItem();
             if (item != null) {

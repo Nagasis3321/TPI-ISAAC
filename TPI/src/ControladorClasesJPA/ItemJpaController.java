@@ -13,10 +13,11 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import ModeloDB.Obra;
 import ModeloDB.TipoItem;
-import ModeloDB.DetalleFoja;
-import ModeloDB.Item;
+import ModeloDB.Costo;
 import java.util.ArrayList;
 import java.util.Collection;
+import ModeloDB.DetalleFoja;
+import ModeloDB.Item;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -38,6 +39,9 @@ public class ItemJpaController implements Serializable {
     }
 
     public void create(Item item) {
+        if (item.getCostoCollection() == null) {
+            item.setCostoCollection(new ArrayList<Costo>());
+        }
         if (item.getDetalleFojaCollection() == null) {
             item.setDetalleFojaCollection(new ArrayList<DetalleFoja>());
         }
@@ -55,6 +59,12 @@ public class ItemJpaController implements Serializable {
                 tipoItem = em.getReference(tipoItem.getClass(), tipoItem.getIdTipoItem());
                 item.setTipoItem(tipoItem);
             }
+            Collection<Costo> attachedCostoCollection = new ArrayList<Costo>();
+            for (Costo costoCollectionCostoToAttach : item.getCostoCollection()) {
+                costoCollectionCostoToAttach = em.getReference(costoCollectionCostoToAttach.getClass(), costoCollectionCostoToAttach.getIdCosto());
+                attachedCostoCollection.add(costoCollectionCostoToAttach);
+            }
+            item.setCostoCollection(attachedCostoCollection);
             Collection<DetalleFoja> attachedDetalleFojaCollection = new ArrayList<DetalleFoja>();
             for (DetalleFoja detalleFojaCollectionDetalleFojaToAttach : item.getDetalleFojaCollection()) {
                 detalleFojaCollectionDetalleFojaToAttach = em.getReference(detalleFojaCollectionDetalleFojaToAttach.getClass(), detalleFojaCollectionDetalleFojaToAttach.getIdDetalleFoja());
@@ -69,6 +79,15 @@ public class ItemJpaController implements Serializable {
             if (tipoItem != null) {
                 tipoItem.getItemCollection().add(item);
                 tipoItem = em.merge(tipoItem);
+            }
+            for (Costo costoCollectionCosto : item.getCostoCollection()) {
+                Item oldItemOfCostoCollectionCosto = costoCollectionCosto.getItem();
+                costoCollectionCosto.setItem(item);
+                costoCollectionCosto = em.merge(costoCollectionCosto);
+                if (oldItemOfCostoCollectionCosto != null) {
+                    oldItemOfCostoCollectionCosto.getCostoCollection().remove(costoCollectionCosto);
+                    oldItemOfCostoCollectionCosto = em.merge(oldItemOfCostoCollectionCosto);
+                }
             }
             for (DetalleFoja detalleFojaCollectionDetalleFoja : item.getDetalleFojaCollection()) {
                 Item oldItemOfDetalleFojaCollectionDetalleFoja = detalleFojaCollectionDetalleFoja.getItem();
@@ -97,9 +116,19 @@ public class ItemJpaController implements Serializable {
             Obra obraNew = item.getObra();
             TipoItem tipoItemOld = persistentItem.getTipoItem();
             TipoItem tipoItemNew = item.getTipoItem();
+            Collection<Costo> costoCollectionOld = persistentItem.getCostoCollection();
+            Collection<Costo> costoCollectionNew = item.getCostoCollection();
             Collection<DetalleFoja> detalleFojaCollectionOld = persistentItem.getDetalleFojaCollection();
             Collection<DetalleFoja> detalleFojaCollectionNew = item.getDetalleFojaCollection();
             List<String> illegalOrphanMessages = null;
+            for (Costo costoCollectionOldCosto : costoCollectionOld) {
+                if (!costoCollectionNew.contains(costoCollectionOldCosto)) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("You must retain Costo " + costoCollectionOldCosto + " since its item field is not nullable.");
+                }
+            }
             for (DetalleFoja detalleFojaCollectionOldDetalleFoja : detalleFojaCollectionOld) {
                 if (!detalleFojaCollectionNew.contains(detalleFojaCollectionOldDetalleFoja)) {
                     if (illegalOrphanMessages == null) {
@@ -119,6 +148,13 @@ public class ItemJpaController implements Serializable {
                 tipoItemNew = em.getReference(tipoItemNew.getClass(), tipoItemNew.getIdTipoItem());
                 item.setTipoItem(tipoItemNew);
             }
+            Collection<Costo> attachedCostoCollectionNew = new ArrayList<Costo>();
+            for (Costo costoCollectionNewCostoToAttach : costoCollectionNew) {
+                costoCollectionNewCostoToAttach = em.getReference(costoCollectionNewCostoToAttach.getClass(), costoCollectionNewCostoToAttach.getIdCosto());
+                attachedCostoCollectionNew.add(costoCollectionNewCostoToAttach);
+            }
+            costoCollectionNew = attachedCostoCollectionNew;
+            item.setCostoCollection(costoCollectionNew);
             Collection<DetalleFoja> attachedDetalleFojaCollectionNew = new ArrayList<DetalleFoja>();
             for (DetalleFoja detalleFojaCollectionNewDetalleFojaToAttach : detalleFojaCollectionNew) {
                 detalleFojaCollectionNewDetalleFojaToAttach = em.getReference(detalleFojaCollectionNewDetalleFojaToAttach.getClass(), detalleFojaCollectionNewDetalleFojaToAttach.getIdDetalleFoja());
@@ -142,6 +178,17 @@ public class ItemJpaController implements Serializable {
             if (tipoItemNew != null && !tipoItemNew.equals(tipoItemOld)) {
                 tipoItemNew.getItemCollection().add(item);
                 tipoItemNew = em.merge(tipoItemNew);
+            }
+            for (Costo costoCollectionNewCosto : costoCollectionNew) {
+                if (!costoCollectionOld.contains(costoCollectionNewCosto)) {
+                    Item oldItemOfCostoCollectionNewCosto = costoCollectionNewCosto.getItem();
+                    costoCollectionNewCosto.setItem(item);
+                    costoCollectionNewCosto = em.merge(costoCollectionNewCosto);
+                    if (oldItemOfCostoCollectionNewCosto != null && !oldItemOfCostoCollectionNewCosto.equals(item)) {
+                        oldItemOfCostoCollectionNewCosto.getCostoCollection().remove(costoCollectionNewCosto);
+                        oldItemOfCostoCollectionNewCosto = em.merge(oldItemOfCostoCollectionNewCosto);
+                    }
+                }
             }
             for (DetalleFoja detalleFojaCollectionNewDetalleFoja : detalleFojaCollectionNew) {
                 if (!detalleFojaCollectionOld.contains(detalleFojaCollectionNewDetalleFoja)) {
@@ -184,6 +231,13 @@ public class ItemJpaController implements Serializable {
                 throw new NonexistentEntityException("The item with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
+            Collection<Costo> costoCollectionOrphanCheck = item.getCostoCollection();
+            for (Costo costoCollectionOrphanCheckCosto : costoCollectionOrphanCheck) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("This Item (" + item + ") cannot be destroyed since the Costo " + costoCollectionOrphanCheckCosto + " in its costoCollection field has a non-nullable item field.");
+            }
             Collection<DetalleFoja> detalleFojaCollectionOrphanCheck = item.getDetalleFojaCollection();
             for (DetalleFoja detalleFojaCollectionOrphanCheckDetalleFoja : detalleFojaCollectionOrphanCheck) {
                 if (illegalOrphanMessages == null) {

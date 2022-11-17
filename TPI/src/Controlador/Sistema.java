@@ -7,6 +7,7 @@ import ModeloDB.*;
 import ControladorClasesJPA.*;
 import ControladorClasesJPA.exceptions.*;
 import Vistas.*;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -28,45 +29,125 @@ public class Sistema {
         Inicio vista = new Inicio(this);
         vista.setVisible(true);
         
-        /*Creación de tipos de item en BD (Descomentar para crearlos denuevo):
-        -------------------------------------------------------------------
+        /*Creación de tipos de item en BD
         TipoItem vivienda = new TipoItem("Vivienda", 5);
         TipoItem infraestructura = new TipoItem("Infraestructura", 10);
         TipoItemJpaController tipoCtrl = new TipoItemJpaController();
         tipoCtrl.create(vivienda);
         tipoCtrl.create(infraestructura);
-        -------------------------------------------------------------------
         */
         
     }
     
-    public Object[][] crearCertificadoPago(int nroObra, int nroFoja){
+    public Object[][] generarVistaPreviaCertificadoPago(int nroObra, int nroFoja){
         ObraJpaController obraCtrl = new ObraJpaController();
         Obra obra = obraCtrl.findObra(nroObra);
         ArrayList<Foja> fojasObra = new ArrayList(obra.getFojaCollection());
-        Foja fojaParaCertificado = fojasObra.get(nroFoja);
+        Foja fojaParaCertificado = null;
+        try{
+            fojaParaCertificado = fojasObra.get(nroFoja - 1);
+        }
+        catch(Exception e){
+            return null;
+        }
+        
         ArrayList<DetalleFoja> detalles = new ArrayList(fojaParaCertificado.getDetalleFojaCollection());
         
         Object[][] tuplas = new Object[detalles.size()][8];
         
+        //Formato para decimales con dos dígitos
+        DecimalFormat df = new DecimalFormat("$ 0.00");
+        
         int i = 0;      
         for(DetalleFoja d : detalles){
+            
             tuplas[i][0] = d.getItem().getOrden();
             tuplas[i][1] = d.getItem().getDenominacion();
             tuplas[i][2] = d.getItem().getIncidencia();
-            tuplas[i][3] = d.getItem().getTipoItem();
+            
+            String tipoItem = null;
+            int intTipoItem = d.getItem().getTipoItem().getIdTipoItem();
+            switch(intTipoItem){
+                case 1:
+                    tipoItem = "Vivienda";
+                    break;
+                case 2:
+                    tipoItem = "Infraestructura";
+                    break;
+            }
+            tuplas[i][3] = intTipoItem;
             
             ArrayList<Costo> costosItem = new ArrayList(d.getItem().getCostoCollection());
-            tuplas[i][4] = costosItem.get(costosItem.size()-1).getValor();
+            int costoActual = costosItem.get(costosItem.size()-1).getValor();
+            tuplas[i][4] = costoActual;
             
-            tuplas[i][5] = (d.getTotalAnterior() / 100) * (int) tuplas[i][4];
-            tuplas[i][6] = (d.getTotalMes() / 100) * (int) tuplas[i][4];
-            tuplas[i][7] = (d.getTotalAcumulado() / 100) * (int) tuplas[i][4];
+            
                     
+            tuplas[i][5] = df.format(((float) d.getTotalAnterior() / 100) * costoActual);
+            tuplas[i][6] = df.format(((float) d.getTotalMes() / 100) * costoActual);
+            tuplas[i][7] = df.format(((float) d.getTotalAcumulado() / 100) * costoActual);
+
             i++;
         }
         
         return tuplas;
+    }
+    
+    public CertificadoPago guardarCertificadoPago(int numeroObra, int numeroFoja){
+        CertificadoPago nuevoCertificado = new CertificadoPago();
+        ObraJpaController obraCtrl = new ObraJpaController();
+        Obra obra = obraCtrl.findObra(numeroObra);
+        
+        CertificadoPagoJpaController certCtrl = new CertificadoPagoJpaController();
+        DetalleCertificadoPagoJpaController detCertCtrl = new DetalleCertificadoPagoJpaController();
+        
+        ArrayList<Foja> fojasObra = new ArrayList(obra.getFojaCollection());
+        Foja ultimaFoja = null;
+        try{
+            ultimaFoja = fojasObra.get(numeroFoja-1);
+        }
+        catch(Exception e){
+            return null;
+        }
+        
+        ArrayList<CertificadoPago> certificadoFoja = new ArrayList(ultimaFoja.getCertificadoPagoCollection());
+        
+        if(!certificadoFoja.isEmpty()){
+            return null;
+        }
+        
+        ArrayList<DetalleFoja> detallesFoja = new ArrayList(ultimaFoja.getDetalleFojaCollection());
+        
+        nuevoCertificado.setFechaRealizacion(String.valueOf(java.time.LocalDate.now()));
+        nuevoCertificado.setFoja(ultimaFoja);
+        
+        try{
+            certCtrl.create(nuevoCertificado);
+        }
+        catch(Exception e){
+            System.err.println("Excepción: " + e.getMessage());
+            return null;
+        }
+        
+        for(DetalleFoja d : detallesFoja){
+            DetalleCertificadoPago detalleCertPago = new DetalleCertificadoPago();
+            
+            ArrayList<Costo> costosItem = new ArrayList(d.getItem().getCostoCollection());
+            
+            detalleCertPago.setCosto(costosItem.get(costosItem.size()-1));
+            detalleCertPago.setDetalleFoja(d);            
+            detalleCertPago.setCertificadoPago(nuevoCertificado);
+            
+            try{
+            detCertCtrl.create(detalleCertPago);
+            }
+            catch(Exception e){
+                System.err.println("Excepción: " + e.getMessage());
+                return null;
+            }
+        }
+        
+        return nuevoCertificado;
     }
     
     public Foja crearFoja(int numeroObra, Object[][] tuplas, int[] totalesAcumulados){
@@ -145,7 +226,8 @@ public class Sistema {
     
     public Costo crearCosto(Item item, int valor){
         CostoJpaController costoCtrl = new CostoJpaController();
-        Costo costo = new Costo(valor);
+        Costo costo = new Costo();
+        costo.setValor(valor);
         costo.setItem(item);
         
         try{
@@ -288,25 +370,7 @@ public class Sistema {
         return tuplas;
     }
     
-    void generarCertificadoPago(int idFoja, int idObra){
-        Foja fojaEncontrada = null;
-        ObraJpaController obraCtrl = new ObraJpaController();
-        for(Obra o : obraCtrl.findObraEntities()){
-            if(idObra == o.getIdObra()){
-                for(Foja f : o.getFojaCollection()){
-                    if(idFoja == f.getIdFoja()){
-                        fojaEncontrada = f;
-                    }
-                }
-            }
-        }
-        
-        
-        CertificadoPago nuevoCertificado = new CertificadoPago(fojaEncontrada.getIdFoja());
-        //nuevoCertificado.setFoja(fojaEncontrada);
-        
-    }
-    
+    /*
     void imprimirCertificadoPago(int idFoja, int idObra){
         Foja fojaEncontrada = null;
         int valorCostoActual;
@@ -344,6 +408,8 @@ public class Sistema {
             }
         }
     }
+
+*/
     
     
     void calcularProgresoObra(int idObra){

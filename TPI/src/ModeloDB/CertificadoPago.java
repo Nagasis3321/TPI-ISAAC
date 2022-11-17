@@ -32,12 +32,6 @@ import javax.persistence.Table;
     @NamedQuery(name = "CertificadoPago.findByFechaRealizacion", query = "SELECT c FROM CertificadoPago c WHERE c.fechaRealizacion = :fechaRealizacion")})
 public class CertificadoPago implements Serializable {
 
-    @JoinColumn(name = "foja", referencedColumnName = "idFoja")
-    @ManyToOne(optional = false)
-    private Foja foja;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "certificadoPago")
-    private Collection<DetalleCertificadoPago> detalleCertificadoPagoCollection;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,10 +41,11 @@ public class CertificadoPago implements Serializable {
     @Basic(optional = false)
     @Column(name = "fechaRealizacion")
     private String fechaRealizacion;
+    @JoinColumn(name = "foja", referencedColumnName = "idFoja")
+    @ManyToOne(optional = false)
+    private Foja foja;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "certificadoPago")
-    private Collection<Foja> fojaCollection;
-    @OneToMany(mappedBy = "certificadoFinVigencia")
-    private Collection<Costo> costoCollection;
+    private Collection<DetalleCertificadoPago> detalleCertificadoPagoCollection;
 
     public CertificadoPago() {
     }
@@ -80,20 +75,20 @@ public class CertificadoPago implements Serializable {
         this.fechaRealizacion = fechaRealizacion;
     }
 
-    public Collection<Foja> getFojaCollection() {
-        return fojaCollection;
+    public Foja getFoja() {
+        return foja;
     }
 
-    public void setFojaCollection(Collection<Foja> fojaCollection) {
-        this.fojaCollection = fojaCollection;
+    public void setFoja(Foja foja) {
+        this.foja = foja;
     }
 
-    public Collection<Costo> getCostoCollection() {
-        return costoCollection;
+    public Collection<DetalleCertificadoPago> getDetalleCertificadoPagoCollection() {
+        return detalleCertificadoPagoCollection;
     }
 
-    public void setCostoCollection(Collection<Costo> costoCollection) {
-        this.costoCollection = costoCollection;
+    public void setDetalleCertificadoPagoCollection(Collection<DetalleCertificadoPago> detalleCertificadoPagoCollection) {
+        this.detalleCertificadoPagoCollection = detalleCertificadoPagoCollection;
     }
 
     @Override
@@ -119,22 +114,6 @@ public class CertificadoPago implements Serializable {
     @Override
     public String toString() {
         return "ModeloDB.CertificadoPago[ idCertificadoPago=" + idCertificadoPago + " ]";
-    }
-
-    public Foja getFoja() {
-        return foja;
-    }
-
-    public void setFoja(Foja foja) {
-        this.foja = foja;
-    }
-
-    public Collection<DetalleCertificadoPago> getDetalleCertificadoPagoCollection() {
-        return detalleCertificadoPagoCollection;
-    }
-
-    public void setDetalleCertificadoPagoCollection(Collection<DetalleCertificadoPago> detalleCertificadoPagoCollection) {
-        this.detalleCertificadoPagoCollection = detalleCertificadoPagoCollection;
     }
     
 }

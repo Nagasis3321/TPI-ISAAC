@@ -126,16 +126,17 @@ public class Inicio extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaCertificadoPago = new javax.swing.JTable();
         botonCancelarCertificadoPago = new javax.swing.JButton();
-        botonGenerarCertificadoPago = new javax.swing.JButton();
+        botonGenerarVistaPreviaCertificadoPago = new javax.swing.JButton();
+        botonGuardarCertificadoPago = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        menuConsultar = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        menuGenerar = new javax.swing.JMenu();
         menuItemGenerarFoja = new javax.swing.JMenuItem();
         menuItemGenerarCertificadoPago = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        menuModificarBD = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         menuItemCrearObra = new javax.swing.JMenuItem();
         menuItemEliminarObra = new javax.swing.JMenuItem();
@@ -629,19 +630,27 @@ public class Inicio extends javax.swing.JFrame {
         });
         formGenerarCertificadoPago.add(botonCancelarCertificadoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
 
-        botonGenerarCertificadoPago.setText("Generar certificado de pago");
-        botonGenerarCertificadoPago.addActionListener(new java.awt.event.ActionListener() {
+        botonGenerarVistaPreviaCertificadoPago.setText("Generar vista previa");
+        botonGenerarVistaPreviaCertificadoPago.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonGenerarCertificadoPagoActionPerformed(evt);
+                botonGenerarVistaPreviaCertificadoPagoActionPerformed(evt);
             }
         });
-        formGenerarCertificadoPago.add(botonGenerarCertificadoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, -1, -1));
+        formGenerarCertificadoPago.add(botonGenerarVistaPreviaCertificadoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, -1, -1));
+
+        botonGuardarCertificadoPago.setText("Confirmar y guardar certificado de pago");
+        botonGuardarCertificadoPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardarCertificadoPagoActionPerformed(evt);
+            }
+        });
+        formGenerarCertificadoPago.add(botonGuardarCertificadoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 250, -1));
 
         display.add(formGenerarCertificadoPago, "card7");
 
         panelGeneral.add(display, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 1370, 570));
 
-        jMenu1.setText("Consultar");
+        menuConsultar.setText("Consultar");
 
         jMenuItem1.setText("Obras terminadas");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -649,17 +658,17 @@ public class Inicio extends javax.swing.JFrame {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        menuConsultar.add(jMenuItem1);
 
         jMenuItem4.setText("Importes de contrato");
-        jMenu1.add(jMenuItem4);
+        menuConsultar.add(jMenuItem4);
 
         jMenuItem5.setText("Saldos restantes de obra");
-        jMenu1.add(jMenuItem5);
+        menuConsultar.add(jMenuItem5);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(menuConsultar);
 
-        jMenu2.setText("Generar");
+        menuGenerar.setText("Generar");
 
         menuItemGenerarFoja.setText("Foja");
         menuItemGenerarFoja.addActionListener(new java.awt.event.ActionListener() {
@@ -667,14 +676,19 @@ public class Inicio extends javax.swing.JFrame {
                 menuItemGenerarFojaActionPerformed(evt);
             }
         });
-        jMenu2.add(menuItemGenerarFoja);
+        menuGenerar.add(menuItemGenerarFoja);
 
         menuItemGenerarCertificadoPago.setText("Certificado de pago");
-        jMenu2.add(menuItemGenerarCertificadoPago);
+        menuItemGenerarCertificadoPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemGenerarCertificadoPagoActionPerformed(evt);
+            }
+        });
+        menuGenerar.add(menuItemGenerarCertificadoPago);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(menuGenerar);
 
-        jMenu3.setText("Modificar BD");
+        menuModificarBD.setText("Modificar BD");
 
         jMenu4.setText("Obras");
 
@@ -689,7 +703,7 @@ public class Inicio extends javax.swing.JFrame {
         menuItemEliminarObra.setText("Eliminar");
         jMenu4.add(menuItemEliminarObra);
 
-        jMenu3.add(jMenu4);
+        menuModificarBD.add(jMenu4);
 
         menuEmpresas.setText("Empresas");
 
@@ -704,30 +718,30 @@ public class Inicio extends javax.swing.JFrame {
         menuItemEliminarEmpresa.setText("Eliminar");
         menuEmpresas.add(menuItemEliminarEmpresa);
 
-        jMenu3.add(menuEmpresas);
+        menuModificarBD.add(menuEmpresas);
 
         jMenu6.setText("Fojas");
 
         jMenuItem11.setText("Eliminar");
         jMenu6.add(jMenuItem11);
 
-        jMenu3.add(jMenu6);
+        menuModificarBD.add(jMenu6);
 
         jMenu7.setText("Certificados de pago");
 
         jMenuItem12.setText("Eliminar");
         jMenu7.add(jMenuItem12);
 
-        jMenu3.add(jMenu7);
+        menuModificarBD.add(jMenu7);
 
         jMenu8.setText("Items");
 
         jMenuItem6.setText("Añadir costo");
         jMenu8.add(jMenuItem6);
 
-        jMenu3.add(jMenu8);
+        menuModificarBD.add(jMenu8);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(menuModificarBD);
 
         setJMenuBar(jMenuBar1);
 
@@ -951,8 +965,6 @@ public class Inicio extends javax.swing.JFrame {
 
     private void botonGrabarAvancesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGrabarAvancesActionPerformed
         Object[][] tuplas = new Object[tablaItemsFoja.getModel().getRowCount()][tablaItemsFoja.getModel().getColumnCount()];
-        System.out.println("Alto tuplas: " + tablaItemsFoja.getModel().getRowCount());
-        System.out.println("Ancho tuplas: " + tablaItemsFoja.getModel().getColumnCount());
         
         for(int i = 0; i < tablaItemsFoja.getModel().getRowCount(); i++){
             for(int j = 0; j < tablaItemsFoja.getModel().getColumnCount(); j++){
@@ -1038,12 +1050,44 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_nroFojaCertificadoPagoActionPerformed
 
     private void botonCancelarCertificadoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarCertificadoPagoActionPerformed
-        // TODO add your handling code here:
+        display.removeAll();
+        display.add(mensajePrincipal);
+        display.repaint();
+        display.revalidate();
     }//GEN-LAST:event_botonCancelarCertificadoPagoActionPerformed
 
-    private void botonGenerarCertificadoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGenerarCertificadoPagoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonGenerarCertificadoPagoActionPerformed
+    private void botonGenerarVistaPreviaCertificadoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGenerarVistaPreviaCertificadoPagoActionPerformed
+        Object[][] tuplas = sys.generarVistaPreviaCertificadoPago(Integer.parseInt(nroObraCertificadoPago.getText()), Integer.parseInt(nroFojaCertificadoPago.getText()));
+        
+        if(tuplas == null){
+            JOptionPane.showMessageDialog(null, "Error al generar vista previa, intente nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        Object[] columnas = {"Orden", "Denominación", "Incidencia", "Tipo", "Costo", "Total anterior", "Total mes", "Total acumulado"};
+        TableModel modeloCertificado = new DefaultTableModel(tuplas, columnas);
+        tablaCertificadoPago.setModel(modeloCertificado);
+    }//GEN-LAST:event_botonGenerarVistaPreviaCertificadoPagoActionPerformed
+
+    private void menuItemGenerarCertificadoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGenerarCertificadoPagoActionPerformed
+        display.removeAll();
+        display.add(formGenerarCertificadoPago);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_menuItemGenerarCertificadoPagoActionPerformed
+
+    private void botonGuardarCertificadoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarCertificadoPagoActionPerformed
+        int nroObra = Integer.parseInt(nroObraCertificadoPago.getText());
+        int nroFoja = Integer.parseInt(nroFojaCertificadoPago.getText());
+        
+        CertificadoPago resultado = sys.guardarCertificadoPago(nroObra, nroFoja);
+        
+        if(resultado != null){
+            JOptionPane.showMessageDialog(null, "Certificado de pago creado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Error al crear certificado de pago, intente nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_botonGuardarCertificadoPagoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1107,8 +1151,9 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton botonCargarItemsFoja;
     private javax.swing.JButton botonCrearObra;
     private javax.swing.JButton botonEliminarItem;
-    private javax.swing.JButton botonGenerarCertificadoPago;
+    private javax.swing.JButton botonGenerarVistaPreviaCertificadoPago;
     private javax.swing.JButton botonGrabarAvances;
+    private javax.swing.JButton botonGuardarCertificadoPago;
     private javax.swing.JTextField costoBaseItem;
     private javax.swing.JTextField cuitEmpresa;
     private javax.swing.JTextField cuitEmpresaDeObra;
@@ -1144,9 +1189,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
@@ -1163,13 +1205,16 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JPanel mensajePrincipal;
+    private javax.swing.JMenu menuConsultar;
     private javax.swing.JMenu menuEmpresas;
+    private javax.swing.JMenu menuGenerar;
     private javax.swing.JMenuItem menuItemCrearEmpresa;
     private javax.swing.JMenuItem menuItemCrearObra;
     private javax.swing.JMenuItem menuItemEliminarEmpresa;
     private javax.swing.JMenuItem menuItemEliminarObra;
     private javax.swing.JMenuItem menuItemGenerarCertificadoPago;
     private javax.swing.JMenuItem menuItemGenerarFoja;
+    private javax.swing.JMenu menuModificarBD;
     private javax.swing.JTextField nroFojaCertificadoPago;
     private javax.swing.JTextField nroObraCertificadoPago;
     private javax.swing.JTextField numeroObraFoja;

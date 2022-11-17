@@ -34,9 +34,6 @@ import javax.persistence.Table;
     @NamedQuery(name = "DetalleFoja.findByTotalAcumulado", query = "SELECT d FROM DetalleFoja d WHERE d.totalAcumulado = :totalAcumulado")})
 public class DetalleFoja implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "detalleFoja")
-    private Collection<DetalleCertificadoPago> detalleCertificadoPagoCollection;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,6 +49,8 @@ public class DetalleFoja implements Serializable {
     @Basic(optional = false)
     @Column(name = "totalAcumulado")
     private int totalAcumulado;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "detalleFoja")
+    private Collection<DetalleCertificadoPago> detalleCertificadoPagoCollection;
     @JoinColumn(name = "foja", referencedColumnName = "idFoja")
     @ManyToOne(optional = false)
     private Foja foja;
@@ -65,13 +64,13 @@ public class DetalleFoja implements Serializable {
     public DetalleFoja(Integer idDetalleFoja) {
         this.idDetalleFoja = idDetalleFoja;
     }
-    
+
     public DetalleFoja(int totalAnterior, int totalMes, int totalAcumulado) {
         this.totalAnterior = totalAnterior;
         this.totalMes = totalMes;
         this.totalAcumulado = totalAcumulado;
     }
-
+    
     public DetalleFoja(Integer idDetalleFoja, int totalAnterior, int totalMes, int totalAcumulado) {
         this.idDetalleFoja = idDetalleFoja;
         this.totalAnterior = totalAnterior;
@@ -109,6 +108,14 @@ public class DetalleFoja implements Serializable {
 
     public void setTotalAcumulado(int totalAcumulado) {
         this.totalAcumulado = totalAcumulado;
+    }
+
+    public Collection<DetalleCertificadoPago> getDetalleCertificadoPagoCollection() {
+        return detalleCertificadoPagoCollection;
+    }
+
+    public void setDetalleCertificadoPagoCollection(Collection<DetalleCertificadoPago> detalleCertificadoPagoCollection) {
+        this.detalleCertificadoPagoCollection = detalleCertificadoPagoCollection;
     }
 
     public Foja getFoja() {
@@ -150,14 +157,6 @@ public class DetalleFoja implements Serializable {
     @Override
     public String toString() {
         return "ModeloDB.DetalleFoja[ idDetalleFoja=" + idDetalleFoja + " ]";
-    }
-
-    public Collection<DetalleCertificadoPago> getDetalleCertificadoPagoCollection() {
-        return detalleCertificadoPagoCollection;
-    }
-
-    public void setDetalleCertificadoPagoCollection(Collection<DetalleCertificadoPago> detalleCertificadoPagoCollection) {
-        this.detalleCertificadoPagoCollection = detalleCertificadoPagoCollection;
     }
     
 }

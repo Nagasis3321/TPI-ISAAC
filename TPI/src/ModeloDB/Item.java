@@ -67,13 +67,13 @@ public class Item implements Serializable {
     public Item(Integer idItem) {
         this.idItem = idItem;
     }
-    
+
     public Item(int orden, String denominacion, int incidencia) {
         this.incidencia = incidencia;
         this.orden = orden;
         this.denominacion = denominacion;
     }
-
+    
     public Item(Integer idItem, int incidencia, int orden, String denominacion) {
         this.idItem = idItem;
         this.incidencia = incidencia;
@@ -128,11 +128,6 @@ public class Item implements Serializable {
     public void setTipoItem(TipoItem tipoItem) {
         this.tipoItem = tipoItem;
     }
-    
-    public Costo getUltimoCosto() {
-        ArrayList<Costo> costos = new ArrayList(costoCollection);
-        return (costos.get(costos.size()-1));
-    }
 
     public Collection<Costo> getCostoCollection() {
         return costoCollection;
@@ -148,6 +143,11 @@ public class Item implements Serializable {
 
     public void setDetalleFojaCollection(Collection<DetalleFoja> detalleFojaCollection) {
         this.detalleFojaCollection = detalleFojaCollection;
+    }
+    
+    public Costo getUltimoCosto(){
+        ArrayList<Costo> costos = new ArrayList(this.getCostoCollection());
+        return costos.get(costos.size()-1);
     }
 
     @Override

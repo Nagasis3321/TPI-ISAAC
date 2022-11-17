@@ -3,14 +3,14 @@
   <persistence-unit name="TPIPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>ModeloDB.Obra</class>
-    <class>ModeloDB.CertificadoPago</class>
+    <class>ModeloDB.DetalleCertificadoPago</class>
+    <class>ModeloDB.Item</class>
+    <class>ModeloDB.Foja</class>
+    <class>ModeloDB.TipoItem</class>
     <class>ModeloDB.Costo</class>
     <class>ModeloDB.DetalleFoja</class>
     <class>ModeloDB.Empresa</class>
-    <class>ModeloDB.Foja</class>
-    <class>ModeloDB.TipoItem</class>
-    <class>ModeloDB.Item</class>
-    <class>ModeloDB.DetalleCertificadoPago</class>
+    <class>ModeloDB.CertificadoPago</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/db_tpi_pa_ii?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

@@ -53,13 +53,13 @@ public class TipoItem implements Serializable {
         this.idTipoItem = idTipoItem;
     }
     
-    public TipoItem(String denominacion, int impuesto) {
+    public TipoItem(Integer idTipoItem, String denominacion, int impuesto) {
+        this.idTipoItem = idTipoItem;
         this.denominacion = denominacion;
         this.impuesto = impuesto;
     }
 
-    public TipoItem(Integer idTipoItem, String denominacion, int impuesto) {
-        this.idTipoItem = idTipoItem;
+    public TipoItem(String denominacion, int impuesto) {
         this.denominacion = denominacion;
         this.impuesto = impuesto;
     }
