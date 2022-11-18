@@ -157,6 +157,34 @@ public class Inicio extends javax.swing.JFrame {
         jScrollPane9 = new javax.swing.JScrollPane();
         progresoTotalRestante = new javax.swing.JTextArea();
         jLabel25 = new javax.swing.JLabel();
+        formEliminarObra = new javax.swing.JPanel();
+        jLabel26 = new javax.swing.JLabel();
+        botonEliminarObra = new javax.swing.JButton();
+        numeroObraEliminar = new javax.swing.JTextField();
+        botonCancelarEliminarObra = new javax.swing.JButton();
+        formEliminarEmpresa = new javax.swing.JPanel();
+        jLabel27 = new javax.swing.JLabel();
+        cuitEmpresaEliminar = new javax.swing.JTextField();
+        botonEliminarEmpresa = new javax.swing.JButton();
+        botonCancelarEliminarEmpresa = new javax.swing.JButton();
+        formEliminarFojas = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
+        numeroObraEliminarFoja = new javax.swing.JTextField();
+        botonEliminarFojas = new javax.swing.JButton();
+        botonCancelarEliminarFoja = new javax.swing.JButton();
+        formEliminarCertificadosPago = new javax.swing.JPanel();
+        jLabel29 = new javax.swing.JLabel();
+        numeroObraEliminarCertificadosPago = new javax.swing.JTextField();
+        botonCancelarEliminarCertificadosPago = new javax.swing.JButton();
+        botonEliminarCertificadosPago = new javax.swing.JButton();
+        formAniadirCosto = new javax.swing.JPanel();
+        jLabel30 = new javax.swing.JLabel();
+        numeroObraAniadirCosto = new javax.swing.JTextField();
+        botonCancelarAniadirCosto = new javax.swing.JButton();
+        botonCargarItemsAniadirCosto = new javax.swing.JButton();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        tablaAniadirCosto = new javax.swing.JTable();
+        botonGuardarNuevosCostos = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuConsultar = new javax.swing.JMenu();
         menuItemObrasTerminadas = new javax.swing.JMenuItem();
@@ -173,11 +201,11 @@ public class Inicio extends javax.swing.JFrame {
         menuItemCrearEmpresa = new javax.swing.JMenuItem();
         menuItemEliminarEmpresa = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
-        jMenuItem11 = new javax.swing.JMenuItem();
+        menuItemEliminarFoja = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
-        jMenuItem12 = new javax.swing.JMenuItem();
+        menuItemEliminarCertificadosPago = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        menuItemAniadirCostos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tigüi");
@@ -662,7 +690,7 @@ public class Inicio extends javax.swing.JFrame {
                 botonGuardarCertificadoPagoActionPerformed(evt);
             }
         });
-        formGenerarCertificadoPago.add(botonGuardarCertificadoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 250, -1));
+        formGenerarCertificadoPago.add(botonGuardarCertificadoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 300, -1));
 
         display.add(formGenerarCertificadoPago, "card7");
 
@@ -862,6 +890,310 @@ public class Inicio extends javax.swing.JFrame {
 
         display.add(vistaSaldosRestantes, "card10");
 
+        jLabel26.setText("Número de obra:");
+
+        botonEliminarObra.setText("Eliminar obra");
+        botonEliminarObra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEliminarObraActionPerformed(evt);
+            }
+        });
+
+        numeroObraEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numeroObraEliminarActionPerformed(evt);
+            }
+        });
+
+        botonCancelarEliminarObra.setText("Cancelar");
+        botonCancelarEliminarObra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarEliminarObraActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout formEliminarObraLayout = new javax.swing.GroupLayout(formEliminarObra);
+        formEliminarObra.setLayout(formEliminarObraLayout);
+        formEliminarObraLayout.setHorizontalGroup(
+            formEliminarObraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(formEliminarObraLayout.createSequentialGroup()
+                .addGap(79, 79, 79)
+                .addGroup(formEliminarObraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(formEliminarObraLayout.createSequentialGroup()
+                        .addComponent(botonCancelarEliminarObra)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonEliminarObra))
+                    .addGroup(formEliminarObraLayout.createSequentialGroup()
+                        .addComponent(jLabel26)
+                        .addGap(18, 18, 18)
+                        .addComponent(numeroObraEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(1026, Short.MAX_VALUE))
+        );
+        formEliminarObraLayout.setVerticalGroup(
+            formEliminarObraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(formEliminarObraLayout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addGroup(formEliminarObraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26)
+                    .addComponent(numeroObraEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(formEliminarObraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonEliminarObra)
+                    .addComponent(botonCancelarEliminarObra))
+                .addContainerGap(446, Short.MAX_VALUE))
+        );
+
+        display.add(formEliminarObra, "card11");
+
+        jLabel27.setText("C.U.I.T. de empresa:");
+
+        cuitEmpresaEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cuitEmpresaEliminarActionPerformed(evt);
+            }
+        });
+
+        botonEliminarEmpresa.setText("Eliminar empresa");
+        botonEliminarEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEliminarEmpresaActionPerformed(evt);
+            }
+        });
+
+        botonCancelarEliminarEmpresa.setText("Cancelar");
+        botonCancelarEliminarEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarEliminarEmpresaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout formEliminarEmpresaLayout = new javax.swing.GroupLayout(formEliminarEmpresa);
+        formEliminarEmpresa.setLayout(formEliminarEmpresaLayout);
+        formEliminarEmpresaLayout.setHorizontalGroup(
+            formEliminarEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(formEliminarEmpresaLayout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addGroup(formEliminarEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(formEliminarEmpresaLayout.createSequentialGroup()
+                        .addComponent(botonCancelarEliminarEmpresa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonEliminarEmpresa))
+                    .addGroup(formEliminarEmpresaLayout.createSequentialGroup()
+                        .addComponent(jLabel27)
+                        .addGap(18, 18, 18)
+                        .addComponent(cuitEmpresaEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(1037, Short.MAX_VALUE))
+        );
+        formEliminarEmpresaLayout.setVerticalGroup(
+            formEliminarEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(formEliminarEmpresaLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(formEliminarEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel27)
+                    .addComponent(cuitEmpresaEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addGroup(formEliminarEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonEliminarEmpresa)
+                    .addComponent(botonCancelarEliminarEmpresa))
+                .addContainerGap(461, Short.MAX_VALUE))
+        );
+
+        display.add(formEliminarEmpresa, "card12");
+
+        jLabel28.setText("Número de obra:");
+
+        numeroObraEliminarFoja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numeroObraEliminarFojaActionPerformed(evt);
+            }
+        });
+
+        botonEliminarFojas.setText("Eliminar fojas");
+        botonEliminarFojas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEliminarFojasActionPerformed(evt);
+            }
+        });
+
+        botonCancelarEliminarFoja.setText("Cancelar");
+        botonCancelarEliminarFoja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarEliminarFojaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout formEliminarFojasLayout = new javax.swing.GroupLayout(formEliminarFojas);
+        formEliminarFojas.setLayout(formEliminarFojasLayout);
+        formEliminarFojasLayout.setHorizontalGroup(
+            formEliminarFojasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(formEliminarFojasLayout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addGroup(formEliminarFojasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(formEliminarFojasLayout.createSequentialGroup()
+                        .addComponent(botonCancelarEliminarFoja)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonEliminarFojas))
+                    .addGroup(formEliminarFojasLayout.createSequentialGroup()
+                        .addComponent(jLabel28)
+                        .addGap(32, 32, 32)
+                        .addComponent(numeroObraEliminarFoja, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(1068, Short.MAX_VALUE))
+        );
+        formEliminarFojasLayout.setVerticalGroup(
+            formEliminarFojasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(formEliminarFojasLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(formEliminarFojasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel28)
+                    .addComponent(numeroObraEliminarFoja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addGroup(formEliminarFojasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonCancelarEliminarFoja)
+                    .addComponent(botonEliminarFojas))
+                .addContainerGap(454, Short.MAX_VALUE))
+        );
+
+        display.add(formEliminarFojas, "card13");
+
+        jLabel29.setText("Numero de obra:");
+
+        botonCancelarEliminarCertificadosPago.setText("Cancelar");
+        botonCancelarEliminarCertificadosPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarEliminarCertificadosPagoActionPerformed(evt);
+            }
+        });
+
+        botonEliminarCertificadosPago.setText("Eliminar certificados de pago");
+        botonEliminarCertificadosPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEliminarCertificadosPagoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout formEliminarCertificadosPagoLayout = new javax.swing.GroupLayout(formEliminarCertificadosPago);
+        formEliminarCertificadosPago.setLayout(formEliminarCertificadosPagoLayout);
+        formEliminarCertificadosPagoLayout.setHorizontalGroup(
+            formEliminarCertificadosPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(formEliminarCertificadosPagoLayout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addGroup(formEliminarCertificadosPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(formEliminarCertificadosPagoLayout.createSequentialGroup()
+                        .addComponent(botonCancelarEliminarCertificadosPago)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonEliminarCertificadosPago))
+                    .addGroup(formEliminarCertificadosPagoLayout.createSequentialGroup()
+                        .addComponent(jLabel29)
+                        .addGap(32, 32, 32)
+                        .addComponent(numeroObraEliminarCertificadosPago, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(1033, Short.MAX_VALUE))
+        );
+        formEliminarCertificadosPagoLayout.setVerticalGroup(
+            formEliminarCertificadosPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(formEliminarCertificadosPagoLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(formEliminarCertificadosPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel29)
+                    .addComponent(numeroObraEliminarCertificadosPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(formEliminarCertificadosPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonCancelarEliminarCertificadosPago)
+                    .addComponent(botonEliminarCertificadosPago))
+                .addContainerGap(458, Short.MAX_VALUE))
+        );
+
+        display.add(formEliminarCertificadosPago, "card14");
+
+        jLabel30.setText("Número de obra:");
+
+        numeroObraAniadirCosto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numeroObraAniadirCostoActionPerformed(evt);
+            }
+        });
+
+        botonCancelarAniadirCosto.setText("Cancelar");
+        botonCancelarAniadirCosto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarAniadirCostoActionPerformed(evt);
+            }
+        });
+
+        botonCargarItemsAniadirCosto.setText("Cargar items");
+        botonCargarItemsAniadirCosto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCargarItemsAniadirCostoActionPerformed(evt);
+            }
+        });
+
+        tablaAniadirCosto.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Orden", "Denominación", "Tipo", "Incidencia", "Último costo", "Nuevo costo"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane10.setViewportView(tablaAniadirCosto);
+
+        botonGuardarNuevosCostos.setText("Guardar nuevos costos");
+        botonGuardarNuevosCostos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardarNuevosCostosActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout formAniadirCostoLayout = new javax.swing.GroupLayout(formAniadirCosto);
+        formAniadirCosto.setLayout(formAniadirCostoLayout);
+        formAniadirCostoLayout.setHorizontalGroup(
+            formAniadirCostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formAniadirCostoLayout.createSequentialGroup()
+                .addContainerGap(55, Short.MAX_VALUE)
+                .addGroup(formAniadirCostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botonGuardarNuevosCostos)
+                    .addGroup(formAniadirCostoLayout.createSequentialGroup()
+                        .addGroup(formAniadirCostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(formAniadirCostoLayout.createSequentialGroup()
+                                .addComponent(botonCancelarAniadirCosto)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botonCargarItemsAniadirCosto))
+                            .addGroup(formAniadirCostoLayout.createSequentialGroup()
+                                .addComponent(jLabel30)
+                                .addGap(18, 18, 18)
+                                .addComponent(numeroObraAniadirCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(38, 38, 38)
+                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(500, 500, 500))
+        );
+        formAniadirCostoLayout.setVerticalGroup(
+            formAniadirCostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(formAniadirCostoLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(formAniadirCostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(formAniadirCostoLayout.createSequentialGroup()
+                        .addGroup(formAniadirCostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel30)
+                            .addComponent(numeroObraAniadirCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36)
+                        .addGroup(formAniadirCostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(botonCancelarAniadirCosto)
+                            .addComponent(botonCargarItemsAniadirCosto))))
+                .addGap(18, 18, 18)
+                .addComponent(botonGuardarNuevosCostos)
+                .addContainerGap(78, Short.MAX_VALUE))
+        );
+
+        display.add(formAniadirCosto, "card15");
+
         panelGeneral.add(display, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 1370, 570));
 
         menuConsultar.setText("Consultar");
@@ -925,6 +1257,11 @@ public class Inicio extends javax.swing.JFrame {
         jMenu4.add(menuItemCrearObra);
 
         menuItemEliminarObra.setText("Eliminar");
+        menuItemEliminarObra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemEliminarObraActionPerformed(evt);
+            }
+        });
         jMenu4.add(menuItemEliminarObra);
 
         menuModificarBD.add(jMenu4);
@@ -940,28 +1277,48 @@ public class Inicio extends javax.swing.JFrame {
         menuEmpresas.add(menuItemCrearEmpresa);
 
         menuItemEliminarEmpresa.setText("Eliminar");
+        menuItemEliminarEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemEliminarEmpresaActionPerformed(evt);
+            }
+        });
         menuEmpresas.add(menuItemEliminarEmpresa);
 
         menuModificarBD.add(menuEmpresas);
 
         jMenu6.setText("Fojas");
 
-        jMenuItem11.setText("Eliminar");
-        jMenu6.add(jMenuItem11);
+        menuItemEliminarFoja.setText("Eliminar");
+        menuItemEliminarFoja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemEliminarFojaActionPerformed(evt);
+            }
+        });
+        jMenu6.add(menuItemEliminarFoja);
 
         menuModificarBD.add(jMenu6);
 
         jMenu7.setText("Certificados de pago");
 
-        jMenuItem12.setText("Eliminar");
-        jMenu7.add(jMenuItem12);
+        menuItemEliminarCertificadosPago.setText("Eliminar");
+        menuItemEliminarCertificadosPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemEliminarCertificadosPagoActionPerformed(evt);
+            }
+        });
+        jMenu7.add(menuItemEliminarCertificadosPago);
 
         menuModificarBD.add(jMenu7);
 
         jMenu8.setText("Items");
 
-        jMenuItem6.setText("Añadir costo");
-        jMenu8.add(jMenuItem6);
+        menuItemAniadirCostos.setText("Añadir costo");
+        menuItemAniadirCostos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemAniadirCostosActionPerformed(evt);
+            }
+        });
+        jMenu8.add(menuItemAniadirCostos);
 
         menuModificarBD.add(jMenu8);
 
@@ -1418,6 +1775,173 @@ public class Inicio extends javax.swing.JFrame {
         display.revalidate();
     }//GEN-LAST:event_botonCancelarSaldosActionPerformed
 
+    private void menuItemEliminarObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEliminarObraActionPerformed
+        display.removeAll();
+        display.add(formEliminarObra);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_menuItemEliminarObraActionPerformed
+
+    private void botonEliminarObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarObraActionPerformed
+        int respuesta = JOptionPane.showConfirmDialog(null, "Esto también eliminará sus ítems, fojas, y certificados de pago", "¿Está seguro?", JOptionPane.YES_NO_OPTION);
+        
+        if(respuesta == JOptionPane.YES_OPTION){
+            if(sys.eliminarObra(Integer.parseInt(numeroObraEliminar.getText()))){
+                JOptionPane.showMessageDialog(null, "Obra eliminada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Error al eliminar obra, revise los campos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_botonEliminarObraActionPerformed
+
+    private void numeroObraEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroObraEliminarActionPerformed
+        
+    }//GEN-LAST:event_numeroObraEliminarActionPerformed
+
+    private void botonCancelarEliminarObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarEliminarObraActionPerformed
+        display.removeAll();
+        display.add(mensajePrincipal);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_botonCancelarEliminarObraActionPerformed
+
+    private void menuItemEliminarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEliminarEmpresaActionPerformed
+        display.removeAll();
+        display.add(formEliminarEmpresa);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_menuItemEliminarEmpresaActionPerformed
+
+    private void cuitEmpresaEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuitEmpresaEliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cuitEmpresaEliminarActionPerformed
+
+    private void botonCancelarEliminarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarEliminarEmpresaActionPerformed
+        display.removeAll();
+        display.add(mensajePrincipal);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_botonCancelarEliminarEmpresaActionPerformed
+
+    private void botonEliminarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarEmpresaActionPerformed
+        int respuesta = JOptionPane.showConfirmDialog(null, "Esto también eliminará sus obras, ítems, fojas, y certificados de pago", "¿Está seguro?", JOptionPane.YES_NO_OPTION);
+        
+        if(respuesta == JOptionPane.YES_OPTION){
+            if(sys.eliminarEmpresa(Integer.parseInt(cuitEmpresaEliminar.getText()))){
+                JOptionPane.showMessageDialog(null, "Empresa eliminada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Error al eliminar empresa, revise los campos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_botonEliminarEmpresaActionPerformed
+
+    private void numeroObraEliminarFojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroObraEliminarFojaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numeroObraEliminarFojaActionPerformed
+
+    private void botonEliminarFojasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarFojasActionPerformed
+        int respuesta = JOptionPane.showConfirmDialog(null, "Esto también eliminará sus certificados de pago", "¿Está seguro?", JOptionPane.YES_NO_OPTION);
+        
+        if(respuesta == JOptionPane.YES_OPTION){
+            if(sys.eliminarFojas(Integer.parseInt(numeroObraEliminarFoja.getText()))){
+                JOptionPane.showMessageDialog(null, "Fojas eliminadas correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Error al eliminar fojas, revise los campos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_botonEliminarFojasActionPerformed
+
+    private void menuItemEliminarFojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEliminarFojaActionPerformed
+        display.removeAll();
+        display.add(formEliminarFojas);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_menuItemEliminarFojaActionPerformed
+
+    private void botonCancelarEliminarFojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarEliminarFojaActionPerformed
+        display.removeAll();
+        display.add(mensajePrincipal);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_botonCancelarEliminarFojaActionPerformed
+
+    private void menuItemEliminarCertificadosPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEliminarCertificadosPagoActionPerformed
+        display.removeAll();
+        display.add(formEliminarCertificadosPago);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_menuItemEliminarCertificadosPagoActionPerformed
+
+    private void botonEliminarCertificadosPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarCertificadosPagoActionPerformed
+        int respuesta = JOptionPane.showConfirmDialog(null, "Deberá volver a generarlos", "¿Está seguro?", JOptionPane.YES_NO_OPTION);
+        
+        if(respuesta == JOptionPane.YES_OPTION){
+            if(sys.eliminarCertificadosPago(Integer.parseInt(numeroObraEliminarCertificadosPago.getText()))){
+                JOptionPane.showMessageDialog(null, "Certificados de pago eliminados correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Error al eliminar certificados de pago, revise los campos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_botonEliminarCertificadosPagoActionPerformed
+
+    private void botonCancelarEliminarCertificadosPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarEliminarCertificadosPagoActionPerformed
+        display.removeAll();
+        display.add(mensajePrincipal);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_botonCancelarEliminarCertificadosPagoActionPerformed
+
+    private void menuItemAniadirCostosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAniadirCostosActionPerformed
+        display.removeAll();
+        display.add(formAniadirCosto);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_menuItemAniadirCostosActionPerformed
+
+    private void botonCargarItemsAniadirCostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarItemsAniadirCostoActionPerformed
+        Object[][] tuplas = sys.obtenerItemsObraAniadirCosto(Integer.parseInt(numeroObraAniadirCosto.getText()));
+        
+        Object[] columnas = {"Orden", "Denominación", "Incidencia", "Tipo", "Último costo", "Nuevo costo"};
+        TableModel modeloConItems = new DefaultTableModel(tuplas, columnas);
+        tablaAniadirCosto.setModel(modeloConItems);
+    }//GEN-LAST:event_botonCargarItemsAniadirCostoActionPerformed
+
+    private void botonCancelarAniadirCostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarAniadirCostoActionPerformed
+        display.removeAll();
+        display.add(mensajePrincipal);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_botonCancelarAniadirCostoActionPerformed
+
+    private void numeroObraAniadirCostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroObraAniadirCostoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numeroObraAniadirCostoActionPerformed
+
+    private void botonGuardarNuevosCostosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarNuevosCostosActionPerformed
+        Object[][] tuplas = new Object[tablaAniadirCosto.getRowCount()][2];
+        int numeroObra = Integer.parseInt(numeroObraAniadirCosto.getText());
+        
+        for(int i = 0; i < tablaAniadirCosto.getRowCount(); i++){
+            //Guardar orden de cada item
+            tuplas[i][0] = tablaAniadirCosto.getModel().getValueAt(i, 0);
+            System.out.println("Orden: " + tuplas[i][0]);
+            //Guardar nuevo costo de cada item
+            tuplas[i][1] = tablaAniadirCosto.getModel().getValueAt(i, 5);
+            System.out.println("Nuevo costo: " + tuplas[i][1]);
+        }
+        
+        if(sys.aniadirCostos(numeroObra, tuplas)){
+            JOptionPane.showMessageDialog(null, "Costos actualizados correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Error al actualizar costos, revise los campos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_botonGuardarNuevosCostosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1470,37 +1994,54 @@ public class Inicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAniadirItem;
+    private javax.swing.JButton botonCancelarAniadirCosto;
     private javax.swing.JButton botonCancelarCertificadoPago;
     private javax.swing.JButton botonCancelarContrato;
     private javax.swing.JButton botonCancelarCreacionEmpresa;
     private javax.swing.JButton botonCancelarCreacionObra;
+    private javax.swing.JButton botonCancelarEliminarCertificadosPago;
+    private javax.swing.JButton botonCancelarEliminarEmpresa;
+    private javax.swing.JButton botonCancelarEliminarFoja;
+    private javax.swing.JButton botonCancelarEliminarObra;
     private javax.swing.JButton botonCancelarFoja;
     private javax.swing.JButton botonCancelarItems;
     private javax.swing.JButton botonCancelarObrasCompletas;
     private javax.swing.JButton botonCancelarSaldos;
     private javax.swing.JButton botonCargarEmpresa;
     private javax.swing.JButton botonCargarItems;
+    private javax.swing.JButton botonCargarItemsAniadirCosto;
     private javax.swing.JButton botonCargarItemsFoja;
     private javax.swing.JButton botonCrearObra;
+    private javax.swing.JButton botonEliminarCertificadosPago;
+    private javax.swing.JButton botonEliminarEmpresa;
+    private javax.swing.JButton botonEliminarFojas;
     private javax.swing.JButton botonEliminarItem;
+    private javax.swing.JButton botonEliminarObra;
     private javax.swing.JButton botonEmpresasCompletas;
     private javax.swing.JButton botonGenerarVistaPreviaCertificadoPago;
     private javax.swing.JButton botonGrabarAvances;
     private javax.swing.JButton botonGuardarCertificadoPago;
+    private javax.swing.JButton botonGuardarNuevosCostos;
     private javax.swing.JButton botonImprimirContrato;
     private javax.swing.JButton botonVerSaldosRestantes;
     private javax.swing.JTextField costoBaseItem;
     private javax.swing.JTextField cuitEmpresa;
     private javax.swing.JTextField cuitEmpresaDeObra;
+    private javax.swing.JTextField cuitEmpresaEliminar;
     private javax.swing.JTextField denominacionItem;
     private javax.swing.JTextField denominacionObra;
     private javax.swing.JTextField direccionEmpresa;
     private javax.swing.JPanel display;
     private javax.swing.JTextField fechaInicioObra;
     private javax.swing.JTextField financiacionObra;
+    private javax.swing.JPanel formAniadirCosto;
     private javax.swing.JPanel formCargarItems;
     private javax.swing.JPanel formCrearEmpresa;
     private javax.swing.JPanel formCrearObra;
+    private javax.swing.JPanel formEliminarCertificadosPago;
+    private javax.swing.JPanel formEliminarEmpresa;
+    private javax.swing.JPanel formEliminarFojas;
+    private javax.swing.JPanel formEliminarObra;
     private javax.swing.JPanel formGenerarCertificadoPago;
     private javax.swing.JPanel formGenerarFoja;
     private javax.swing.JLabel imagen;
@@ -1522,7 +2063,12 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1534,10 +2080,8 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -1550,9 +2094,12 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenu menuConsultar;
     private javax.swing.JMenu menuEmpresas;
     private javax.swing.JMenu menuGenerar;
+    private javax.swing.JMenuItem menuItemAniadirCostos;
     private javax.swing.JMenuItem menuItemCrearEmpresa;
     private javax.swing.JMenuItem menuItemCrearObra;
+    private javax.swing.JMenuItem menuItemEliminarCertificadosPago;
     private javax.swing.JMenuItem menuItemEliminarEmpresa;
+    private javax.swing.JMenuItem menuItemEliminarFoja;
     private javax.swing.JMenuItem menuItemEliminarObra;
     private javax.swing.JMenuItem menuItemGenerarCertificadoPago;
     private javax.swing.JMenuItem menuItemGenerarFoja;
@@ -1562,7 +2109,11 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenu menuModificarBD;
     private javax.swing.JTextField nroFojaCertificadoPago;
     private javax.swing.JTextField nroObraCertificadoPago;
+    private javax.swing.JTextField numeroObraAniadirCosto;
     private javax.swing.JTextField numeroObraContrato;
+    private javax.swing.JTextField numeroObraEliminar;
+    private javax.swing.JTextField numeroObraEliminarCertificadosPago;
+    private javax.swing.JTextField numeroObraEliminarFoja;
     private javax.swing.JTextField numeroObraFoja;
     private javax.swing.JTextField numeroObraSaldos;
     private javax.swing.JTextField ordenItem;
@@ -1578,6 +2129,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTextField rlEmpresa;
     private javax.swing.JTextField rtEmpresa;
     private javax.swing.JTextArea saldoTotalRestante;
+    private javax.swing.JTable tablaAniadirCosto;
     private javax.swing.JTable tablaCargarItemsObra;
     private javax.swing.JTable tablaCertificadoPago;
     private javax.swing.JTable tablaContrato;

@@ -39,6 +39,175 @@ public class Sistema {
         
     }
     
+    public boolean aniadirCostos(int nroObra, Object[][] tuplas){
+        ObraJpaController obraCtrl = new ObraJpaController();
+        Obra obra = obraCtrl.findObra(nroObra);
+        Costo nuevoCosto = null;
+        
+        ArrayList<Item> itemsObra = new ArrayList(obra.getItemCollection());
+        for(int i = 0; i < tuplas.length; i++){
+            System.out.println("i: " + i);
+            Item item = itemsObra.get(Integer.parseInt(tuplas[i][0].toString()) - 1);
+            nuevoCosto = crearCosto(item, Float.parseFloat(tuplas[i][1].toString()));
+            if(nuevoCosto == null){
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    public Object[][] obtenerItemsObraAniadirCosto(int nroObra){
+        ObraJpaController obraCtrl = new ObraJpaController();
+        Obra obra = obraCtrl.findObra(nroObra);
+        
+        //Formato para precios
+        DecimalFormat df = new DecimalFormat("$ 0.00");
+        DecimalFormat incf = new DecimalFormat("0.00");
+        
+        int ord, tipo, ta;
+        String cos, inc;
+        int fila = 0;
+        String den;
+        Object[][] tuplas = new Object[obra.getItemCollection().size()][6];        
+
+        for(Item item : obra.getItemCollection()){
+            ord = item.getOrden();
+            den = item.getDenominacion();
+            inc = incf.format(item.getIncidencia());
+            tipo = item.getTipoItem().getIdTipoItem();
+            cos = df.format(item.getUltimoCosto().getValor());
+
+            tuplas[fila][0] = ord;
+            tuplas[fila][1] = den;
+            tuplas[fila][2] = inc;
+            tuplas[fila][3] = tipo;
+            tuplas[fila][4] = cos;
+            
+            //Se deja la última fila en blanco para que el usuario la rellene
+            //en la vista
+
+            fila++;
+        } 
+        
+        return tuplas;
+    }
+    
+    public boolean eliminarCertificadosPago(int nroObra){
+        ObraJpaController obraCtrl = new ObraJpaController();
+        DetalleCertificadoPagoJpaController detCertCtrl = new DetalleCertificadoPagoJpaController();
+        CertificadoPagoJpaController certCtrl = new CertificadoPagoJpaController();
+        
+        try{
+            Obra obra = obraCtrl.findObra(nroObra);
+            for(Foja f : obra.getFojaCollection()){
+                for(CertificadoPago c : f.getCertificadoPagoCollection()){
+                    for(DetalleCertificadoPago d : c.getDetalleCertificadoPagoCollection()){
+                        detCertCtrl.destroy(d.getIdDetalleCertificadoPago());
+                    }
+                    certCtrl.destroy(c.getIdCertificadoPago());
+                }
+            }
+        }
+        catch(Exception e){
+            System.err.println("Excepción: " + e.getMessage());
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean eliminarFojas(int nroObra){
+        ObraJpaController obraCtrl = new ObraJpaController();
+        DetalleFojaJpaController detFojaCtrl = new DetalleFojaJpaController();
+        FojaJpaController fojaCtrl = new FojaJpaController();
+        DetalleCertificadoPagoJpaController detCertCtrl = new DetalleCertificadoPagoJpaController();
+        CertificadoPagoJpaController certCtrl = new CertificadoPagoJpaController();
+        
+        try{
+            Obra obra = obraCtrl.findObra(nroObra);
+            for(Foja f : obra.getFojaCollection()){
+                for(CertificadoPago c : f.getCertificadoPagoCollection()){
+                    for(DetalleCertificadoPago d : c.getDetalleCertificadoPagoCollection()){
+                        detCertCtrl.destroy(d.getIdDetalleCertificadoPago());
+                    }
+                    certCtrl.destroy(c.getIdCertificadoPago());
+                }
+                
+                for(DetalleFoja detFoja : f.getDetalleFojaCollection()){
+                    detFojaCtrl.destroy(detFoja.getIdDetalleFoja());
+                }
+                
+                fojaCtrl.destroy(f.getIdFoja());
+            }
+        }
+        catch(Exception e){
+            System.err.println("Excepción: " + e.getMessage());
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean eliminarEmpresa(int cuit){
+        EmpresaJpaController empCtrl = new EmpresaJpaController();
+        try{
+            Empresa empresa = empCtrl.findEmpresa(cuit);
+            for(Obra o : empresa.getObraCollection()){
+                eliminarObra(o.getIdObra());
+            }       
+            empCtrl.destroy(cuit);
+        }
+        catch(Exception e){
+            System.err.println("Excepción: " + e.getMessage());
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean eliminarObra(int nroObra){
+        ObraJpaController obraCtrl = new ObraJpaController();
+        ItemJpaController itemCtrl = new ItemJpaController();
+        CostoJpaController costoCtrl = new CostoJpaController();
+        DetalleFojaJpaController detFojaCtrl = new DetalleFojaJpaController();
+        FojaJpaController fojaCtrl = new FojaJpaController();
+        DetalleCertificadoPagoJpaController detCertCtrl = new DetalleCertificadoPagoJpaController();
+        CertificadoPagoJpaController certCtrl = new CertificadoPagoJpaController();
+        
+        
+        try{
+            Obra obra = obraCtrl.findObra(nroObra);
+            
+            for(Foja f : obra.getFojaCollection()){
+                for(CertificadoPago cert : f.getCertificadoPagoCollection()){
+                    for(DetalleCertificadoPago detCert : cert.getDetalleCertificadoPagoCollection()){
+                        detCertCtrl.destroy(detCert.getIdDetalleCertificadoPago());
+                    }
+                    certCtrl.destroy(cert.getIdCertificadoPago());
+                }
+            }
+            for(Item i : obra.getItemCollection()){
+                for(Costo c : i.getCostoCollection()){
+                    costoCtrl.destroy(c.getIdCosto());
+                }
+            }
+            for(Foja f : obra.getFojaCollection()){
+                for(DetalleFoja detFoja : f.getDetalleFojaCollection()){
+                    detFojaCtrl.destroy(detFoja.getIdDetalleFoja());
+                }
+                fojaCtrl.destroy(f.getIdFoja());
+            }
+            for(Item i : obra.getItemCollection()){
+                itemCtrl.destroy(i.getIdItem());                
+            }
+            
+            obraCtrl.destroy(nroObra);
+        }
+        catch(Exception e){
+            System.err.println("Excepción: " + e.getMessage());
+            return false;
+        }
+        return true;
+    }
+    
     public ArrayList<Object> obtenerSaldosRestantes(int nroObra){
         ObraJpaController obraCtrl = new ObraJpaController();
         Obra obra = obraCtrl.findObra(nroObra);
@@ -383,12 +552,12 @@ public class Sistema {
         
         //Formato para precios
         DecimalFormat df = new DecimalFormat("$ 0.00");
+        DecimalFormat incf = new DecimalFormat("0.00");
         
         Foja ultimaFoja;
         Item itemDetalle;
         int ord, tipo, ta;
-        float inc;
-        String cos;
+        String cos, inc;
         int fila = 0;
         String den;
         Object[][] tuplas = new Object[obra.getItemCollection().size()][7];        
@@ -400,7 +569,7 @@ public class Sistema {
                 itemDetalle = d.getItem();
                 ord = itemDetalle.getOrden();
                 den = itemDetalle.getDenominacion();
-                inc = itemDetalle.getIncidencia();
+                inc = incf.format(itemDetalle.getIncidencia());
                 tipo = itemDetalle.getTipoItem().getIdTipoItem();
                 cos = df.format(itemDetalle.getUltimoCosto().getValor());
                 ta = d.getTotalAcumulado();
@@ -419,7 +588,7 @@ public class Sistema {
             for(Item i : obra.getItemCollection()){
                 ord = i.getOrden();
                 den = i.getDenominacion();
-                inc = i.getIncidencia();
+                inc = incf.format(i.getIncidencia());
                 tipo = i.getTipoItem().getIdTipoItem();
                 cos = df.format(i.getUltimoCosto().getValor());;
                                 
