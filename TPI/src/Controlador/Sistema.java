@@ -163,7 +163,7 @@ public class Sistema {
         
         ArrayList<Item> itemsObra = new ArrayList(obra.getItemCollection());
         for(int i = 0; i < tuplas.length; i++){
-            System.out.println("i: " + i);
+          
             Item item = itemsObra.get(Integer.parseInt(tuplas[i][0].toString()) - 1);
             nuevoCosto = crearCosto(item, Float.parseFloat(tuplas[i][1].toString()));
             if(nuevoCosto == null){
@@ -788,4 +788,68 @@ public class Sistema {
         }
     }
 */
+    
+     public boolean ValidarNombresEmpresa(String cuitEmpresa, String razonSocial, String rlEmpresa, String rtEmpresa){
+        boolean band =false ,bandCuit, bandRazonSocial, bandRLegal,bandRTecnico;
+        bandCuit=ValidarNumeros(cuitEmpresa);
+        bandRazonSocial=ValidarLetras(razonSocial);
+        bandRLegal=ValidarLetras(rlEmpresa );
+        bandRTecnico=ValidarLetras(rtEmpresa);
+        if(bandCuit && bandRazonSocial && bandRLegal && bandRTecnico){
+            band=true;
+        }else{
+            
+            band=false;
+        }
+        return band;
+    }
+
+
+ private boolean ValidarLetras(String datos){
+        boolean band=false;
+       if(datos.matches("[a-zA-Z]*")){
+           band=true;
+       }
+       return band;
+    }
+
+    private boolean ValidarNumeros(String datos){
+        boolean band=false;
+       if(datos.matches("[0-9]*")){
+          
+           band=true;
+       }
+       return band;
+    }
+
+
+
+
+public boolean ValidarDatosCargaItems(String orden, String denominacion, String incidencia, String costo){
+    boolean bandOrden, bandDenominacion,bandIncidencia,bandCosto, band=false;
+    bandOrden=this.ValidarNumeros(orden);
+    bandIncidencia=this.ValidarLetras(incidencia);
+    bandCosto=this.ValidarNumeros(costo);
+    bandDenominacion=this.ValidarLetras(denominacion);
+    if(bandOrden && bandIncidencia && bandCosto && bandDenominacion){
+        band=true;
+    }
+    return band;
+}
+
+
+
+
+public boolean ValidarDatosObra(String cuit, String financiacion){
+     boolean bandCuit,  bandFinanciacion,band=false;
+     
+     bandCuit=this.ValidarNumeros(cuit);
+     bandFinanciacion=this.ValidarLetras(financiacion);
+     
+     if(bandCuit  && bandFinanciacion){
+         band=true;
+     }
+    return band;
+    
+}
 }

@@ -12,8 +12,11 @@ import javax.swing.*;
 import Controlador.*;
 import javax.swing.table.TableModel;
 import ModeloDB.*;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -77,13 +80,14 @@ public class Inicio extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         financiacionObra = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        fechaInicioObra = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        plazoObra = new javax.swing.JTextField();
         botonCancelarCreacionObra = new javax.swing.JButton();
         botonCargarItems = new javax.swing.JButton();
         cuitEmpresaDeObra = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
+        fechaInicio = new com.toedter.calendar.JDateChooser();
+        fechaPlazo = new com.toedter.calendar.JDateChooser();
+        labelVerificarDatosObra = new java.awt.Label();
         formCargarItems = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         denominacionItem = new javax.swing.JTextField();
@@ -418,22 +422,8 @@ public class Inicio extends javax.swing.JFrame {
         jLabel9.setText("Fecha de inicio:");
         formCrearObra.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, 24));
 
-        fechaInicioObra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fechaInicioObraActionPerformed(evt);
-            }
-        });
-        formCrearObra.add(fechaInicioObra, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 219, -1));
-
         jLabel10.setText("Plazo:");
         formCrearObra.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, -1, 24));
-
-        plazoObra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                plazoObraActionPerformed(evt);
-            }
-        });
-        formCrearObra.add(plazoObra, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 219, -1));
 
         botonCancelarCreacionObra.setText("Cancelar");
         botonCancelarCreacionObra.addActionListener(new java.awt.event.ActionListener() {
@@ -460,6 +450,14 @@ public class Inicio extends javax.swing.JFrame {
 
         jLabel11.setText("C.U.I.T. de empresa");
         formCrearObra.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, 24));
+        formCrearObra.add(fechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 220, -1));
+        formCrearObra.add(fechaPlazo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 220, -1));
+
+        labelVerificarDatosObra.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        labelVerificarDatosObra.setForeground(new java.awt.Color(153, 0, 0));
+        labelVerificarDatosObra.setText("VERIFICAR DATOS INGRESADOS");
+        labelVerificarDatosObra.setVisible(false);
+        formCrearObra.add(labelVerificarDatosObra, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 480, 20));
 
         display.add(formCrearObra, "card3");
 
@@ -1187,7 +1185,6 @@ public class Inicio extends javax.swing.JFrame {
 
         jLabel32.setBackground(new java.awt.Color(204, 204, 204));
         jLabel32.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
-        jLabel32.setForeground(new java.awt.Color(0, 0, 0));
         jLabel32.setText("Rellene el campo \"Nuevo costo\" para poder guardar.");
         jLabel32.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         formAniadirCosto.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 300, 30));
@@ -1603,7 +1600,9 @@ public class Inicio extends javax.swing.JFrame {
         String rt = rtEmpresa.getText();
         
         if(sys.crearEmpresa(c, rs, d, rl, rt)){
+            
             JOptionPane.showMessageDialog(null, "Empresa creada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            this.LimpiarDatosVistaCrearempresa();
         }
         else {
             JOptionPane.showMessageDialog(null, "Error al crear empresa, intente nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1639,23 +1638,36 @@ public class Inicio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_financiacionObraActionPerformed
 
-    private void fechaInicioObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaInicioObraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechaInicioObraActionPerformed
-
-    private void plazoObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plazoObraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_plazoObraActionPerformed
-
     private void botonCancelarCreacionObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarCreacionObraActionPerformed
-        // TODO add your handling code here:
+        display.removeAll();
+        display.add(mensajePrincipal);
+        display.repaint();
+        display.revalidate();
     }//GEN-LAST:event_botonCancelarCreacionObraActionPerformed
 
     private void botonCargarItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarItemsActionPerformed
-        display.removeAll();
-        display.add(formCargarItems);
-        display.repaint();
-        display.revalidate();
+        
+        
+       boolean band;
+        Date plazo = fechaPlazo.getDate();
+        Date inicio= fechaInicio.getDate();
+  
+        
+        band=this.sys.ValidarDatosObra(this.cuitEmpresaDeObra.getText(), this.financiacionObra.getText() );
+        if((this.cuitEmpresaDeObra.getText()!=null)&& this.denominacionObra.getText()!=null &&  this.financiacionObra.getText()!=null && (plazo!=null) && (null!=inicio) &&( plazo.compareTo(inicio)!= 0)){
+        if(band ){
+                this.labelVerificarDatosObra.setVisible(false);
+                display.removeAll();
+                display.add(formCargarItems);
+                display.repaint();
+                display.revalidate();
+            }else{
+                this.labelVerificarDatosObra.setVisible(true);
+            }
+        
+        }else{
+             this.labelVerificarDatosObra.setVisible(true);
+        }
     }//GEN-LAST:event_botonCargarItemsActionPerformed
 
     private void cuitEmpresaDeObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuitEmpresaDeObraActionPerformed
@@ -1694,12 +1706,15 @@ public class Inicio extends javax.swing.JFrame {
 
     private void botonCrearObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCrearObraActionPerformed
         boolean resultadoCreacion = true;
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date plazo = fechaPlazo.getDate();
+        Date inicio= fechaInicio.getDate();
         
         int c = Integer.parseInt(cuitEmpresaDeObra.getText());
         String d = denominacionObra.getText();
         String f = financiacionObra.getText();
-        String fi = fechaInicioObra.getText();
-        String p = plazoObra.getText();
+        String fi = dateFormat.format(inicio);
+        String p = dateFormat.format(plazo);
         
         Obra obra = sys.crearObra(c, d, f, fi, p);
         
@@ -1741,6 +1756,8 @@ public class Inicio extends javax.swing.JFrame {
         
         if(resultadoCreacion){
             JOptionPane.showMessageDialog(null, "Obra creada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            this.LimpiarDatosVistaCrearObra();
+            
         }
         else {
             JOptionPane.showMessageDialog(null, "Error al crear obra, intente nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1821,19 +1838,26 @@ public class Inicio extends javax.swing.JFrame {
 
     private void botonCancelarFojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarFojaActionPerformed
         display.removeAll();
-        display.add(formCrearObra);
+        display.add(mensajePrincipal);
         display.repaint();
         display.revalidate();
     }//GEN-LAST:event_botonCancelarFojaActionPerformed
 
     private void botonCargarItemsFojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarItemsFojaActionPerformed
-        int numObra = Integer.parseInt(numeroObraFoja.getText());     
-        
-        Object[][] tuplas = sys.obtenerItemsObraConAvances(numObra);
-        
-        Object[] columnas = {"Orden", "Denominación", "Incidencia", "Tipo", "Costo", "Total anterior", "Total mes", "Total acumulado"};
-        TableModel modeloConItems = new DefaultTableModel(tuplas, columnas);
-        tablaItemsFoja.setModel(modeloConItems);       
+        if(!"".equals(numeroObraFoja.getText())){
+             int numObra = Integer.parseInt(numeroObraFoja.getText());     
+             
+            Object[][] tuplas = sys.obtenerItemsObraConAvances(numObra);
+           
+                Object[] columnas = {"Orden", "Denominación", "Incidencia", "Tipo", "Costo", "Total anterior", "Total mes", "Total acumulado"};
+                TableModel modeloConItems = new DefaultTableModel(tuplas, columnas);
+                tablaItemsFoja.setModel(modeloConItems);  
+           
+           
+        }else{
+              JOptionPane.showMessageDialog(null, "Ingrese Datos necesarios para el listado", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+             
     }//GEN-LAST:event_botonCargarItemsFojaActionPerformed
     
     
@@ -1861,16 +1885,22 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCancelarCertificadoPagoActionPerformed
 
     private void botonGenerarVistaPreviaCertificadoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGenerarVistaPreviaCertificadoPagoActionPerformed
-        Object[][] tuplas = sys.generarVistaPreviaCertificadoPago(Integer.parseInt(nroObraCertificadoPago.getText()), Integer.parseInt(nroFojaCertificadoPago.getText()));
         
-        if(tuplas == null){
-            JOptionPane.showMessageDialog(null, "Error al generar vista previa, intente nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
+        if((!"".equals(nroObraCertificadoPago.getText())) || (!"".equals(nroFojaCertificadoPago.getText()))){
+            Object[][] tuplas = sys.generarVistaPreviaCertificadoPago(Integer.parseInt(nroObraCertificadoPago.getText()), Integer.parseInt(nroFojaCertificadoPago.getText()));
+
+            if(tuplas == null){
+                JOptionPane.showMessageDialog(null, "Error al generar vista previa, intente nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                Object[] columnas = {"Orden", "Denominación", "Incidencia", "Tipo", "Costo actual", "Total anterior", "Total mes", "Total acumulado"};
+                TableModel modeloCertificado = new DefaultTableModel(tuplas, columnas);
+                tablaCertificadoPago.setModel(modeloCertificado);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Ingrese Datos necesarios para la busqueda", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        else{
-            Object[] columnas = {"Orden", "Denominación", "Incidencia", "Tipo", "Costo actual", "Total anterior", "Total mes", "Total acumulado"};
-            TableModel modeloCertificado = new DefaultTableModel(tuplas, columnas);
-            tablaCertificadoPago.setModel(modeloCertificado);
-        }
+        
     }//GEN-LAST:event_botonGenerarVistaPreviaCertificadoPagoActionPerformed
 
     private void menuItemGenerarCertificadoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGenerarCertificadoPagoActionPerformed
@@ -1896,11 +1926,12 @@ public class Inicio extends javax.swing.JFrame {
 
     private void botonEmpresasCompletasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEmpresasCompletasActionPerformed
         Object[][] tuplas = sys.buscarObrasCompletas();
-        
         if(tuplas[0][0] == null){
+            
             JOptionPane.showMessageDialog(null, "No existen obras completas", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
+           
             Object[] columnas = {"C.U.I.T. empresa", "Número", "Denominación", "Fecha inicio", "Financiación", "Plazo"};
             TableModel modeloObrasCompletas = new DefaultTableModel(tuplas, columnas);
             tablaObrasCompletas.setModel(modeloObrasCompletas);
@@ -2131,6 +2162,8 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemAniadirCostosActionPerformed
 
     private void botonCargarItemsAniadirCostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarItemsAniadirCostoActionPerformed
+        
+        
         Object[][] tuplas = sys.obtenerItemsObraAniadirCosto(Integer.parseInt(numeroObraAniadirCosto.getText()));
         
         Object[] columnas = {"Orden", "Denominación", "Incidencia", "Tipo", "Último costo", "Nuevo costo"};
@@ -2333,7 +2366,52 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
     }
+    
+    
+    
+    
+    
+    private void LimpiarDatosVistaCrearObra(){
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tablaCargarItemsObra.getModel();
+        model.setRowCount(0);
+        this.ordenItem.setText(null);
+        this.denominacionItem.setText(null);
+        this.costoBaseItem.setText(null);
+        this.cuitEmpresaDeObra.setText(null);
+        this.denominacionObra.setText(null);
+        this.financiacionObra.setText(null);
+        this.fechaInicio.setDate(null);
+        this.fechaPlazo.setDate(null);
+        display.removeAll();
+        display.add(mensajePrincipal);
+        display.repaint();
+        display.revalidate();
+    }
+    
+     private void LimpiarDatosVistaCrearempresa(){
+        this.cuitEmpresa.setText(null);
+        this.razonSocialEmpresa.setText(null);
+        this.direccionEmpresa.setText(null);
+        this.rtEmpresa.setText(null);
+        this.rlEmpresa.setText(null);
+        display.removeAll();
+        display.add(mensajePrincipal);
+        display.repaint();
+        display.revalidate();
+    }
 
+    
+    
+    /*
+        
+        Object[][] tuplas = sys.obtenerItemsObraAniadirCosto(Integer.parseInt(numeroObraAniadirCosto.getText()));
+        
+        Object[] columnas = {"Orden", "Denominación", "Incidencia", "Tipo", "Último costo", "Nuevo costo"};
+        TableModel modeloConItems = new DefaultTableModel(tuplas, columnas);
+        tablaAniadirCosto.setModel(modeloConItems);*/
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAniadirItem;
     private javax.swing.JButton botonCalcularTotalAcumulado;
@@ -2384,7 +2462,8 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel display;
     private javax.swing.JTextField fechaCertificado;
     private javax.swing.JTextField fechaFoja;
-    private javax.swing.JTextField fechaInicioObra;
+    private com.toedter.calendar.JDateChooser fechaInicio;
+    private com.toedter.calendar.JDateChooser fechaPlazo;
     private javax.swing.JTextField financiacionObra;
     private javax.swing.JPanel formAniadirCosto;
     private javax.swing.JPanel formCargarItems;
@@ -2449,6 +2528,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
+    private java.awt.Label labelVerificarDatosObra;
     private javax.swing.JPanel mensajePrincipal;
     private javax.swing.JMenu menuCertificadosPago;
     private javax.swing.JMenu menuConsultar;
@@ -2490,7 +2570,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel panelGeneral;
     private javax.swing.JPanel panelLogo;
     private javax.swing.JPanel panelSuperior;
-    private javax.swing.JTextField plazoObra;
     private javax.swing.JTextField porcentajeFlete;
     private javax.swing.JTextField porcentajeGastos;
     private javax.swing.JTextField porcentajeUtilidad;
