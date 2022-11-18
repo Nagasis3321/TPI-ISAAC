@@ -17,10 +17,6 @@ import java.util.List;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.*;
-/**
- *
- * @author Isaac
- */
 
 public class Inicio extends javax.swing.JFrame {
     private Sistema sys = null;
@@ -34,7 +30,7 @@ public class Inicio extends javax.swing.JFrame {
     public Inicio(Sistema controlador) {
         sys = controlador;
         initComponents();
-        setExtendedState(MAXIMIZED_BOTH);
+        setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
         vista = (CardLayout) display.getLayout();
         }
     
@@ -116,6 +112,8 @@ public class Inicio extends javax.swing.JFrame {
         botonCargarItemsFoja = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tablaTotalAcumulado = new javax.swing.JTable();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         formGenerarCertificadoPago = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -185,6 +183,7 @@ public class Inicio extends javax.swing.JFrame {
         jScrollPane10 = new javax.swing.JScrollPane();
         tablaAniadirCosto = new javax.swing.JTable();
         botonGuardarNuevosCostos = new javax.swing.JButton();
+        jLabel32 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuConsultar = new javax.swing.JMenu();
         menuItemObrasTerminadas = new javax.swing.JMenuItem();
@@ -618,6 +617,23 @@ public class Inicio extends javax.swing.JFrame {
         jScrollPane3.setViewportView(tablaTotalAcumulado);
 
         formGenerarFoja.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 40, 110, -1));
+
+        jScrollPane11.setBorder(null);
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setBackground(new java.awt.Color(204, 204, 204));
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jTextArea1.setForeground(new java.awt.Color(0, 0, 0));
+        jTextArea1.setLineWrap(true);
+        jTextArea1.setRows(2);
+        jTextArea1.setText("Rellene el campo \"Total mes\" para obtener total           acumulado, y poder grabar avances.");
+        jTextArea1.setWrapStyleWord(true);
+        jTextArea1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTextArea1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jScrollPane11.setViewportView(jTextArea1);
+
+        formGenerarFoja.add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 270, 40));
 
         display.add(formGenerarFoja, "card6");
 
@@ -1104,13 +1120,17 @@ public class Inicio extends javax.swing.JFrame {
 
         display.add(formEliminarCertificadosPago, "card14");
 
+        formAniadirCosto.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jLabel30.setText("Número de obra:");
+        formAniadirCosto.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, -1, 30));
 
         numeroObraAniadirCosto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 numeroObraAniadirCostoActionPerformed(evt);
             }
         });
+        formAniadirCosto.add(numeroObraAniadirCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 115, -1));
 
         botonCancelarAniadirCosto.setText("Cancelar");
         botonCancelarAniadirCosto.addActionListener(new java.awt.event.ActionListener() {
@@ -1118,6 +1138,7 @@ public class Inicio extends javax.swing.JFrame {
                 botonCancelarAniadirCostoActionPerformed(evt);
             }
         });
+        formAniadirCosto.add(botonCancelarAniadirCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, -1, -1));
 
         botonCargarItemsAniadirCosto.setText("Cargar items");
         botonCargarItemsAniadirCosto.addActionListener(new java.awt.event.ActionListener() {
@@ -1125,6 +1146,7 @@ public class Inicio extends javax.swing.JFrame {
                 botonCargarItemsAniadirCostoActionPerformed(evt);
             }
         });
+        formAniadirCosto.add(botonCargarItemsAniadirCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, -1, -1));
 
         tablaAniadirCosto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1144,53 +1166,22 @@ public class Inicio extends javax.swing.JFrame {
         });
         jScrollPane10.setViewportView(tablaAniadirCosto);
 
+        formAniadirCosto.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 551, -1));
+
         botonGuardarNuevosCostos.setText("Guardar nuevos costos");
         botonGuardarNuevosCostos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonGuardarNuevosCostosActionPerformed(evt);
             }
         });
+        formAniadirCosto.add(botonGuardarNuevosCostos, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 468, -1, -1));
 
-        javax.swing.GroupLayout formAniadirCostoLayout = new javax.swing.GroupLayout(formAniadirCosto);
-        formAniadirCosto.setLayout(formAniadirCostoLayout);
-        formAniadirCostoLayout.setHorizontalGroup(
-            formAniadirCostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formAniadirCostoLayout.createSequentialGroup()
-                .addContainerGap(55, Short.MAX_VALUE)
-                .addGroup(formAniadirCostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(botonGuardarNuevosCostos)
-                    .addGroup(formAniadirCostoLayout.createSequentialGroup()
-                        .addGroup(formAniadirCostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(formAniadirCostoLayout.createSequentialGroup()
-                                .addComponent(botonCancelarAniadirCosto)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(botonCargarItemsAniadirCosto))
-                            .addGroup(formAniadirCostoLayout.createSequentialGroup()
-                                .addComponent(jLabel30)
-                                .addGap(18, 18, 18)
-                                .addComponent(numeroObraAniadirCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(38, 38, 38)
-                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(500, 500, 500))
-        );
-        formAniadirCostoLayout.setVerticalGroup(
-            formAniadirCostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(formAniadirCostoLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(formAniadirCostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(formAniadirCostoLayout.createSequentialGroup()
-                        .addGroup(formAniadirCostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel30)
-                            .addComponent(numeroObraAniadirCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(36, 36, 36)
-                        .addGroup(formAniadirCostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(botonCancelarAniadirCosto)
-                            .addComponent(botonCargarItemsAniadirCosto))))
-                .addGap(18, 18, 18)
-                .addComponent(botonGuardarNuevosCostos)
-                .addContainerGap(78, Short.MAX_VALUE))
-        );
+        jLabel32.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel32.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jLabel32.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel32.setText("Rellene el campo \"Nuevo costo\" para poder guardar.");
+        jLabel32.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        formAniadirCosto.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 300, 30));
 
         display.add(formAniadirCosto, "card15");
 
@@ -2069,6 +2060,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -2082,6 +2074,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -2090,6 +2083,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel mensajePrincipal;
     private javax.swing.JMenu menuConsultar;
     private javax.swing.JMenu menuEmpresas;
