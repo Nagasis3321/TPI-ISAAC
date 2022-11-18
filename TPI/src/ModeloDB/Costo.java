@@ -32,15 +32,16 @@ import javax.persistence.Table;
     @NamedQuery(name = "Costo.findByValor", query = "SELECT c FROM Costo c WHERE c.valor = :valor")})
 public class Costo implements Serializable {
 
+    @Basic(optional = false)
+    @Column(name = "valor")
+    private float valor;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idCosto")
     private Integer idCosto;
-    @Basic(optional = false)
-    @Column(name = "valor")
-    private int valor;
     @JoinColumn(name = "item", referencedColumnName = "idItem")
     @ManyToOne(optional = false)
     private Item item;
@@ -67,13 +68,6 @@ public class Costo implements Serializable {
         this.idCosto = idCosto;
     }
 
-    public int getValor() {
-        return valor;
-    }
-
-    public void setValor(int valor) {
-        this.valor = valor;
-    }
 
     public Item getItem() {
         return item;
@@ -114,6 +108,14 @@ public class Costo implements Serializable {
     @Override
     public String toString() {
         return "ModeloDB.Costo[ idCosto=" + idCosto + " ]";
+    }
+
+    public float getValor() {
+        return valor;
+    }
+
+    public void setValor(float valor) {
+        this.valor = valor;
     }
     
 }

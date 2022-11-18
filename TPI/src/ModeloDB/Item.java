@@ -35,15 +35,16 @@ import javax.persistence.Table;
     @NamedQuery(name = "Item.findByDenominacion", query = "SELECT i FROM Item i WHERE i.denominacion = :denominacion")})
 public class Item implements Serializable {
 
+    @Basic(optional = false)
+    @Column(name = "incidencia")
+    private float incidencia;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idItem")
     private Integer idItem;
-    @Basic(optional = false)
-    @Column(name = "incidencia")
-    private int incidencia;
     @Basic(optional = false)
     @Column(name = "orden")
     private int orden;
@@ -68,7 +69,7 @@ public class Item implements Serializable {
         this.idItem = idItem;
     }
 
-    public Item(int orden, String denominacion, int incidencia) {
+    public Item(int orden, String denominacion, float incidencia) {
         this.incidencia = incidencia;
         this.orden = orden;
         this.denominacion = denominacion;
@@ -89,13 +90,6 @@ public class Item implements Serializable {
         this.idItem = idItem;
     }
 
-    public int getIncidencia() {
-        return incidencia;
-    }
-
-    public void setIncidencia(int incidencia) {
-        this.incidencia = incidencia;
-    }
 
     public int getOrden() {
         return orden;
@@ -149,6 +143,11 @@ public class Item implements Serializable {
         ArrayList<Costo> costos = new ArrayList(this.getCostoCollection());
         return costos.get(costos.size()-1);
     }
+    
+    public Costo getCostoBase(){
+        ArrayList<Costo> costos = new ArrayList(this.getCostoCollection());
+        return costos.get(0);
+    }
 
     @Override
     public int hashCode() {
@@ -173,6 +172,14 @@ public class Item implements Serializable {
     @Override
     public String toString() {
         return "ModeloDB.Item[ idItem=" + idItem + " ]";
+    }
+
+    public float getIncidencia() {
+        return incidencia;
+    }
+
+    public void setIncidencia(float incidencia) {
+        this.incidencia = incidencia;
     }
     
 }

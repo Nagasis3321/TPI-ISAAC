@@ -39,6 +39,119 @@ public class Sistema {
         
     }
     
+    public ArrayList<Object> obtenerSaldosRestantes(int nroObra){
+        ObraJpaController obraCtrl = new ObraJpaController();
+        Obra obra = obraCtrl.findObra(nroObra);
+        
+        ArrayList<Item> itemsObra = new ArrayList(obra.getItemCollection());
+        
+        Object[][] tuplas = new Object[obra.getItemCollection().size()][7];
+        DecimalFormat df = new DecimalFormat("$ 0.00");
+        DecimalFormat incf = new DecimalFormat("0.00");
+        
+        ArrayList<Object> retorno = new ArrayList();
+        
+        float saldoTotalRestante = 0;
+        float progresoRestante = 0;
+        
+        int i = 0;
+        
+        for(Item item : itemsObra){
+            tuplas[i][0] = item.getOrden();
+            tuplas[i][1] = item.getDenominacion();
+            tuplas[i][2] = item.getTipoItem().getDenominacion();
+            float inc = item.getIncidencia();
+            tuplas[i][3] = incf.format(inc);
+            tuplas[i][4] = df.format(item.getUltimoCosto().getValor());
+            
+            ArrayList<DetalleFoja> detallesDeItem = new ArrayList(item.getDetalleFojaCollection());
+            int avanceAcumulado = detallesDeItem.get(detallesDeItem.size() - 1).getTotalAcumulado();
+            tuplas[i][5] = avanceAcumulado;
+            
+            float floatAvance = (float)avanceAcumulado/100;
+            float floatValor = item.getUltimoCosto().getValor();
+            tuplas[i][6] = df.format(floatValor - (floatAvance * floatValor));
+            
+            saldoTotalRestante += (floatValor - (floatAvance * floatValor));
+            
+            progresoRestante += (inc - ((float) avanceAcumulado * inc / 100));
+            
+            i++;
+        }
+        
+        retorno.add(tuplas);
+        retorno.add(incf.format(progresoRestante));
+        retorno.add(df.format(saldoTotalRestante));
+        
+        return retorno;
+    }
+    
+    public Object[][] obtenerImportesContrato(int nroObra, float flete, float gastos, float utilidad){
+        ObraJpaController obraCtrl = new ObraJpaController();
+        Obra obra = obraCtrl.findObra(nroObra);
+        if(obra == null){
+            return null;
+        }
+        Object[][] tuplas = new Object[obra.getItemCollection().size()][8];
+        
+        //Formato para precios
+        DecimalFormat df = new DecimalFormat("$ 0.00");
+        
+        ArrayList<Item> itemsObra = new ArrayList(obra.getItemCollection());
+        
+        int i = 0;
+        
+        for(Item item : itemsObra){
+            tuplas[i][0] = item.getOrden();
+            tuplas[i][1] = item.getDenominacion();
+            tuplas[i][2] = item.getTipoItem().getDenominacion();
+            tuplas[i][3] = df.format((float) item.getCostoBase().getValor());
+            float sumaImpuesto = (((float) item.getTipoItem().getImpuesto() / 100 ) * (float) item.getCostoBase().getValor()) + (float) item.getCostoBase().getValor();
+            tuplas[i][4] = df.format(sumaImpuesto);
+            float sumaFlete = sumaImpuesto * (flete / 100) + sumaImpuesto;
+            tuplas[i][5] = df.format(sumaFlete);
+            float sumaGastos = sumaFlete * (gastos / 100) + sumaFlete;
+            tuplas[i][6] = df.format(sumaGastos);
+            float sumaUtilidad = sumaGastos * (utilidad/ 100) + sumaGastos;
+            tuplas[i][7] = df.format(sumaUtilidad);
+            i++;
+        }
+        return tuplas;
+    }
+    
+    public Object[][] buscarObrasCompletas(){
+        ObraJpaController obraCtrl = new ObraJpaController();
+        ArrayList<Obra> obras = new ArrayList(obraCtrl.findObraEntities());
+        boolean completa = true;
+        int i = 0;
+        Object[][] tuplas = new Object[obras.size()][6];
+        
+        for(Obra o : obras){
+            ArrayList<Foja> fojasObra = new ArrayList(o.getFojaCollection());
+            ArrayList<DetalleFoja> detallesFoja = new ArrayList(fojasObra.get(fojasObra.size()-1).getDetalleFojaCollection());
+            for(DetalleFoja d : detallesFoja){
+                if(d.getTotalAcumulado() < 100){
+                    completa = false;
+                }
+            }
+            if(completa == true){
+                tuplas[i][0] = o.getCuitEmpresa().getCuit();
+                tuplas[i][1] = o.getIdObra();
+                tuplas[i][2] = o.getDenominacion();
+                tuplas[i][3] = o.getFechaInicio();
+                tuplas[i][4] = o.getFinanciacion();
+                tuplas[i][5] = o.getPlazo();
+            }
+            else{
+                completa = true;
+            }
+            
+            i++;
+        }
+        
+        return tuplas;
+    }
+    
     public Object[][] generarVistaPreviaCertificadoPago(int nroObra, int nroFoja){
         ObraJpaController obraCtrl = new ObraJpaController();
         Obra obra = obraCtrl.findObra(nroObra);
@@ -64,22 +177,10 @@ public class Sistema {
             tuplas[i][0] = d.getItem().getOrden();
             tuplas[i][1] = d.getItem().getDenominacion();
             tuplas[i][2] = d.getItem().getIncidencia();
-            
-            String tipoItem = null;
-            int intTipoItem = d.getItem().getTipoItem().getIdTipoItem();
-            switch(intTipoItem){
-                case 1:
-                    tipoItem = "Vivienda";
-                    break;
-                case 2:
-                    tipoItem = "Infraestructura";
-                    break;
-            }
-            tuplas[i][3] = intTipoItem;
-            
-            ArrayList<Costo> costosItem = new ArrayList(d.getItem().getCostoCollection());
-            int costoActual = costosItem.get(costosItem.size()-1).getValor();
-            tuplas[i][4] = costoActual;
+            tuplas[i][3] = d.getItem().getTipoItem().getDenominacion();
+
+            float costoActual = d.getItem().getUltimoCosto().getValor();
+            tuplas[i][4] = df.format(costoActual);
             
             
                     
@@ -201,9 +302,11 @@ public class Sistema {
         return detalleFoja;
     }
     
-    public Item crearItem(Obra obra, int orden, String denominacion, int incidencia, int tipo, int costo){
+    public Item crearItem(Obra obra, int orden, String denominacion, float incidencia, int tipo, float costo){
         ItemJpaController itemCtrl = new ItemJpaController();
-        Item item = new Item(orden, denominacion, incidencia);
+        //Formato de incidencia
+        DecimalFormat incf = new DecimalFormat("0.00");
+        Item item = new Item(orden, denominacion, Float.parseFloat(incf.format(incidencia).replace(',', '.')));
         
         TipoItemJpaController tipoCtrl = new TipoItemJpaController();
         TipoItem tipoItem = tipoCtrl.findTipoItem(tipo);
@@ -224,7 +327,7 @@ public class Sistema {
         return item;
     }
     
-    public Costo crearCosto(Item item, int valor){
+    public Costo crearCosto(Item item, float valor){
         CostoJpaController costoCtrl = new CostoJpaController();
         Costo costo = new Costo();
         costo.setValor(valor);
@@ -273,55 +376,19 @@ public class Sistema {
         return true;
     }
     
-    public void informarObrasCompletas(){
-        ArrayList<Foja> fojasDeObra = new ArrayList();
-        Foja ultimaFoja;
-        ObraJpaController obraCtrl = new ObraJpaController();
-        boolean obraIncompleta = false;
-        boolean existenCompletas = false;
-        for(Obra obra : obraCtrl.findObraEntities()){
-            fojasDeObra = new ArrayList(obra.getFojaCollection()); 
-            ultimaFoja = fojasDeObra.get(fojasDeObra.size()-1);
-
-            for(DetalleFoja detalle : ultimaFoja.getDetalleFojaCollection()){
-                if(detalle.getTotalAcumulado() != 100){
-                    obraIncompleta = true;
-                }
-            }
-            if(!obraIncompleta){
-                existenCompletas = true;
-                System.out.println("-  Obra Nro. " + obra.getIdObra()+ ", denominacion: " + obra.getDenominacion());
-            } else {
-                obraIncompleta = false;
-            }
-        }
-        if(!existenCompletas){
-            System.out.println("No existen obras completas");
-        }
-    } 
-    
- 
-    void calcularImporteContrato(Obra obra, int flete, int gastos, int utilidad){
-        int importeTotal = 0;
-        int importeFlete;
-        int importeGastos;
-        for(Item item : obra.getItemCollection()){
-            ArrayList<Costo> costosItem = new ArrayList(item.getCostoCollection());
-            importeFlete = costosItem.get(1).getValor() + (costosItem.get(1).getValor() * flete);
-            importeGastos = importeFlete + (importeFlete * gastos);
-            importeTotal += importeGastos + (importeGastos * utilidad);
-        }
-        System.out.println("Total a pagar en contrato: " + importeTotal);
-    }
-    
-    
     public Object[][] obtenerItemsObraConAvances(int idObra){
         ObraJpaController obraCtrl = new ObraJpaController();
         Obra obra = obraCtrl.findObra(idObra);
         ArrayList<Foja> fojasObra = new ArrayList(obra.getFojaCollection());
+        
+        //Formato para precios
+        DecimalFormat df = new DecimalFormat("$ 0.00");
+        
         Foja ultimaFoja;
         Item itemDetalle;
-        int ord, inc, tipo, cos, ta;
+        int ord, tipo, ta;
+        float inc;
+        String cos;
         int fila = 0;
         String den;
         Object[][] tuplas = new Object[obra.getItemCollection().size()][7];        
@@ -335,7 +402,7 @@ public class Sistema {
                 den = itemDetalle.getDenominacion();
                 inc = itemDetalle.getIncidencia();
                 tipo = itemDetalle.getTipoItem().getIdTipoItem();
-                cos = itemDetalle.getUltimoCosto().getValor();
+                cos = df.format(itemDetalle.getUltimoCosto().getValor());
                 ta = d.getTotalAcumulado();
 
                 tuplas[fila][0] = ord;
@@ -354,7 +421,7 @@ public class Sistema {
                 den = i.getDenominacion();
                 inc = i.getIncidencia();
                 tipo = i.getTipoItem().getIdTipoItem();
-                cos = i.getUltimoCosto().getValor();
+                cos = df.format(i.getUltimoCosto().getValor());;
                                 
                 tuplas[fila][0] = ord;
                 tuplas[fila][1] = den;
@@ -411,7 +478,7 @@ public class Sistema {
 
 */
     
-    
+    /*
     void calcularProgresoObra(int idObra){
         int porcentajeCompleto = 0;
         int dineroFaltante = 0;
@@ -435,4 +502,5 @@ public class Sistema {
             }
         }
     }
+*/
 }

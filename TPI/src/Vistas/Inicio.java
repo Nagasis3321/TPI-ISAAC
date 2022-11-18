@@ -98,9 +98,7 @@ public class Inicio extends javax.swing.JFrame {
         tablaCargarItemsObra = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
         ordenItem = new javax.swing.JTextField();
-        incidenciaItem = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
         tipoItem = new javax.swing.JComboBox<>();
         jLabel16 = new javax.swing.JLabel();
         costoBaseItem = new javax.swing.JTextField();
@@ -128,11 +126,42 @@ public class Inicio extends javax.swing.JFrame {
         botonCancelarCertificadoPago = new javax.swing.JButton();
         botonGenerarVistaPreviaCertificadoPago = new javax.swing.JButton();
         botonGuardarCertificadoPago = new javax.swing.JButton();
+        vistaObrasCompletas = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tablaObrasCompletas = new javax.swing.JTable();
+        botonEmpresasCompletas = new javax.swing.JButton();
+        botonCancelarObrasCompletas = new javax.swing.JButton();
+        vistaImportesContrato = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        numeroObraContrato = new javax.swing.JTextField();
+        porcentajeFlete = new javax.swing.JTextField();
+        porcentajeGastos = new javax.swing.JTextField();
+        porcentajeUtilidad = new javax.swing.JTextField();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tablaContrato = new javax.swing.JTable();
+        botonImprimirContrato = new javax.swing.JButton();
+        botonCancelarContrato = new javax.swing.JButton();
+        vistaSaldosRestantes = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        numeroObraSaldos = new javax.swing.JTextField();
+        botonVerSaldosRestantes = new javax.swing.JButton();
+        botonCancelarSaldos = new javax.swing.JButton();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        tablaSaldosRestantes = new javax.swing.JTable();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        saldoTotalRestante = new javax.swing.JTextArea();
+        jLabel15 = new javax.swing.JLabel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        progresoTotalRestante = new javax.swing.JTextArea();
+        jLabel25 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuConsultar = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        menuItemObrasTerminadas = new javax.swing.JMenuItem();
+        menuItemImportesContrato = new javax.swing.JMenuItem();
+        menuItemSaldosRestantes = new javax.swing.JMenuItem();
         menuGenerar = new javax.swing.JMenu();
         menuItemGenerarFoja = new javax.swing.JMenuItem();
         menuItemGenerarCertificadoPago = new javax.swing.JMenuItem();
@@ -397,11 +426,11 @@ public class Inicio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Orden", "Denominación", "Incidencia", "Tipo", "Costo"
+                "Orden", "Denominación", "Tipo", "Costo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -413,7 +442,6 @@ public class Inicio extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablaCargarItemsObra);
         if (tablaCargarItemsObra.getColumnModel().getColumnCount() > 0) {
             tablaCargarItemsObra.getColumnModel().getColumn(0).setPreferredWidth(30);
-            tablaCargarItemsObra.getColumnModel().getColumn(2).setPreferredWidth(50);
         }
 
         formCargarItems.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, -1, -1));
@@ -428,31 +456,21 @@ public class Inicio extends javax.swing.JFrame {
         });
         formCargarItems.add(ordenItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 219, -1));
 
-        incidenciaItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                incidenciaItemActionPerformed(evt);
-            }
-        });
-        formCargarItems.add(incidenciaItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 219, -1));
-
         jLabel14.setText("Tipo de item:");
-        formCargarItems.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, 24));
-
-        jLabel15.setText("Incidencia:");
-        formCargarItems.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, 24));
+        formCargarItems.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, 24));
 
         tipoItem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vivienda - 5% de impuesto", "Infraestructura - 10% de impuesto" }));
-        formCargarItems.add(tipoItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 220, -1));
+        formCargarItems.add(tipoItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 220, -1));
 
         jLabel16.setText("Costo base:");
-        formCargarItems.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, 24));
+        formCargarItems.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, 24));
 
         costoBaseItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 costoBaseItemActionPerformed(evt);
             }
         });
-        formCargarItems.add(costoBaseItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 219, -1));
+        formCargarItems.add(costoBaseItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 219, -1));
 
         botonCancelarItems.setText("Cancelar");
         botonCancelarItems.addActionListener(new java.awt.event.ActionListener() {
@@ -460,7 +478,7 @@ public class Inicio extends javax.swing.JFrame {
                 botonCancelarItemsActionPerformed(evt);
             }
         });
-        formCargarItems.add(botonCancelarItems, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, -1));
+        formCargarItems.add(botonCancelarItems, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, -1, -1));
 
         botonCrearObra.setText("Crear obra");
         botonCrearObra.addActionListener(new java.awt.event.ActionListener() {
@@ -468,7 +486,7 @@ public class Inicio extends javax.swing.JFrame {
                 botonCrearObraActionPerformed(evt);
             }
         });
-        formCargarItems.add(botonCrearObra, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, 290, -1));
+        formCargarItems.add(botonCrearObra, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, 290, -1));
 
         botonEliminarItem.setText("Eliminar item");
         botonEliminarItem.addActionListener(new java.awt.event.ActionListener() {
@@ -476,7 +494,7 @@ public class Inicio extends javax.swing.JFrame {
                 botonEliminarItemActionPerformed(evt);
             }
         });
-        formCargarItems.add(botonEliminarItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, -1, -1));
+        formCargarItems.add(botonEliminarItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, -1, -1));
 
         botonAniadirItem.setText("Añadir item");
         botonAniadirItem.addActionListener(new java.awt.event.ActionListener() {
@@ -484,7 +502,7 @@ public class Inicio extends javax.swing.JFrame {
                 botonAniadirItemActionPerformed(evt);
             }
         });
-        formCargarItems.add(botonAniadirItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 260, -1, -1));
+        formCargarItems.add(botonAniadirItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, -1, -1));
 
         display.add(formCargarItems, "card4");
 
@@ -648,23 +666,229 @@ public class Inicio extends javax.swing.JFrame {
 
         display.add(formGenerarCertificadoPago, "card7");
 
+        vistaObrasCompletas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tablaObrasCompletas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "C.U.I.T. empresa", "Número", "Denominación", "Fecha inicio", "Financiación", "Plazo"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(tablaObrasCompletas);
+        if (tablaObrasCompletas.getColumnModel().getColumnCount() > 0) {
+            tablaObrasCompletas.getColumnModel().getColumn(1).setPreferredWidth(30);
+        }
+
+        vistaObrasCompletas.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 50, 625, -1));
+
+        botonEmpresasCompletas.setText("Ver empresas completadas");
+        botonEmpresasCompletas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEmpresasCompletasActionPerformed(evt);
+            }
+        });
+        vistaObrasCompletas.add(botonEmpresasCompletas, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, -1, -1));
+
+        botonCancelarObrasCompletas.setText("Cancelar");
+        botonCancelarObrasCompletas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarObrasCompletasActionPerformed(evt);
+            }
+        });
+        vistaObrasCompletas.add(botonCancelarObrasCompletas, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, -1, -1));
+
+        display.add(vistaObrasCompletas, "card8");
+
+        vistaImportesContrato.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel20.setText("Número de obra:");
+        vistaImportesContrato.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, 30));
+
+        jLabel21.setText("Porcentaje flete:");
+        vistaImportesContrato.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 66, -1, 30));
+
+        jLabel22.setText("Porcentaje gastos:");
+        vistaImportesContrato.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, 30));
+
+        jLabel23.setText("Porcentaje utilidad:");
+        vistaImportesContrato.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, 30));
+
+        numeroObraContrato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numeroObraContratoActionPerformed(evt);
+            }
+        });
+        vistaImportesContrato.add(numeroObraContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 140, -1));
+
+        porcentajeFlete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                porcentajeFleteActionPerformed(evt);
+            }
+        });
+        vistaImportesContrato.add(porcentajeFlete, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, 140, -1));
+
+        porcentajeGastos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                porcentajeGastosActionPerformed(evt);
+            }
+        });
+        vistaImportesContrato.add(porcentajeGastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 140, -1));
+
+        porcentajeUtilidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                porcentajeUtilidadActionPerformed(evt);
+            }
+        });
+        vistaImportesContrato.add(porcentajeUtilidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 140, -1));
+
+        tablaContrato.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Orden", "Denominación", "Tipo", "Costo base", "Suma impuesto tipo", "Suma flete", "Suma gastos", "Suma utilidad"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane6.setViewportView(tablaContrato);
+        if (tablaContrato.getColumnModel().getColumnCount() > 0) {
+            tablaContrato.getColumnModel().getColumn(0).setMaxWidth(50);
+        }
+
+        vistaImportesContrato.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 30, 880, -1));
+
+        botonImprimirContrato.setText("Imprimir importes de contrato");
+        botonImprimirContrato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonImprimirContratoActionPerformed(evt);
+            }
+        });
+        vistaImportesContrato.add(botonImprimirContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, -1, -1));
+
+        botonCancelarContrato.setText("Cancelar");
+        botonCancelarContrato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarContratoActionPerformed(evt);
+            }
+        });
+        vistaImportesContrato.add(botonCancelarContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
+
+        display.add(vistaImportesContrato, "card9");
+
+        vistaSaldosRestantes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel24.setText("Número de obra:");
+        vistaSaldosRestantes.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, 20));
+        vistaSaldosRestantes.add(numeroObraSaldos, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 150, -1));
+
+        botonVerSaldosRestantes.setText("Ver saldos restantes");
+        botonVerSaldosRestantes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonVerSaldosRestantesActionPerformed(evt);
+            }
+        });
+        vistaSaldosRestantes.add(botonVerSaldosRestantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, -1, -1));
+
+        botonCancelarSaldos.setText("Cancelar");
+        botonCancelarSaldos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarSaldosActionPerformed(evt);
+            }
+        });
+        vistaSaldosRestantes.add(botonCancelarSaldos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
+
+        tablaSaldosRestantes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Orden", "Denominación", "Tipo", "Incidencia", "Costo actual", "Avance acumulado", "Dinero restante"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane7.setViewportView(tablaSaldosRestantes);
+        if (tablaSaldosRestantes.getColumnModel().getColumnCount() > 0) {
+            tablaSaldosRestantes.getColumnModel().getColumn(0).setMaxWidth(40);
+            tablaSaldosRestantes.getColumnModel().getColumn(2).setMaxWidth(100);
+        }
+
+        vistaSaldosRestantes.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, 780, 420));
+
+        saldoTotalRestante.setEditable(false);
+        saldoTotalRestante.setColumns(20);
+        saldoTotalRestante.setLineWrap(true);
+        saldoTotalRestante.setRows(1);
+        jScrollPane8.setViewportView(saldoTotalRestante);
+
+        vistaSaldosRestantes.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 480, -1, 30));
+
+        jLabel15.setText("Saldo total restante:");
+        vistaSaldosRestantes.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 480, -1, 30));
+
+        progresoTotalRestante.setEditable(false);
+        progresoTotalRestante.setColumns(20);
+        progresoTotalRestante.setLineWrap(true);
+        progresoTotalRestante.setRows(1);
+        jScrollPane9.setViewportView(progresoTotalRestante);
+
+        vistaSaldosRestantes.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 480, -1, 30));
+
+        jLabel25.setText("Progreso total restante:");
+        vistaSaldosRestantes.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 480, -1, 30));
+
+        display.add(vistaSaldosRestantes, "card10");
+
         panelGeneral.add(display, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 1370, 570));
 
         menuConsultar.setText("Consultar");
 
-        jMenuItem1.setText("Obras terminadas");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        menuItemObrasTerminadas.setText("Obras terminadas");
+        menuItemObrasTerminadas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                menuItemObrasTerminadasActionPerformed(evt);
             }
         });
-        menuConsultar.add(jMenuItem1);
+        menuConsultar.add(menuItemObrasTerminadas);
 
-        jMenuItem4.setText("Importes de contrato");
-        menuConsultar.add(jMenuItem4);
+        menuItemImportesContrato.setText("Importes de contrato");
+        menuItemImportesContrato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemImportesContratoActionPerformed(evt);
+            }
+        });
+        menuConsultar.add(menuItemImportesContrato);
 
-        jMenuItem5.setText("Saldos restantes de obra");
-        menuConsultar.add(jMenuItem5);
+        menuItemSaldosRestantes.setText("Saldos restantes de obra");
+        menuItemSaldosRestantes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemSaldosRestantesActionPerformed(evt);
+            }
+        });
+        menuConsultar.add(menuItemSaldosRestantes);
 
         jMenuBar1.add(menuConsultar);
 
@@ -759,9 +983,12 @@ public class Inicio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void menuItemObrasTerminadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemObrasTerminadasActionPerformed
+        display.removeAll();
+        display.add(vistaObrasCompletas);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_menuItemObrasTerminadasActionPerformed
 
     private void cuitEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuitEmpresaActionPerformed
         // TODO add your handling code here:
@@ -858,10 +1085,6 @@ public class Inicio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ordenItemActionPerformed
 
-    private void incidenciaItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incidenciaItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_incidenciaItemActionPerformed
-
     private void costoBaseItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_costoBaseItemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_costoBaseItemActionPerformed
@@ -901,22 +1124,29 @@ public class Inicio extends javax.swing.JFrame {
         
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tablaCargarItemsObra.getModel();
         int orden = 0;
-        int incidencia = 0;
+        float incidencia = 0;
         int tipo = 0;
-        int costoBase = 0;
+        float costoBase = 0;
+        float costoTotal = 0;
         String denominacion = null;
+        
+        for(int j = 0; j < model.getRowCount(); j++){
+            costoTotal += Integer.parseInt(model.getValueAt(j, 3).toString());
+        }
+        
         for(int i = 0; i < model.getRowCount(); i++){
             orden = Integer.parseInt(model.getValueAt(i, 0).toString());
             denominacion = (String) model.getValueAt(i, 1); 
-            incidencia = Integer.parseInt(model.getValueAt(i, 2).toString());
-            if(("Vivienda").equals(model.getValueAt(i, 3).toString())){
+            if(("Vivienda").equals(model.getValueAt(i, 2).toString())){
                 tipo = 1;
             }
-            else if (("Infraestructura").equals(model.getValueAt(i, 3).toString())){
+            else if (("Infraestructura").equals(model.getValueAt(i, 2).toString())){
                 tipo = 2;
             }
 
-            costoBase = Integer.parseInt(model.getValueAt(i, 4).toString());  
+            costoBase = Float.parseFloat(model.getValueAt(i, 3).toString());  
+            
+            incidencia = (costoBase / costoTotal) * 100;
             
             if(sys.crearItem(obra, orden, denominacion, incidencia, tipo, costoBase) == null){
                 resultadoCreacion = false;
@@ -935,7 +1165,6 @@ public class Inicio extends javax.swing.JFrame {
     private void botonAniadirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAniadirItemActionPerformed
         int o = Integer.parseInt(ordenItem.getText());
         String d = denominacionItem.getText();
-        int i = Integer.parseInt(incidenciaItem.getText());
         String t;
         if(tipoItem.getSelectedIndex() == 0){
             t = "Vivienda";
@@ -946,7 +1175,7 @@ public class Inicio extends javax.swing.JFrame {
         
         int c = Integer.parseInt(costoBaseItem.getText());
         
-        Object[] row = { o, d, i, t, c };
+        Object[] row = { o, d, t, c };
         
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tablaCargarItemsObra.getModel();
 
@@ -1000,6 +1229,7 @@ public class Inicio extends javax.swing.JFrame {
         int numObra = Integer.parseInt(numeroObraFoja.getText());
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tablaItemsFoja.getModel();
         javax.swing.table.DefaultTableModel modelTotalAcumulado = (javax.swing.table.DefaultTableModel) tablaTotalAcumulado.getModel();
+        
         
         Object[][] tuplas = sys.obtenerItemsObraConAvances(numObra);
         
@@ -1089,6 +1319,105 @@ public class Inicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonGuardarCertificadoPagoActionPerformed
 
+    private void botonEmpresasCompletasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEmpresasCompletasActionPerformed
+        Object[][] tuplas = sys.buscarObrasCompletas();
+        
+        if(tuplas.length == 0){
+            JOptionPane.showMessageDialog(null, "No existen obras completas", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        Object[] columnas = {"C.U.I.T. empresa", "Número", "Denominación", "Fecha inicio", "Financiación", "Plazo"};
+        TableModel modeloObrasCompletas = new DefaultTableModel(tuplas, columnas);
+        tablaObrasCompletas.setModel(modeloObrasCompletas);
+    }//GEN-LAST:event_botonEmpresasCompletasActionPerformed
+
+    private void botonCancelarObrasCompletasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarObrasCompletasActionPerformed
+        display.removeAll();
+        display.add(mensajePrincipal);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_botonCancelarObrasCompletasActionPerformed
+
+    private void menuItemImportesContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemImportesContratoActionPerformed
+        display.removeAll();
+        display.add(vistaImportesContrato);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_menuItemImportesContratoActionPerformed
+
+    private void numeroObraContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroObraContratoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numeroObraContratoActionPerformed
+
+    private void porcentajeFleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porcentajeFleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_porcentajeFleteActionPerformed
+
+    private void porcentajeGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porcentajeGastosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_porcentajeGastosActionPerformed
+
+    private void porcentajeUtilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porcentajeUtilidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_porcentajeUtilidadActionPerformed
+
+    private void botonImprimirContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonImprimirContratoActionPerformed
+        int nroObra = Integer.parseInt(numeroObraContrato.getText());
+        float flete = Float.parseFloat(porcentajeFlete.getText());
+        float gastos = Float.parseFloat(porcentajeGastos.getText());
+        float utilidad = Float.parseFloat(porcentajeUtilidad.getText());
+        
+        Object[][] tuplas = sys.obtenerImportesContrato(nroObra, flete, gastos, utilidad);
+        
+        if(tuplas == null){
+            JOptionPane.showMessageDialog(null, "La obra ingresada no existe", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        Object[] columnas = {"Orden", "Denominación", "Tipo", "Costo base", "Suma impuesto tipo", "Suma flete", "Suma gastos", "Suma utilidad"};
+        TableModel modeloContrato = new DefaultTableModel(tuplas, columnas);
+        tablaContrato.setModel(modeloContrato);
+    }//GEN-LAST:event_botonImprimirContratoActionPerformed
+
+    private void botonCancelarContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarContratoActionPerformed
+        display.removeAll();
+        display.add(mensajePrincipal);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_botonCancelarContratoActionPerformed
+
+    private void botonVerSaldosRestantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVerSaldosRestantesActionPerformed
+        int nroObra = Integer.parseInt(numeroObraSaldos.getText());
+        
+        ArrayList retorno = sys.obtenerSaldosRestantes(nroObra);
+        
+        Object[][] tuplas = (Object[][]) retorno.get(0);
+        
+        if(tuplas == null){
+            JOptionPane.showMessageDialog(null, "La obra ingresada no existe", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        Object[] columnas = {"Orden", "Denominación", "Tipo", "Incidencia", "Costo actual", "Avance acumulado", "Dinero restante"};
+        TableModel modeloSaldos = new DefaultTableModel(tuplas, columnas);
+        tablaSaldosRestantes.setModel(modeloSaldos);
+        
+        progresoTotalRestante.setText(retorno.get(1).toString());
+        saldoTotalRestante.setText(retorno.get(2).toString());
+    }//GEN-LAST:event_botonVerSaldosRestantesActionPerformed
+
+    private void menuItemSaldosRestantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSaldosRestantesActionPerformed
+        display.removeAll();
+        display.add(vistaSaldosRestantes);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_menuItemSaldosRestantesActionPerformed
+
+    private void botonCancelarSaldosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarSaldosActionPerformed
+        display.removeAll();
+        display.add(mensajePrincipal);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_botonCancelarSaldosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1142,18 +1471,24 @@ public class Inicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAniadirItem;
     private javax.swing.JButton botonCancelarCertificadoPago;
+    private javax.swing.JButton botonCancelarContrato;
     private javax.swing.JButton botonCancelarCreacionEmpresa;
     private javax.swing.JButton botonCancelarCreacionObra;
     private javax.swing.JButton botonCancelarFoja;
     private javax.swing.JButton botonCancelarItems;
+    private javax.swing.JButton botonCancelarObrasCompletas;
+    private javax.swing.JButton botonCancelarSaldos;
     private javax.swing.JButton botonCargarEmpresa;
     private javax.swing.JButton botonCargarItems;
     private javax.swing.JButton botonCargarItemsFoja;
     private javax.swing.JButton botonCrearObra;
     private javax.swing.JButton botonEliminarItem;
+    private javax.swing.JButton botonEmpresasCompletas;
     private javax.swing.JButton botonGenerarVistaPreviaCertificadoPago;
     private javax.swing.JButton botonGrabarAvances;
     private javax.swing.JButton botonGuardarCertificadoPago;
+    private javax.swing.JButton botonImprimirContrato;
+    private javax.swing.JButton botonVerSaldosRestantes;
     private javax.swing.JTextField costoBaseItem;
     private javax.swing.JTextField cuitEmpresa;
     private javax.swing.JTextField cuitEmpresaDeObra;
@@ -1169,7 +1504,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel formGenerarCertificadoPago;
     private javax.swing.JPanel formGenerarFoja;
     private javax.swing.JLabel imagen;
-    private javax.swing.JTextField incidenciaItem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1182,6 +1516,12 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1194,16 +1534,18 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JPanel mensajePrincipal;
     private javax.swing.JMenu menuConsultar;
     private javax.swing.JMenu menuEmpresas;
@@ -1214,23 +1556,39 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemEliminarObra;
     private javax.swing.JMenuItem menuItemGenerarCertificadoPago;
     private javax.swing.JMenuItem menuItemGenerarFoja;
+    private javax.swing.JMenuItem menuItemImportesContrato;
+    private javax.swing.JMenuItem menuItemObrasTerminadas;
+    private javax.swing.JMenuItem menuItemSaldosRestantes;
     private javax.swing.JMenu menuModificarBD;
     private javax.swing.JTextField nroFojaCertificadoPago;
     private javax.swing.JTextField nroObraCertificadoPago;
+    private javax.swing.JTextField numeroObraContrato;
     private javax.swing.JTextField numeroObraFoja;
+    private javax.swing.JTextField numeroObraSaldos;
     private javax.swing.JTextField ordenItem;
     private javax.swing.JPanel panelGeneral;
     private javax.swing.JPanel panelLogo;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JTextField plazoObra;
+    private javax.swing.JTextField porcentajeFlete;
+    private javax.swing.JTextField porcentajeGastos;
+    private javax.swing.JTextField porcentajeUtilidad;
+    private javax.swing.JTextArea progresoTotalRestante;
     private javax.swing.JTextField razonSocialEmpresa;
     private javax.swing.JTextField rlEmpresa;
     private javax.swing.JTextField rtEmpresa;
+    private javax.swing.JTextArea saldoTotalRestante;
     private javax.swing.JTable tablaCargarItemsObra;
     private javax.swing.JTable tablaCertificadoPago;
+    private javax.swing.JTable tablaContrato;
     private javax.swing.JTable tablaItemsFoja;
+    private javax.swing.JTable tablaObrasCompletas;
+    private javax.swing.JTable tablaSaldosRestantes;
     private javax.swing.JTable tablaTotalAcumulado;
     private java.awt.Label tigüi;
     private javax.swing.JComboBox<String> tipoItem;
+    private javax.swing.JPanel vistaImportesContrato;
+    private javax.swing.JPanel vistaObrasCompletas;
+    private javax.swing.JPanel vistaSaldosRestantes;
     // End of variables declaration//GEN-END:variables
 }
