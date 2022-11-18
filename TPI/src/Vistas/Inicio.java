@@ -12,6 +12,7 @@ import javax.swing.*;
 import Controlador.*;
 import javax.swing.table.TableModel;
 import ModeloDB.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.event.TableModelEvent;
@@ -20,11 +21,7 @@ import javax.swing.table.*;
 
 public class Inicio extends javax.swing.JFrame {
     private Sistema sys = null;
-    /**
-     * Creates new form Jframe
-     */
-     CardLayout vista;
-
+    CardLayout vista;
 
     //Constructor para que conozca al controlador
     public Inicio(Sistema controlador) {
@@ -110,10 +107,7 @@ public class Inicio extends javax.swing.JFrame {
         tablaItemsFoja = new javax.swing.JTable();
         botonGrabarAvances = new javax.swing.JButton();
         botonCargarItemsFoja = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tablaTotalAcumulado = new javax.swing.JTable();
-        jScrollPane11 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        botonCalcularTotalAcumulado = new javax.swing.JButton();
         formGenerarCertificadoPago = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -142,6 +136,8 @@ public class Inicio extends javax.swing.JFrame {
         tablaContrato = new javax.swing.JTable();
         botonImprimirContrato = new javax.swing.JButton();
         botonCancelarContrato = new javax.swing.JButton();
+        jLabel31 = new javax.swing.JLabel();
+        totalContrato = new javax.swing.JTextField();
         vistaSaldosRestantes = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         numeroObraSaldos = new javax.swing.JTextField();
@@ -184,8 +180,40 @@ public class Inicio extends javax.swing.JFrame {
         tablaAniadirCosto = new javax.swing.JTable();
         botonGuardarNuevosCostos = new javax.swing.JButton();
         jLabel32 = new javax.swing.JLabel();
+        vistaObrasEmpresa = new javax.swing.JPanel();
+        jLabel33 = new javax.swing.JLabel();
+        cuitEmpresaVerObras = new javax.swing.JTextField();
+        botonCancelarObrasEmpresa = new javax.swing.JButton();
+        botonListarObrasEmpresa = new javax.swing.JButton();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        tablaObrasEmpresa = new javax.swing.JTable();
+        vistaFojasObra = new javax.swing.JPanel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        botonVerFoja = new javax.swing.JButton();
+        botonCancelarVerFojas = new javax.swing.JButton();
+        numeroObraVerFojas = new javax.swing.JTextField();
+        numeroFojaVerFojas = new javax.swing.JTextField();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        tablaVerFojas = new javax.swing.JTable();
+        jLabel39 = new javax.swing.JLabel();
+        fechaFoja = new javax.swing.JTextField();
+        vistaCertificadosObra = new javax.swing.JPanel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        botonVerCertificados = new javax.swing.JButton();
+        botonCancelarVerCertificados = new javax.swing.JButton();
+        numeroObraVerCertificados = new javax.swing.JTextField();
+        numeroCertificadoVerCertificados = new javax.swing.JTextField();
+        jScrollPane14 = new javax.swing.JScrollPane();
+        tablaVerCertificadoPago = new javax.swing.JTable();
+        jLabel38 = new javax.swing.JLabel();
+        fechaCertificado = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuConsultar = new javax.swing.JMenu();
+        menuItemVerObras = new javax.swing.JMenuItem();
+        menuItemVerFojas = new javax.swing.JMenuItem();
+        menuItemVerCertificados = new javax.swing.JMenuItem();
         menuItemObrasTerminadas = new javax.swing.JMenuItem();
         menuItemImportesContrato = new javax.swing.JMenuItem();
         menuItemSaldosRestantes = new javax.swing.JMenuItem();
@@ -193,17 +221,17 @@ public class Inicio extends javax.swing.JFrame {
         menuItemGenerarFoja = new javax.swing.JMenuItem();
         menuItemGenerarCertificadoPago = new javax.swing.JMenuItem();
         menuModificarBD = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
+        menuObras = new javax.swing.JMenu();
         menuItemCrearObra = new javax.swing.JMenuItem();
         menuItemEliminarObra = new javax.swing.JMenuItem();
         menuEmpresas = new javax.swing.JMenu();
         menuItemCrearEmpresa = new javax.swing.JMenuItem();
         menuItemEliminarEmpresa = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
+        menuFojas = new javax.swing.JMenu();
         menuItemEliminarFoja = new javax.swing.JMenuItem();
-        jMenu7 = new javax.swing.JMenu();
+        menuCertificadosPago = new javax.swing.JMenu();
         menuItemEliminarCertificadosPago = new javax.swing.JMenuItem();
-        jMenu8 = new javax.swing.JMenu();
+        menuItems = new javax.swing.JMenu();
         menuItemAniadirCostos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -290,7 +318,7 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(mensajePrincipalLayout.createSequentialGroup()
                 .addGap(153, 153, 153)
                 .addComponent(jLabel6)
-                .addContainerGap(370, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         display.add(mensajePrincipal, "card5");
@@ -558,11 +586,11 @@ public class Inicio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Orden", "Denominación", "Incidencia", "Tipo", "Costo", "Total anterior", "Total mes"
+                "Orden", "Denominación", "Incidencia", "Tipo", "Costo", "Total anterior", "Total mes", "Total acumulado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -578,7 +606,7 @@ public class Inicio extends javax.swing.JFrame {
             tablaItemsFoja.getColumnModel().getColumn(6).setPreferredWidth(60);
         }
 
-        formGenerarFoja.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 40, 700, -1));
+        formGenerarFoja.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 40, 810, -1));
 
         botonGrabarAvances.setText("Grabar avances");
         botonGrabarAvances.addActionListener(new java.awt.event.ActionListener() {
@@ -596,44 +624,13 @@ public class Inicio extends javax.swing.JFrame {
         });
         formGenerarFoja.add(botonCargarItemsFoja, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, -1, -1));
 
-        tablaTotalAcumulado.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Total acumulado"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        botonCalcularTotalAcumulado.setText("Calcular totales acumulados");
+        botonCalcularTotalAcumulado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCalcularTotalAcumuladoActionPerformed(evt);
             }
         });
-        tablaTotalAcumulado.getTableHeader().setResizingAllowed(false);
-        tablaTotalAcumulado.getTableHeader().setReorderingAllowed(false);
-        jScrollPane3.setViewportView(tablaTotalAcumulado);
-
-        formGenerarFoja.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 40, 110, -1));
-
-        jScrollPane11.setBorder(null);
-
-        jTextArea1.setEditable(false);
-        jTextArea1.setBackground(new java.awt.Color(204, 204, 204));
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
-        jTextArea1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(2);
-        jTextArea1.setText("Rellene el campo \"Total mes\" para obtener total           acumulado, y poder grabar avances.");
-        jTextArea1.setWrapStyleWord(true);
-        jTextArea1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTextArea1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jScrollPane11.setViewportView(jTextArea1);
-
-        formGenerarFoja.add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 270, 40));
+        formGenerarFoja.add(botonCalcularTotalAcumulado, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 480, -1, -1));
 
         display.add(formGenerarFoja, "card6");
 
@@ -664,7 +661,7 @@ public class Inicio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Orden", "Denominación", "Incidencia", "Tipo", "Costo", "Total anterior", "Total mes", "Total acumulado"
+                "Orden", "Denominación", "Incidencia", "Tipo", "Costo actual", "Total anterior", "Total mes", "Total acumulado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -735,7 +732,7 @@ public class Inicio extends javax.swing.JFrame {
 
         vistaObrasCompletas.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 50, 625, -1));
 
-        botonEmpresasCompletas.setText("Ver empresas completadas");
+        botonEmpresasCompletas.setText("Ver obras completadas");
         botonEmpresasCompletas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonEmpresasCompletasActionPerformed(evt);
@@ -834,6 +831,18 @@ public class Inicio extends javax.swing.JFrame {
         });
         vistaImportesContrato.add(botonCancelarContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
 
+        jLabel31.setText("Total contrato:");
+        vistaImportesContrato.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, -1, 30));
+
+        totalContrato.setEditable(false);
+        totalContrato.setText("-");
+        totalContrato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                totalContratoActionPerformed(evt);
+            }
+        });
+        vistaImportesContrato.add(totalContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, 170, -1));
+
         display.add(vistaImportesContrato, "card9");
 
         vistaSaldosRestantes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -863,11 +872,11 @@ public class Inicio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Orden", "Denominación", "Tipo", "Incidencia", "Costo actual", "Avance acumulado", "Dinero restante"
+                "Orden", "Denominación", "Tipo", "Incidencia", "Costo base", "Costo actual", "Avance acumulado", "Dinero restante"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1185,9 +1194,237 @@ public class Inicio extends javax.swing.JFrame {
 
         display.add(formAniadirCosto, "card15");
 
+        jLabel33.setText("C.U.I.T. de empresa:");
+
+        botonCancelarObrasEmpresa.setText("Cancelar");
+        botonCancelarObrasEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarObrasEmpresaActionPerformed(evt);
+            }
+        });
+
+        botonListarObrasEmpresa.setText("Listar obras");
+        botonListarObrasEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonListarObrasEmpresaActionPerformed(evt);
+            }
+        });
+
+        tablaObrasEmpresa.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Número", "Denominación", "Financiación", "Fecha inicio", "Plazo", "Fojas", "Certificados"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane12.setViewportView(tablaObrasEmpresa);
+
+        javax.swing.GroupLayout vistaObrasEmpresaLayout = new javax.swing.GroupLayout(vistaObrasEmpresa);
+        vistaObrasEmpresa.setLayout(vistaObrasEmpresaLayout);
+        vistaObrasEmpresaLayout.setHorizontalGroup(
+            vistaObrasEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(vistaObrasEmpresaLayout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addGroup(vistaObrasEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(vistaObrasEmpresaLayout.createSequentialGroup()
+                        .addComponent(botonCancelarObrasEmpresa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonListarObrasEmpresa))
+                    .addGroup(vistaObrasEmpresaLayout.createSequentialGroup()
+                        .addComponent(jLabel33)
+                        .addGap(18, 18, 18)
+                        .addComponent(cuitEmpresaVerObras, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(54, 54, 54)
+                .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(323, Short.MAX_VALUE))
+        );
+        vistaObrasEmpresaLayout.setVerticalGroup(
+            vistaObrasEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(vistaObrasEmpresaLayout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addGroup(vistaObrasEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(vistaObrasEmpresaLayout.createSequentialGroup()
+                        .addGroup(vistaObrasEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel33)
+                            .addComponent(cuitEmpresaVerObras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(vistaObrasEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(botonCancelarObrasEmpresa)
+                            .addComponent(botonListarObrasEmpresa))))
+                .addContainerGap(103, Short.MAX_VALUE))
+        );
+
+        display.add(vistaObrasEmpresa, "card16");
+
+        vistaFojasObra.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel34.setText("Número de obra:");
+        vistaFojasObra.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 50, -1, -1));
+
+        jLabel35.setText("Número de foja:");
+        vistaFojasObra.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, -1, -1));
+
+        botonVerFoja.setText("Ver foja");
+        botonVerFoja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonVerFojaActionPerformed(evt);
+            }
+        });
+        vistaFojasObra.add(botonVerFoja, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, -1, -1));
+
+        botonCancelarVerFojas.setText("Cancelar");
+        botonCancelarVerFojas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarVerFojasActionPerformed(evt);
+            }
+        });
+        vistaFojasObra.add(botonCancelarVerFojas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
+        vistaFojasObra.add(numeroObraVerFojas, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 150, -1));
+        vistaFojasObra.add(numeroFojaVerFojas, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 150, -1));
+
+        tablaVerFojas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Orden", "Denominación", "Total anterior", "Total mes", "Total acumulado"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane13.setViewportView(tablaVerFojas);
+
+        vistaFojasObra.add(jScrollPane13, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, 510, -1));
+
+        jLabel39.setText("Fecha de realización:");
+        vistaFojasObra.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, -1, 30));
+
+        fechaFoja.setEditable(false);
+        fechaFoja.setText("-");
+        fechaFoja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fechaFojaActionPerformed(evt);
+            }
+        });
+        vistaFojasObra.add(fechaFoja, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 170, -1));
+
+        display.add(vistaFojasObra, "card17");
+
+        vistaCertificadosObra.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel36.setText("Número de obra:");
+        vistaCertificadosObra.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, 30));
+
+        jLabel37.setText("Número de certificado:");
+        vistaCertificadosObra.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, 30));
+
+        botonVerCertificados.setText("Ver certificados");
+        botonVerCertificados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonVerCertificadosActionPerformed(evt);
+            }
+        });
+        vistaCertificadosObra.add(botonVerCertificados, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, -1, -1));
+
+        botonCancelarVerCertificados.setText("Cancelar");
+        botonCancelarVerCertificados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarVerCertificadosActionPerformed(evt);
+            }
+        });
+        vistaCertificadosObra.add(botonCancelarVerCertificados, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
+
+        numeroObraVerCertificados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numeroObraVerCertificadosActionPerformed(evt);
+            }
+        });
+        vistaCertificadosObra.add(numeroObraVerCertificados, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 150, -1));
+
+        numeroCertificadoVerCertificados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numeroCertificadoVerCertificadosActionPerformed(evt);
+            }
+        });
+        vistaCertificadosObra.add(numeroCertificadoVerCertificados, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 150, -1));
+
+        tablaVerCertificadoPago.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Orden", "Denominación", "Incidencia", "Tipo", "Costo", "Total anterior", "Total mes", "Total acumulado"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane14.setViewportView(tablaVerCertificadoPago);
+
+        vistaCertificadosObra.add(jScrollPane14, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, 860, -1));
+
+        jLabel38.setText("Fecha de realización:");
+        vistaCertificadosObra.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, -1, 30));
+
+        fechaCertificado.setEditable(false);
+        fechaCertificado.setText("-");
+        fechaCertificado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fechaCertificadoActionPerformed(evt);
+            }
+        });
+        vistaCertificadosObra.add(fechaCertificado, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, 170, -1));
+
+        display.add(vistaCertificadosObra, "card17");
+
         panelGeneral.add(display, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 1370, 570));
 
         menuConsultar.setText("Consultar");
+
+        menuItemVerObras.setText("Ver obras de empresa");
+        menuItemVerObras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemVerObrasActionPerformed(evt);
+            }
+        });
+        menuConsultar.add(menuItemVerObras);
+
+        menuItemVerFojas.setText("Ver fojas de obra");
+        menuItemVerFojas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemVerFojasActionPerformed(evt);
+            }
+        });
+        menuConsultar.add(menuItemVerFojas);
+
+        menuItemVerCertificados.setText("Ver certificados de obra");
+        menuItemVerCertificados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemVerCertificadosActionPerformed(evt);
+            }
+        });
+        menuConsultar.add(menuItemVerCertificados);
 
         menuItemObrasTerminadas.setText("Obras terminadas");
         menuItemObrasTerminadas.addActionListener(new java.awt.event.ActionListener() {
@@ -1237,7 +1474,7 @@ public class Inicio extends javax.swing.JFrame {
 
         menuModificarBD.setText("Modificar BD");
 
-        jMenu4.setText("Obras");
+        menuObras.setText("Obras");
 
         menuItemCrearObra.setText("Crear");
         menuItemCrearObra.addActionListener(new java.awt.event.ActionListener() {
@@ -1245,7 +1482,7 @@ public class Inicio extends javax.swing.JFrame {
                 menuItemCrearObraActionPerformed(evt);
             }
         });
-        jMenu4.add(menuItemCrearObra);
+        menuObras.add(menuItemCrearObra);
 
         menuItemEliminarObra.setText("Eliminar");
         menuItemEliminarObra.addActionListener(new java.awt.event.ActionListener() {
@@ -1253,9 +1490,9 @@ public class Inicio extends javax.swing.JFrame {
                 menuItemEliminarObraActionPerformed(evt);
             }
         });
-        jMenu4.add(menuItemEliminarObra);
+        menuObras.add(menuItemEliminarObra);
 
-        menuModificarBD.add(jMenu4);
+        menuModificarBD.add(menuObras);
 
         menuEmpresas.setText("Empresas");
 
@@ -1277,7 +1514,7 @@ public class Inicio extends javax.swing.JFrame {
 
         menuModificarBD.add(menuEmpresas);
 
-        jMenu6.setText("Fojas");
+        menuFojas.setText("Fojas");
 
         menuItemEliminarFoja.setText("Eliminar");
         menuItemEliminarFoja.addActionListener(new java.awt.event.ActionListener() {
@@ -1285,11 +1522,11 @@ public class Inicio extends javax.swing.JFrame {
                 menuItemEliminarFojaActionPerformed(evt);
             }
         });
-        jMenu6.add(menuItemEliminarFoja);
+        menuFojas.add(menuItemEliminarFoja);
 
-        menuModificarBD.add(jMenu6);
+        menuModificarBD.add(menuFojas);
 
-        jMenu7.setText("Certificados de pago");
+        menuCertificadosPago.setText("Certificados de pago");
 
         menuItemEliminarCertificadosPago.setText("Eliminar");
         menuItemEliminarCertificadosPago.addActionListener(new java.awt.event.ActionListener() {
@@ -1297,11 +1534,11 @@ public class Inicio extends javax.swing.JFrame {
                 menuItemEliminarCertificadosPagoActionPerformed(evt);
             }
         });
-        jMenu7.add(menuItemEliminarCertificadosPago);
+        menuCertificadosPago.add(menuItemEliminarCertificadosPago);
 
-        menuModificarBD.add(jMenu7);
+        menuModificarBD.add(menuCertificadosPago);
 
-        jMenu8.setText("Items");
+        menuItems.setText("Items");
 
         menuItemAniadirCostos.setText("Añadir costo");
         menuItemAniadirCostos.addActionListener(new java.awt.event.ActionListener() {
@@ -1309,9 +1546,9 @@ public class Inicio extends javax.swing.JFrame {
                 menuItemAniadirCostosActionPerformed(evt);
             }
         });
-        jMenu8.add(menuItemAniadirCostos);
+        menuItems.add(menuItemAniadirCostos);
 
-        menuModificarBD.add(jMenu8);
+        menuModificarBD.add(menuItems);
 
         jMenuBar1.add(menuModificarBD);
 
@@ -1541,29 +1778,45 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_numeroObraFojaActionPerformed
 
     private void botonGrabarAvancesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGrabarAvancesActionPerformed
-        Object[][] tuplas = new Object[tablaItemsFoja.getModel().getRowCount()][tablaItemsFoja.getModel().getColumnCount()];
-        
+        if(tablaItemsFoja.getModel().getRowCount() == 0){
+            JOptionPane.showMessageDialog(null, "Error al crear foja, intente nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         for(int i = 0; i < tablaItemsFoja.getModel().getRowCount(); i++){
-            for(int j = 0; j < tablaItemsFoja.getModel().getColumnCount(); j++){
-                tuplas[i][j] = tablaItemsFoja.getValueAt(i, j);
+            if(tablaItemsFoja.getModel().getValueAt(i, 7) == null){
+                JOptionPane.showMessageDialog(null, "Primero debe calcular los totales acumulados", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
         }
         
-        int nroObra = Integer.parseInt(numeroObraFoja.getText());
+        Object[][] tuplas = new Object[tablaItemsFoja.getModel().getRowCount()][tablaItemsFoja.getModel().getColumnCount()];
+        boolean exceso = false;
         
-        int[] totalesAcumulados = new int[tablaTotalAcumulado.getModel().getRowCount()];
-        for(int k = 0; k < tablaTotalAcumulado.getModel().getRowCount(); k++){
-            totalesAcumulados[k] = (int) tablaTotalAcumulado.getValueAt(k, 0);
+        for(int i = 0; i < tablaItemsFoja.getModel().getRowCount(); i++){
+            for(int j = 0; j < tablaItemsFoja.getModel().getColumnCount(); j++){
+                if(j == 7 && (int) tablaItemsFoja.getValueAt(i, j) > 100){
+                    exceso = true;
+                    break;
+                }
+                tuplas[i][j] = tablaItemsFoja.getValueAt(i, j);
+            }
         }
+
+        if(exceso == true){
+            JOptionPane.showMessageDialog(null, "Exceso en porcentaje de progreso, por favor corrija", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
         
-        Foja resultado = sys.crearFoja(nroObra, tuplas, totalesAcumulados);
-        
-        if(resultado != null){
-            JOptionPane.showMessageDialog(null, "Foja creada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            Foja resultado = sys.crearFoja(Integer.parseInt(numeroObraFoja.getText().toString()), tuplas);
+
+            if(resultado != null){
+                JOptionPane.showMessageDialog(null, "Foja creada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Error al crear foja, intente nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
-        else {
-            JOptionPane.showMessageDialog(null, "Error al crear foja, intente nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        ((DefaultTableModel)tablaItemsFoja.getModel()).setNumRows(0);
     }//GEN-LAST:event_botonGrabarAvancesActionPerformed
 
     private void botonCancelarFojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarFojaActionPerformed
@@ -1574,43 +1827,16 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCancelarFojaActionPerformed
 
     private void botonCargarItemsFojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarItemsFojaActionPerformed
-        int numObra = Integer.parseInt(numeroObraFoja.getText());
-        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tablaItemsFoja.getModel();
-        javax.swing.table.DefaultTableModel modelTotalAcumulado = (javax.swing.table.DefaultTableModel) tablaTotalAcumulado.getModel();
-        
+        int numObra = Integer.parseInt(numeroObraFoja.getText());     
         
         Object[][] tuplas = sys.obtenerItemsObraConAvances(numObra);
         
-        Object[] columnas = {"Orden", "Denominación", "Incidencia", "Tipo", "Costo", "Total anterior", "Total mes"};
+        Object[] columnas = {"Orden", "Denominación", "Incidencia", "Tipo", "Costo", "Total anterior", "Total mes", "Total acumulado"};
         TableModel modeloConItems = new DefaultTableModel(tuplas, columnas);
-        tablaItemsFoja.setModel(modeloConItems);
-        
-        Object[] colTotAc = {"Total acumulado"};
-        
-        TableModel modeloTotalAcumulado = new DefaultTableModel(colTotAc, tuplas.length);
-        tablaTotalAcumulado.setModel(modeloTotalAcumulado);
-          
-        //Detector de cambio en tabla de foja:
-        tablaItemsFoja.getModel().addTableModelListener(
-            new TableModelListener() {
-                @Override
-                public void tableChanged(TableModelEvent e) {
-                    int fila = e.getFirstRow();
-                    int col = e.getColumn();
-                    
-                    sumarTotalMes(fila, col);
-                }
-            }
-        );
+        tablaItemsFoja.setModel(modeloConItems);       
     }//GEN-LAST:event_botonCargarItemsFojaActionPerformed
     
-    private void sumarTotalMes(int fila, int col){
-        int totalMes = Integer.parseInt(tablaItemsFoja.getValueAt(fila, col).toString());
-        int totalAnterior = Integer.parseInt(tablaItemsFoja.getValueAt(fila, 5).toString());
-        int totalAcumulado = totalAnterior + totalMes;
-
-        tablaTotalAcumulado.setValueAt(totalAcumulado, fila, 0);
-    }
+    
     
     private void menuItemGenerarFojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGenerarFojaActionPerformed
         display.removeAll();
@@ -1640,10 +1866,11 @@ public class Inicio extends javax.swing.JFrame {
         if(tuplas == null){
             JOptionPane.showMessageDialog(null, "Error al generar vista previa, intente nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-        Object[] columnas = {"Orden", "Denominación", "Incidencia", "Tipo", "Costo", "Total anterior", "Total mes", "Total acumulado"};
-        TableModel modeloCertificado = new DefaultTableModel(tuplas, columnas);
-        tablaCertificadoPago.setModel(modeloCertificado);
+        else{
+            Object[] columnas = {"Orden", "Denominación", "Incidencia", "Tipo", "Costo actual", "Total anterior", "Total mes", "Total acumulado"};
+            TableModel modeloCertificado = new DefaultTableModel(tuplas, columnas);
+            tablaCertificadoPago.setModel(modeloCertificado);
+        }
     }//GEN-LAST:event_botonGenerarVistaPreviaCertificadoPagoActionPerformed
 
     private void menuItemGenerarCertificadoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGenerarCertificadoPagoActionPerformed
@@ -1670,13 +1897,14 @@ public class Inicio extends javax.swing.JFrame {
     private void botonEmpresasCompletasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEmpresasCompletasActionPerformed
         Object[][] tuplas = sys.buscarObrasCompletas();
         
-        if(tuplas.length == 0){
+        if(tuplas[0][0] == null){
             JOptionPane.showMessageDialog(null, "No existen obras completas", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
-        
-        Object[] columnas = {"C.U.I.T. empresa", "Número", "Denominación", "Fecha inicio", "Financiación", "Plazo"};
-        TableModel modeloObrasCompletas = new DefaultTableModel(tuplas, columnas);
-        tablaObrasCompletas.setModel(modeloObrasCompletas);
+        else{
+            Object[] columnas = {"C.U.I.T. empresa", "Número", "Denominación", "Fecha inicio", "Financiación", "Plazo"};
+            TableModel modeloObrasCompletas = new DefaultTableModel(tuplas, columnas);
+            tablaObrasCompletas.setModel(modeloObrasCompletas);
+        }
     }//GEN-LAST:event_botonEmpresasCompletasActionPerformed
 
     private void botonCancelarObrasCompletasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarObrasCompletasActionPerformed
@@ -1714,16 +1942,25 @@ public class Inicio extends javax.swing.JFrame {
         float flete = Float.parseFloat(porcentajeFlete.getText());
         float gastos = Float.parseFloat(porcentajeGastos.getText());
         float utilidad = Float.parseFloat(porcentajeUtilidad.getText());
+        DecimalFormat df = new DecimalFormat("$ 0.00");
         
         Object[][] tuplas = sys.obtenerImportesContrato(nroObra, flete, gastos, utilidad);
         
         if(tuplas == null){
+            totalContrato.setText("");
             JOptionPane.showMessageDialog(null, "La obra ingresada no existe", "Error", JOptionPane.ERROR_MESSAGE);
         }
         
         Object[] columnas = {"Orden", "Denominación", "Tipo", "Costo base", "Suma impuesto tipo", "Suma flete", "Suma gastos", "Suma utilidad"};
         TableModel modeloContrato = new DefaultTableModel(tuplas, columnas);
         tablaContrato.setModel(modeloContrato);
+        
+        float montoTotalContrato = 0;
+        for(int i = 0; i < tuplas.length; i++){
+            montoTotalContrato += Float.parseFloat(tuplas[i][7].toString().replace("$ ", "").replace(',', '.'));
+        }
+        
+        totalContrato.setText(df.format(montoTotalContrato));
     }//GEN-LAST:event_botonImprimirContratoActionPerformed
 
     private void botonCancelarContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarContratoActionPerformed
@@ -1744,7 +1981,7 @@ public class Inicio extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "La obra ingresada no existe", "Error", JOptionPane.ERROR_MESSAGE);
         }
         
-        Object[] columnas = {"Orden", "Denominación", "Tipo", "Incidencia", "Costo actual", "Avance acumulado", "Dinero restante"};
+        Object[] columnas = {"Orden", "Denominación", "Tipo", "Incidencia", "Costo base", "Costo actual", "Avance acumulado", "Dinero restante"};
         TableModel modeloSaldos = new DefaultTableModel(tuplas, columnas);
         tablaSaldosRestantes.setModel(modeloSaldos);
         
@@ -1919,10 +2156,8 @@ public class Inicio extends javax.swing.JFrame {
         for(int i = 0; i < tablaAniadirCosto.getRowCount(); i++){
             //Guardar orden de cada item
             tuplas[i][0] = tablaAniadirCosto.getModel().getValueAt(i, 0);
-            System.out.println("Orden: " + tuplas[i][0]);
             //Guardar nuevo costo de cada item
             tuplas[i][1] = tablaAniadirCosto.getModel().getValueAt(i, 5);
-            System.out.println("Nuevo costo: " + tuplas[i][1]);
         }
         
         if(sys.aniadirCostos(numeroObra, tuplas)){
@@ -1932,6 +2167,122 @@ public class Inicio extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error al actualizar costos, revise los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_botonGuardarNuevosCostosActionPerformed
+
+    private void totalContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalContratoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_totalContratoActionPerformed
+
+    private void menuItemVerObrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemVerObrasActionPerformed
+        display.removeAll();
+        display.add(vistaObrasEmpresa);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_menuItemVerObrasActionPerformed
+
+    private void botonCancelarObrasEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarObrasEmpresaActionPerformed
+        display.removeAll();
+        display.add(mensajePrincipal);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_botonCancelarObrasEmpresaActionPerformed
+
+    private void botonListarObrasEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarObrasEmpresaActionPerformed
+        Object[][] tuplas = sys.obtenerObrasEmpresa(Integer.parseInt(cuitEmpresaVerObras.getText()));
+        
+        if(tuplas == null){
+            JOptionPane.showMessageDialog(null, "La empresa no existe", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        Object[] columnas = {"Número", "Denominación", "Financiación", "Fecha inicio", "Plazo", "Fojas", "Certificados"};
+        TableModel modeloConObras = new DefaultTableModel(tuplas, columnas);
+        tablaObrasEmpresa.setModel(modeloConObras);
+    }//GEN-LAST:event_botonListarObrasEmpresaActionPerformed
+
+    private void menuItemVerFojasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemVerFojasActionPerformed
+        display.removeAll();
+        display.add(vistaFojasObra);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_menuItemVerFojasActionPerformed
+
+    private void botonVerFojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVerFojaActionPerformed
+        ArrayList retorno = sys.obtenerFoja(Integer.parseInt(numeroObraVerFojas.getText()), Integer.parseInt(numeroFojaVerFojas.getText()));
+        
+        if(retorno == null){
+            JOptionPane.showMessageDialog(null, "La obra o foja no existen, verifique los campos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            Object[][] tuplas = (Object[][]) retorno.get(0);
+            Object[] columnas = {"Orden", "Denominación", "Total anterior", "Total mes", "Total acumulado"};
+            TableModel modeloConAvances = new DefaultTableModel(tuplas, columnas);
+            tablaVerFojas.setModel(modeloConAvances);
+            fechaFoja.setText(retorno.get(1).toString());
+        }
+    }//GEN-LAST:event_botonVerFojaActionPerformed
+
+    private void botonCancelarVerFojasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarVerFojasActionPerformed
+        display.removeAll();
+        display.add(mensajePrincipal);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_botonCancelarVerFojasActionPerformed
+
+    private void botonVerCertificadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVerCertificadosActionPerformed
+        ArrayList<Object> retorno = sys.obtenerCertificadoPago(Integer.parseInt(numeroObraVerCertificados.getText()), Integer.parseInt(numeroCertificadoVerCertificados.getText()));
+        
+        if(retorno == null){
+            JOptionPane.showMessageDialog(null, "La obra o certificado no existen", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            Object[][] tuplas = (Object[][]) retorno.get(0);
+            String fecha = retorno.get(1).toString();
+            fechaCertificado.setText(fecha);
+        
+            Object[] columnas = {"Orden", "Denominación", "Incidencia", "Tipo", "Costo", "Total anterior", "Total mes", "Total acumulado"};
+            TableModel modeloCertificado = new DefaultTableModel(tuplas, columnas);
+            tablaVerCertificadoPago.setModel(modeloCertificado);
+        }
+    }//GEN-LAST:event_botonVerCertificadosActionPerformed
+
+    private void botonCancelarVerCertificadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarVerCertificadosActionPerformed
+        display.removeAll();
+        display.add(mensajePrincipal);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_botonCancelarVerCertificadosActionPerformed
+
+    private void numeroObraVerCertificadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroObraVerCertificadosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numeroObraVerCertificadosActionPerformed
+
+    private void menuItemVerCertificadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemVerCertificadosActionPerformed
+        display.removeAll();
+        display.add(vistaCertificadosObra);
+        display.repaint();
+        display.revalidate();
+    }//GEN-LAST:event_menuItemVerCertificadosActionPerformed
+
+    private void fechaCertificadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaCertificadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fechaCertificadoActionPerformed
+
+    private void numeroCertificadoVerCertificadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroCertificadoVerCertificadosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numeroCertificadoVerCertificadosActionPerformed
+
+    private void fechaFojaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaFojaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fechaFojaActionPerformed
+
+    private void botonCalcularTotalAcumuladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCalcularTotalAcumuladoActionPerformed
+        int totalMes, totalAnterior, totalAcumulado;
+        for(int i = 0; i < tablaItemsFoja.getModel().getRowCount(); i++){
+            totalMes = Integer.parseInt(tablaItemsFoja.getValueAt(i, 6).toString());
+            totalAnterior = Integer.parseInt(tablaItemsFoja.getValueAt(i, 5).toString());
+            totalAcumulado = totalAnterior + totalMes;
+            tablaItemsFoja.setValueAt(totalAcumulado, i, 7);
+        }
+    }//GEN-LAST:event_botonCalcularTotalAcumuladoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1985,6 +2336,7 @@ public class Inicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAniadirItem;
+    private javax.swing.JButton botonCalcularTotalAcumulado;
     private javax.swing.JButton botonCancelarAniadirCosto;
     private javax.swing.JButton botonCancelarCertificadoPago;
     private javax.swing.JButton botonCancelarContrato;
@@ -1997,7 +2349,10 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton botonCancelarFoja;
     private javax.swing.JButton botonCancelarItems;
     private javax.swing.JButton botonCancelarObrasCompletas;
+    private javax.swing.JButton botonCancelarObrasEmpresa;
     private javax.swing.JButton botonCancelarSaldos;
+    private javax.swing.JButton botonCancelarVerCertificados;
+    private javax.swing.JButton botonCancelarVerFojas;
     private javax.swing.JButton botonCargarEmpresa;
     private javax.swing.JButton botonCargarItems;
     private javax.swing.JButton botonCargarItemsAniadirCosto;
@@ -2014,15 +2369,21 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton botonGuardarCertificadoPago;
     private javax.swing.JButton botonGuardarNuevosCostos;
     private javax.swing.JButton botonImprimirContrato;
+    private javax.swing.JButton botonListarObrasEmpresa;
+    private javax.swing.JButton botonVerCertificados;
+    private javax.swing.JButton botonVerFoja;
     private javax.swing.JButton botonVerSaldosRestantes;
     private javax.swing.JTextField costoBaseItem;
     private javax.swing.JTextField cuitEmpresa;
     private javax.swing.JTextField cuitEmpresaDeObra;
     private javax.swing.JTextField cuitEmpresaEliminar;
+    private javax.swing.JTextField cuitEmpresaVerObras;
     private javax.swing.JTextField denominacionItem;
     private javax.swing.JTextField denominacionObra;
     private javax.swing.JTextField direccionEmpresa;
     private javax.swing.JPanel display;
+    private javax.swing.JTextField fechaCertificado;
+    private javax.swing.JTextField fechaFoja;
     private javax.swing.JTextField fechaInicioObra;
     private javax.swing.JTextField financiacionObra;
     private javax.swing.JPanel formAniadirCosto;
@@ -2060,33 +2421,39 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
-    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
-    private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane12;
+    private javax.swing.JScrollPane jScrollPane13;
+    private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel mensajePrincipal;
+    private javax.swing.JMenu menuCertificadosPago;
     private javax.swing.JMenu menuConsultar;
     private javax.swing.JMenu menuEmpresas;
+    private javax.swing.JMenu menuFojas;
     private javax.swing.JMenu menuGenerar;
     private javax.swing.JMenuItem menuItemAniadirCostos;
     private javax.swing.JMenuItem menuItemCrearEmpresa;
@@ -2100,9 +2467,16 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemImportesContrato;
     private javax.swing.JMenuItem menuItemObrasTerminadas;
     private javax.swing.JMenuItem menuItemSaldosRestantes;
+    private javax.swing.JMenuItem menuItemVerCertificados;
+    private javax.swing.JMenuItem menuItemVerFojas;
+    private javax.swing.JMenuItem menuItemVerObras;
+    private javax.swing.JMenu menuItems;
     private javax.swing.JMenu menuModificarBD;
+    private javax.swing.JMenu menuObras;
     private javax.swing.JTextField nroFojaCertificadoPago;
     private javax.swing.JTextField nroObraCertificadoPago;
+    private javax.swing.JTextField numeroCertificadoVerCertificados;
+    private javax.swing.JTextField numeroFojaVerFojas;
     private javax.swing.JTextField numeroObraAniadirCosto;
     private javax.swing.JTextField numeroObraContrato;
     private javax.swing.JTextField numeroObraEliminar;
@@ -2110,6 +2484,8 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTextField numeroObraEliminarFoja;
     private javax.swing.JTextField numeroObraFoja;
     private javax.swing.JTextField numeroObraSaldos;
+    private javax.swing.JTextField numeroObraVerCertificados;
+    private javax.swing.JTextField numeroObraVerFojas;
     private javax.swing.JTextField ordenItem;
     private javax.swing.JPanel panelGeneral;
     private javax.swing.JPanel panelLogo;
@@ -2129,12 +2505,18 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTable tablaContrato;
     private javax.swing.JTable tablaItemsFoja;
     private javax.swing.JTable tablaObrasCompletas;
+    private javax.swing.JTable tablaObrasEmpresa;
     private javax.swing.JTable tablaSaldosRestantes;
-    private javax.swing.JTable tablaTotalAcumulado;
+    private javax.swing.JTable tablaVerCertificadoPago;
+    private javax.swing.JTable tablaVerFojas;
     private java.awt.Label tigüi;
     private javax.swing.JComboBox<String> tipoItem;
+    private javax.swing.JTextField totalContrato;
+    private javax.swing.JPanel vistaCertificadosObra;
+    private javax.swing.JPanel vistaFojasObra;
     private javax.swing.JPanel vistaImportesContrato;
     private javax.swing.JPanel vistaObrasCompletas;
+    private javax.swing.JPanel vistaObrasEmpresa;
     private javax.swing.JPanel vistaSaldosRestantes;
     // End of variables declaration//GEN-END:variables
 }

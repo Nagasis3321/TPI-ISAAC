@@ -12,10 +12,7 @@ import java.util.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.persistence.*;
-/**
- *
- * @author matia
- */
+
 public class Sistema {
     
     private Inicio vista = null;
@@ -37,6 +34,126 @@ public class Sistema {
         tipoCtrl.create(infraestructura);
         */
         
+    }
+    
+    public ArrayList<Object> obtenerCertificadoPago(int nroObra, int nroCertificado){
+        ObraJpaController obraCtrl = new ObraJpaController();
+        ArrayList<Object> retorno = new ArrayList();
+        
+        try{
+            Obra obra = obraCtrl.findObra(nroObra);
+            ArrayList<Foja> fojasObra = new ArrayList(obra.getFojaCollection());
+            Foja foja = fojasObra.get(nroCertificado - 1);
+            ArrayList<CertificadoPago> certificadosFoja = new ArrayList(foja.getCertificadoPagoCollection());
+            if(certificadosFoja.size() == 0){
+                return null;
+            }
+            CertificadoPago certificado = certificadosFoja.get(0);
+            
+            ArrayList<DetalleFoja> detalles = new ArrayList(foja.getDetalleFojaCollection());
+        
+            Object[][] tuplas = new Object[detalles.size()][8];
+
+            //Formato para decimales con dos dígitos
+            DecimalFormat df = new DecimalFormat("$ 0.00");
+
+            int i = 0;      
+            for(DetalleFoja d : detalles){
+
+                tuplas[i][0] = d.getItem().getOrden();
+                tuplas[i][1] = d.getItem().getDenominacion();
+                tuplas[i][2] = d.getItem().getIncidencia();
+                tuplas[i][3] = d.getItem().getTipoItem().getDenominacion();
+
+                ArrayList<DetalleCertificadoPago> detallesCertificado = new ArrayList(d.getDetalleCertificadoPagoCollection());
+                DetalleCertificadoPago detCertificado = detallesCertificado.get(0);
+                float costo = detCertificado.getCosto().getValor();
+                tuplas[i][4] = df.format(costo);
+
+                tuplas[i][5] = df.format(((float) d.getTotalAnterior() / 100) * costo);
+                tuplas[i][6] = df.format(((float) d.getTotalMes() / 100) * costo);
+                tuplas[i][7] = df.format(((float) d.getTotalAcumulado() / 100) * costo);
+
+                i++;
+            }
+
+            retorno.add(tuplas);
+            retorno.add(certificado.getFechaRealizacion());
+            return retorno;
+        }
+        catch(Exception e){
+            System.err.println("Excepción: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    public Object[][] obtenerObrasEmpresa(int cuitEmpresa){
+        EmpresaJpaController empCtrl = new EmpresaJpaController();
+        Empresa empresa = null;
+        
+        try{
+            empresa = empCtrl.findEmpresa(cuitEmpresa);
+
+            Object[][] tuplas = new Object[empresa.getObraCollection().size()][7];
+            int i = 0;
+
+            for(Obra o : empresa.getObraCollection()){
+                tuplas[i][0] = o.getIdObra();
+                tuplas[i][1] = o.getDenominacion();
+                tuplas[i][2] = o.getFinanciacion();
+                tuplas[i][3] = o.getFechaInicio();
+                tuplas[i][4] = o.getPlazo();
+                int cantFojas = o.getFojaCollection().size();
+                tuplas[i][5] = cantFojas;
+                int cantCertificados = 0;
+                for(Foja f : o.getFojaCollection()){
+                    if(f.getCertificadoPagoCollection().size() > 0){
+                        cantCertificados++;
+                    }
+                }
+                tuplas[i][6] = cantCertificados;
+
+                i++;
+            }
+            return tuplas;
+        }
+        catch(Exception e){
+            System.err.println("Excepción: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    public ArrayList<Object> obtenerFoja(int nroObra, int nroFoja){
+        ObraJpaController obraCtrl = new ObraJpaController();
+        Obra obra = null;
+        ArrayList<Object> retorno = new ArrayList();
+        
+        try{
+            obra = obraCtrl.findObra(nroObra);
+            
+            ArrayList<Foja> fojasObra = new ArrayList(obra.getFojaCollection());
+            Foja foja = fojasObra.get(nroFoja - 1);
+
+            Object[][] tuplas = new Object[foja.getDetalleFojaCollection().size()][5];
+            int i = 0;
+
+            for(DetalleFoja d : foja.getDetalleFojaCollection()){
+                tuplas[i][0] = d.getItem().getOrden();
+                tuplas[i][1] = d.getItem().getDenominacion();
+                tuplas[i][2] = d.getTotalAnterior();
+                tuplas[i][3] = d.getTotalMes();
+                tuplas[i][4] = d.getTotalAcumulado();
+                
+                i++;
+            }
+            retorno.add(tuplas);
+            retorno.add(foja.getFechaRealizacion());
+            return retorno;
+        }
+        catch(Exception e){
+            System.err.println("Excepción: " + e.getMessage());
+            return null;
+        }
     }
     
     public boolean aniadirCostos(int nroObra, Object[][] tuplas){
@@ -214,7 +331,7 @@ public class Sistema {
         
         ArrayList<Item> itemsObra = new ArrayList(obra.getItemCollection());
         
-        Object[][] tuplas = new Object[obra.getItemCollection().size()][7];
+        Object[][] tuplas = new Object[obra.getItemCollection().size()][8];
         DecimalFormat df = new DecimalFormat("$ 0.00");
         DecimalFormat incf = new DecimalFormat("0.00");
         
@@ -231,15 +348,16 @@ public class Sistema {
             tuplas[i][2] = item.getTipoItem().getDenominacion();
             float inc = item.getIncidencia();
             tuplas[i][3] = incf.format(inc);
-            tuplas[i][4] = df.format(item.getUltimoCosto().getValor());
+            tuplas[i][4] = df.format(item.getCostoBase().getValor());
+            tuplas[i][5] = df.format(item.getUltimoCosto().getValor());
             
             ArrayList<DetalleFoja> detallesDeItem = new ArrayList(item.getDetalleFojaCollection());
             int avanceAcumulado = detallesDeItem.get(detallesDeItem.size() - 1).getTotalAcumulado();
-            tuplas[i][5] = avanceAcumulado;
+            tuplas[i][6] = avanceAcumulado;
             
             float floatAvance = (float)avanceAcumulado/100;
             float floatValor = item.getUltimoCosto().getValor();
-            tuplas[i][6] = df.format(floatValor - (floatAvance * floatValor));
+            tuplas[i][7] = df.format(floatValor - (floatAvance * floatValor));
             
             saldoTotalRestante += (floatValor - (floatAvance * floatValor));
             
@@ -328,39 +446,38 @@ public class Sistema {
         Foja fojaParaCertificado = null;
         try{
             fojaParaCertificado = fojasObra.get(nroFoja - 1);
+            ArrayList<DetalleFoja> detalles = new ArrayList(fojaParaCertificado.getDetalleFojaCollection());
+        
+            Object[][] tuplas = new Object[detalles.size()][8];
+
+            //Formato para decimales con dos dígitos
+            DecimalFormat df = new DecimalFormat("$ 0.00");
+
+            int i = 0;      
+            for(DetalleFoja d : detalles){
+
+                tuplas[i][0] = d.getItem().getOrden();
+                tuplas[i][1] = d.getItem().getDenominacion();
+                tuplas[i][2] = d.getItem().getIncidencia();
+                tuplas[i][3] = d.getItem().getTipoItem().getDenominacion();
+
+                float costoActual = d.getItem().getUltimoCosto().getValor();
+                tuplas[i][4] = df.format(costoActual);
+
+
+
+                tuplas[i][5] = df.format(((float) d.getTotalAnterior() / 100) * costoActual);
+                tuplas[i][6] = df.format(((float) d.getTotalMes() / 100) * costoActual);
+                tuplas[i][7] = df.format(((float) d.getTotalAcumulado() / 100) * costoActual);
+
+                i++;
+            }
+
+            return tuplas;
         }
         catch(Exception e){
             return null;
         }
-        
-        ArrayList<DetalleFoja> detalles = new ArrayList(fojaParaCertificado.getDetalleFojaCollection());
-        
-        Object[][] tuplas = new Object[detalles.size()][8];
-        
-        //Formato para decimales con dos dígitos
-        DecimalFormat df = new DecimalFormat("$ 0.00");
-        
-        int i = 0;      
-        for(DetalleFoja d : detalles){
-            
-            tuplas[i][0] = d.getItem().getOrden();
-            tuplas[i][1] = d.getItem().getDenominacion();
-            tuplas[i][2] = d.getItem().getIncidencia();
-            tuplas[i][3] = d.getItem().getTipoItem().getDenominacion();
-
-            float costoActual = d.getItem().getUltimoCosto().getValor();
-            tuplas[i][4] = df.format(costoActual);
-            
-            
-                    
-            tuplas[i][5] = df.format(((float) d.getTotalAnterior() / 100) * costoActual);
-            tuplas[i][6] = df.format(((float) d.getTotalMes() / 100) * costoActual);
-            tuplas[i][7] = df.format(((float) d.getTotalAcumulado() / 100) * costoActual);
-
-            i++;
-        }
-        
-        return tuplas;
     }
     
     public CertificadoPago guardarCertificadoPago(int numeroObra, int numeroFoja){
@@ -420,11 +537,10 @@ public class Sistema {
         return nuevoCertificado;
     }
     
-    public Foja crearFoja(int numeroObra, Object[][] tuplas, int[] totalesAcumulados){
+    public Foja crearFoja(int numeroObra, Object[][] tuplas){
         ObraJpaController obraCtrl = new ObraJpaController();
         Obra obra = obraCtrl.findObra(numeroObra);
         ArrayList<Item> itemsObra = new ArrayList(obra.getItemCollection());
-        ArrayList<Foja> fojasObra = new ArrayList(obra.getFojaCollection());
         
         Foja nuevaFoja = new Foja();
         nuevaFoja.setFechaRealizacion(String.valueOf(java.time.LocalDate.now()));
@@ -439,13 +555,13 @@ public class Sistema {
         }
         
         for(int i = 0; i < tuplas.length; i++){
-            int j = 0;
             
+            int j = 0;            
             while(itemsObra.get(j).getOrden() != (int) tuplas[i][0]){
                 j++;
             }
 
-            DetalleFoja nuevoDetalle = crearDetalle(Integer.parseInt(tuplas[i][5].toString()), Integer.parseInt(tuplas[i][6].toString()), totalesAcumulados[i], itemsObra.get(j), nuevaFoja);
+            DetalleFoja nuevoDetalle = crearDetalle(Integer.parseInt(tuplas[i][5].toString()), Integer.parseInt(tuplas[i][6].toString()), Integer.parseInt(tuplas[i][7].toString()), itemsObra.get(j), nuevaFoja);
             if(nuevoDetalle == null){
                 return null;
             }
