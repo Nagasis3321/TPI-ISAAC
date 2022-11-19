@@ -327,7 +327,14 @@ public class Sistema {
     
     public ArrayList<Object> obtenerSaldosRestantes(int nroObra){
         ObraJpaController obraCtrl = new ObraJpaController();
-        Obra obra = obraCtrl.findObra(nroObra);
+        Obra obra = null;
+        try{
+            obra = obraCtrl.findObra(nroObra);
+        }
+        catch(Exception e){
+            System.err.println("Excepción: " + e.getMessage());
+            return null;
+        }
         
         ArrayList<Item> itemsObra = new ArrayList(obra.getItemCollection());
         
@@ -344,6 +351,7 @@ public class Sistema {
         
         for(Item item : itemsObra){
             tuplas[i][0] = item.getOrden();
+            System.out.println("Orden: " + item.getOrden());
             tuplas[i][1] = item.getDenominacion();
             tuplas[i][2] = item.getTipoItem().getDenominacion();
             float inc = item.getIncidencia();
@@ -352,6 +360,10 @@ public class Sistema {
             tuplas[i][5] = df.format(item.getUltimoCosto().getValor());
             
             ArrayList<DetalleFoja> detallesDeItem = new ArrayList(item.getDetalleFojaCollection());
+            if(detallesDeItem.isEmpty()){
+                System.out.println("Error detalles");
+                return null;
+            }
             int avanceAcumulado = detallesDeItem.get(detallesDeItem.size() - 1).getTotalAcumulado();
             tuplas[i][6] = avanceAcumulado;
             
@@ -415,25 +427,27 @@ public class Sistema {
         
         for(Obra o : obras){
             ArrayList<Foja> fojasObra = new ArrayList(o.getFojaCollection());
-            ArrayList<DetalleFoja> detallesFoja = new ArrayList(fojasObra.get(fojasObra.size()-1).getDetalleFojaCollection());
-            for(DetalleFoja d : detallesFoja){
-                if(d.getTotalAcumulado() < 100){
-                    completa = false;
+            if(!fojasObra.isEmpty()){
+                ArrayList<DetalleFoja> detallesFoja = new ArrayList(fojasObra.get(fojasObra.size()-1).getDetalleFojaCollection());
+                for(DetalleFoja d : detallesFoja){
+                    if(d.getTotalAcumulado() < 100){
+                        completa = false;
+                    }
                 }
+                if(completa == true){
+                    tuplas[i][0] = o.getCuitEmpresa().getCuit();
+                    tuplas[i][1] = o.getIdObra();
+                    tuplas[i][2] = o.getDenominacion();
+                    tuplas[i][3] = o.getFechaInicio();
+                    tuplas[i][4] = o.getFinanciacion();
+                    tuplas[i][5] = o.getPlazo();
+                    
+                    i++;
+                }
+                else{
+                    completa = true;
+                }      
             }
-            if(completa == true){
-                tuplas[i][0] = o.getCuitEmpresa().getCuit();
-                tuplas[i][1] = o.getIdObra();
-                tuplas[i][2] = o.getDenominacion();
-                tuplas[i][3] = o.getFechaInicio();
-                tuplas[i][4] = o.getFinanciacion();
-                tuplas[i][5] = o.getPlazo();
-            }
-            else{
-                completa = true;
-            }
-            
-            i++;
         }
         
         return tuplas;
@@ -721,135 +735,4 @@ public class Sistema {
         
         return tuplas;
     }
-    
-    /*
-    void imprimirCertificadoPago(int idFoja, int idObra){
-        Foja fojaEncontrada = null;
-        int valorCostoActual;
-        ObraJpaController obraCtrl = new ObraJpaController();
-        
-        for(Obra o : obraCtrl.findObraEntities()){
-            if(idObra == o.getIdObra()){
-                for(Foja f : o.getFojaCollection()){
-                    if(idFoja == f.getIdFoja()){
-                        //Imprimir número de certificado.
-                        System.out.println(f.getIdFoja());
-                        //Imprimir número de obra.
-                        System.out.println(f.getObra().getIdObra());
-                        //Imprimir denominación obra.
-                        System.out.println(f.getObra().getDenominacion());
-                        for(DetalleFoja d : f.getDetalleFojaCollection()){
-                            
-                            //Imprimir orden de item.
-                            System.out.println(d.getItem().getOrden());
-                            //Imprimir denominación de item.
-                            System.out.println(d.getItem().getDenominacion());
-                            //Imprimir costo actual.
-                            ArrayList<Costo> costosItem = new ArrayList(d.getItem().getCostoCollection());
-                            valorCostoActual = costosItem.get((costosItem.size()) - 1).getValor();
-                            System.out.println(valorCostoActual);
-                            //Imprimir total anterior.
-                            System.out.println((d.getTotalAnterior() / 100) * valorCostoActual);
-                            //Imprimir total mes.
-                            System.out.println((d.getTotalMes() / 100) * valorCostoActual);
-                            //Imprimir total mes.
-                            System.out.println((d.getTotalAcumulado() / 100) * valorCostoActual);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-*/
-    
-    /*
-    void calcularProgresoObra(int idObra){
-        int porcentajeCompleto = 0;
-        int dineroFaltante = 0;
-        ObraJpaController obraCtrl = new ObraJpaController();
-        
-        for(Obra o : obraCtrl.findObraEntities()){
-            if(o.getIdObra() == idObra){
-                ArrayList<Foja> fojasObra = new ArrayList(o.getFojaCollection());
-                for(DetalleFoja d : fojasObra.get((o.getFojaCollection().size()) - 1).getDetalleFojaCollection()){
-                    ArrayList<Costo> costosItem = new ArrayList(d.getItem().getCostoCollection());
-                    
-                    porcentajeCompleto += d.getItem().getIncidencia() * (d.getTotalAcumulado() / 100);
-                    
-                    dineroFaltante += (100 - d.getTotalAcumulado()) * costosItem.get((costosItem.size()) - 1).getValor();
-                }
-                //Imprimir progreso de obra.
-                System.out.println("Progreso de obra: " + porcentajeCompleto + "/100%");
-                
-                //Imprimir dinero faltante de obra.
-                System.out.println("Dinero faltante para completar: " + dineroFaltante);
-            }
-        }
-    }
-*/
-    
-     public boolean ValidarNombresEmpresa(String cuitEmpresa, String razonSocial, String rlEmpresa, String rtEmpresa){
-        boolean band =false ,bandCuit, bandRazonSocial, bandRLegal,bandRTecnico;
-        bandCuit=ValidarNumeros(cuitEmpresa);
-        bandRazonSocial=ValidarLetras(razonSocial);
-        bandRLegal=ValidarLetras(rlEmpresa );
-        bandRTecnico=ValidarLetras(rtEmpresa);
-        if(bandCuit && bandRazonSocial && bandRLegal && bandRTecnico){
-            band=true;
-        }else{
-            
-            band=false;
-        }
-        return band;
-    }
-
-
- private boolean ValidarLetras(String datos){
-        boolean band=false;
-       if(datos.matches("[a-zA-Z]*")){
-           band=true;
-       }
-       return band;
-    }
-
-    private boolean ValidarNumeros(String datos){
-        boolean band=false;
-       if(datos.matches("[0-9]*")){
-          
-           band=true;
-       }
-       return band;
-    }
-
-
-
-
-public boolean ValidarDatosCargaItems(String orden, String denominacion, String incidencia, String costo){
-    boolean bandOrden, bandDenominacion,bandIncidencia,bandCosto, band=false;
-    bandOrden=this.ValidarNumeros(orden);
-    bandIncidencia=this.ValidarLetras(incidencia);
-    bandCosto=this.ValidarNumeros(costo);
-    bandDenominacion=this.ValidarLetras(denominacion);
-    if(bandOrden && bandIncidencia && bandCosto && bandDenominacion){
-        band=true;
-    }
-    return band;
-}
-
-
-
-
-public boolean ValidarDatosObra(String cuit, String financiacion){
-     boolean bandCuit,  bandFinanciacion,band=false;
-     
-     bandCuit=this.ValidarNumeros(cuit);
-     bandFinanciacion=this.ValidarLetras(financiacion);
-     
-     if(bandCuit  && bandFinanciacion){
-         band=true;
-     }
-    return band;
-    
-}
 }
